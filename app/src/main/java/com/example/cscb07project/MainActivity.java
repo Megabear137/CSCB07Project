@@ -12,8 +12,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //This is my very first comment
         //This is my second comment
-        //JJJJJJJJ
-        //Test 1
-        //Check
+        //kevin's comment 11
+        //Pintao He1
     }
 }
