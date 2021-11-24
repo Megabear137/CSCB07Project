@@ -26,6 +26,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
 
-        myRef.child("Users").child("FirstUser").child("Password").setValue("FirstPass");
+
     }
 }
