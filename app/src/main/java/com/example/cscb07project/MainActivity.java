@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Merge check
         //aaaaaaa
+        //Pintao2
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
