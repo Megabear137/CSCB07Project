@@ -29,6 +29,8 @@ public class SignupActivity extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
+
+        /*
         if (value == "I am a customer.") {
             Customer cust = new Customer(username from import, password from import);
             myRef.child("customers")
@@ -40,5 +42,7 @@ public class SignupActivity extends AppCompatActivity {
             Intent intent = new Intent(this, StoreOwnerUsage.class);
             startActivity(intent);
         }
+
+         */
     }
 }

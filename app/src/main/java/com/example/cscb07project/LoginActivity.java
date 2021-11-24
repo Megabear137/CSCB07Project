@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginButton(View view) {
+        /*
         boolean value = true is the username is that of a store owner, false otherwise;
         if (value == false) {
             Intent intent = new Intent(this, CustomerUsage.class);
@@ -30,5 +31,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this, StoreOwnerUsage.class);
             startActivity(intent);
         }
+        */
+
     }
 }
