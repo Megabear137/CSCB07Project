@@ -5,4 +5,9 @@
     <string name="restaurant_owner_button">I am a Restaurant Owner</string>
     <string name="button_login">LOG IN</string>
     <string name="button_signup">SIGN UP</string>
+    
+    <string-array name="signup_spinner_values">
+        <item>I am a customer.</item>
+        <item>I am a store owner.</item>
+    </string-array>
 </resources>

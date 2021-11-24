@@ -15,15 +15,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //This is my very first comment
-        //This is my second comment
-        //kevin's comment 11
-        //Pintao He1
-        //Check this out
-
-        //Merge check
-        //aaaaaaa
-        //Pintao2
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -39,7 +30,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);
     }
-
-
-
 }
