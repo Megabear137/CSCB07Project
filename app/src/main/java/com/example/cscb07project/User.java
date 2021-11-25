@@ -5,4 +5,15 @@ public abstract class User {
     String password;
     boolean isStoreOwner;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public boolean isStoreOwner() {
+        return isStoreOwner;
+    }
 }

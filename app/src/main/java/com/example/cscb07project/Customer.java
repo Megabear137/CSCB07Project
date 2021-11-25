@@ -8,6 +8,10 @@ public class Customer extends User{
     ArrayList<Order> completedOrders;
 
     public Customer (String username, String password) {
+        cart = new ArrayList<Product>();
+        pendingOrders = new ArrayList<Order>();
+        completedOrders = new ArrayList<Order>();
+
         this.username = username;
         this.password = password;
         isStoreOwner = false;
@@ -38,9 +42,17 @@ public class Customer extends User{
     }
 
 
+    public ArrayList<Product> getCart() {
+        return cart;
+    }
 
+    public ArrayList<Order> getPendingOrders() {
+        return pendingOrders;
+    }
 
-
+    public ArrayList<Order> getCompletedOrders() {
+        return completedOrders;
+    }
 }
 
 
