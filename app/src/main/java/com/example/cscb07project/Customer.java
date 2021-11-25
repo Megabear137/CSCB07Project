@@ -3,7 +3,9 @@ package com.example.cscb07project;
 import java.util.ArrayList;
 
 public class Customer extends User{
-    ArrayList<String> cart;
+    ArrayList<Product> cart;
+    ArrayList<Order> pendingOrders;
+    ArrayList<Order> completedOrders;
 
     public Customer (String username, String password) {
         this.username = username;
@@ -11,9 +13,29 @@ public class Customer extends User{
         isStoreOwner = false;
     }
 
+    public void addProductToCart(Product product) {
+        cart.add(product);
+    }
 
+    /* Assumption: Whenever a customer makes an order in a store,
+    all products in his/her cart from the specified store will be cleared and pended. */
+    public void makeOrder(Store store) {
+        ArrayList<Product> productsInOrder = new ArrayList<Product>();
+        for (Product product: cart) {
+            if (product.getBrand() == store.getName()) {
+                productsInOrder.add(product);
+                cart.remove(product);
+            }
+        }
+        Order order = new Order(this, store, productsInOrder);
+        pendingOrders.add(order);
+        store.receiveOrder(order);
+    }
 
-
+    public void moveToCompleteOrders(Order order) {
+        pendingOrders.remove(order);
+        completedOrders.add(order);
+    }
 
 
 

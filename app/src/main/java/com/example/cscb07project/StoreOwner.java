@@ -2,7 +2,7 @@ package com.example.cscb07project;
 
 import java.util.ArrayList;
 
-public class StoreOwner extends  User{
+public class StoreOwner extends User{
     ArrayList<String> stock;
     ArrayList<String> orders;
 

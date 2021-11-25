@@ -6,17 +6,26 @@ public class Store {
     String name;
     StoreOwner owner;
     ArrayList<Product> products;
-    ArrayList<Product> incomingOrders;
-    ArrayList<Product> outgoingOrders;
+    ArrayList<Order> incomingOrders; //[Pintao] changed the element type from Product to Order
+    ArrayList<Order> outgoingOrders; //[Pintao] changed the element type from Product to Order
 
     public Store (String name, StoreOwner owner, ArrayList<Product> products,
-                  ArrayList<Product> incomingOrders, ArrayList<Product> outgoingOrders ) {
+                  ArrayList<Order> incomingOrders, ArrayList<Order> outgoingOrders ) {
         this.name = name;
         this.owner = owner;
         this.products = products;
         this.incomingOrders = incomingOrders;
         this.outgoingOrders = outgoingOrders;
+    }
 
+    public void receiveOrder(Order order) {
+        incomingOrders.add(order);
+    }
+
+    public void fulfillOrder(Order order) {
+        incomingOrders.remove(order);
+        outgoingOrders.add(order);
+        order.getCustomer().moveToCompleteOrders(order);
     }
 
     //=== Getters === Remove getters later if not needed
@@ -32,11 +41,11 @@ public class Store {
         return products;
     }
 
-    public ArrayList<Product> getIncomingOrders() {
+    public ArrayList<Order> getIncomingOrders() {
         return incomingOrders;
     }
 
-    public ArrayList<Product> getOutgoingOrders() {
+    public ArrayList<Order> getOutgoingOrders() {
         return outgoingOrders;
     }
 
@@ -53,11 +62,11 @@ public class Store {
         this.products = products;
     }
 
-    public void setIncomingOrders(ArrayList<Product> incomingOrders) {
+    public void setIncomingOrders(ArrayList<Order> incomingOrders) {
         this.incomingOrders = incomingOrders;
     }
 
-    public void setOutgoingOrders(ArrayList<Product> outgoingOrders) {
+    public void setOutgoingOrders(ArrayList<Order> outgoingOrders) {
         this.outgoingOrders = outgoingOrders;
     }
 }
