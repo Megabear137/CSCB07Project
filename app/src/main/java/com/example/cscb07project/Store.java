@@ -2,7 +2,7 @@ package com.example.cscb07project;
 
 import java.util.ArrayList;
 
-public class Store {
+public class  Store {
     String name;
     StoreOwner owner;
     ArrayList<Product> products;
