@@ -30,8 +30,6 @@ public class LoginActivity extends AppCompatActivity {
         if (value == true) {
             Intent intent = new Intent(this, StoreOwnerUsage.class);
             startActivity(intent);
-        }
-        */
-
+        }*/
     }
 }
