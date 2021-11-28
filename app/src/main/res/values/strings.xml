@@ -5,9 +5,31 @@
     <string name="restaurant_owner_button">I am a Restaurant Owner</string>
     <string name="button_login">LOG IN</string>
     <string name="button_signup">SIGN UP</string>
-    
+
     <string-array name="signup_spinner_values">
         <item>I am a customer.</item>
         <item>I am a store owner.</item>
     </string-array>
+    <string name="ownerWelcomeText">Welcome Back!</string>
+    <string name="storeOwnerAddButton">ADD PRODUCT TO STORE</string>
+    <string name="storeOwnerEditButton">EDIT PRODUCT INFORMATION</string>
+    <string name="viewIncomingButton">VIEW INCOMING ORDERS</string>
+    <string name="viewFulfilledButton">VIEW FULFILLED ORDERS</string>
+    <string name="productsMessage">Add Products</string>
+    <string name="productNameText">Add Product Name</string>
+    <string name="productBrandText">Add Product Brand</string>
+    <string name="productPriceText">Add Product Price</string>
+    <string name="registerStoreMessage">Register your store name below to continue.</string>
+    <string name="storeNameText">Store name</string>
+    <string name="registerStoreButton">REGISTER</string>
+    <string name="title_activity_store_owner_view_incoming">StoreOwnerViewIncomingActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
 </resources>

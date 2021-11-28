@@ -10,13 +10,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CSCB07Project">
-        <activity android:name=".SignupActivity"
+        <activity
+            android:name=".StoreOwnerViewIncomingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoreOwnerViewFulfilledActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoreOwnerEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoreOwnerHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoreOwnerAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterStoreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignupActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".LoginActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

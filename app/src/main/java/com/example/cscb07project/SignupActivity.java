@@ -37,12 +37,15 @@ public class SignupActivity extends AppCompatActivity {
             Intent intent = new Intent(this, CustomerUsage.class);
             startActivity(intent);
         }
+
         if (value == "I am a store owner.") {
             Code for adding store owner to the firebase
-            Intent intent = new Intent(this, StoreOwnerUsage.class);
+            Intent intent = new Intent(this, RegisterStoreActivity.class);
             startActivity(intent);
         }
-
          */
+        /*[Jason] Changed from StoreOwnerUsage.class to RegisterStoreActivity.class.
+                (New store owners should register their store during signup)
+        */
     }
 }

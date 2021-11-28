@@ -1,14 +1,22 @@
 package com.example.cscb07project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity implements Contract.View{
 
@@ -52,6 +60,15 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
             Intent intent = new Intent(this, StoreOwnerUsage.class);
             startActivity(intent);
         }*/
+
+        /*[Jason] Remove the code below. The code below was used for
+        testing store owner activities.
+         */
+        Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
+        startActivity(intent);
+
+
+
     }
 
 
