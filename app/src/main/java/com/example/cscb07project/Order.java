@@ -1,14 +1,15 @@
 package com.example.cscb07project;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Order {
     Customer customer;
     Store store;
-    ArrayList<Product> products;
+    HashMap<Product, Integer> products;
     boolean isFulfilled;
 
-    public Order (Customer customer, Store store, ArrayList<Product> products) {
+    public Order (Customer customer, Store store, HashMap<Product, Integer> products) {
         this.products = products;
         this.customer = customer;
         this.store = store;
@@ -18,7 +19,7 @@ public class Order {
     }
 
     //=== Setters === Remove Setters later if not needed
-    public void setProducts(ArrayList<Product> products) {
+    public void setProducts(HashMap<Product, Integer> products) {
         this.products = products;
     }
 
@@ -35,7 +36,7 @@ public class Order {
     }
 
     // === Getters === Remove getters later if not needed
-    public ArrayList<Product> getProducts() {
+    public HashMap<Product, Integer> getProducts() {
         return products;
     }
 
