@@ -29,5 +29,15 @@ public abstract class User {
         return isStoreOwner;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
+    public boolean isStoreOwner() {
+        return isStoreOwner;
+    }
+
+    public void setStoreOwner(boolean storeOwner) {
+        isStoreOwner = storeOwner;
+    }
 }
