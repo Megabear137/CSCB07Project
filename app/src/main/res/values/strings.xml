@@ -5,46 +5,22 @@
     <string name="restaurant_owner_button">I am a Restaurant Owner</string>
     <string name="button_login">LOG IN</string>
     <string name="button_signup">SIGN UP</string>
+    <string name="view_orders">View my Orders</string>
+    <string name="view_stores">View Stores</string>
+    <string name="title_activity_view_stores">Stores</string>
+    <string name="title_activity_view_orders">My Orders</string>
+    <string name="action_settings">Action Settings</string>
+    <string name="large_text">Large Text</string>
+    <string name="next">Next Page</string>
+    <string name="previous">Previous Page</string>
+    <string name="pending_orders">Pending Orders</string>
+    <string name="shopping_cart">Shopping Cart</string>
+    <string name="completed_orders">Completed Orders</string>
 
     <string-array name="signup_spinner_values">
         <item>I am a customer.</item>
         <item>I am a store owner.</item>
     </string-array>
-    <string name="ownerWelcomeText">Welcome Back!</string>
-    <string name="storeOwnerAddButton">ADD PRODUCT TO STORE</string>
-    <string name="storeOwnerEditButton">EDIT PRODUCT INFORMATION</string>
-    <string name="viewIncomingButton">VIEW INCOMING ORDERS</string>
-    <string name="viewFulfilledButton">VIEW FULFILLED ORDERS</string>
-    <string name="productsMessage">Add Products</string>
-    <string name="productNameText">Add Product Name</string>
-    <string name="productBrandText">Add Product Brand</string>
-    <string name="productPriceText">Add Product Price</string>
-    <string name="registerStoreMessage">Register your store name below to continue.</string>
-    <string name="storeNameText">Store name</string>
-    <string name="registerStoreButton">REGISTER</string>
-    <string name="title_activity_store_owner_view_incoming">StoreOwnerViewIncomingActivity</string>
+
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="editProductMessage">Choose a Product to Edit</string>
-    <string name="fulfilledText">Fulfilled Orders</string>
-    <string name="fulfilledOrderInfo">Order Information:</string>
-    <string name="incomingText">Incoming Orders</string>
-    <string name="incomingOrderInfo">Order Information:</string>
-    <string name="markFulfilledButton">FULFILL ORDER</string>
-    <string name="changeToLabel">Change To:</string>
-    <string name="currentInfoLabel">Current Info:</string>
-    <string name="currentNameText">Current Name</string>
-    <string name="currentBrandText">Current Brand</string>
-    <string name="currentPrice">Current Price</string>
-    <string name="editProductName">New Product Name</string>
-    <string name="editBrandName">New Brand Name</string>
-    <string name="editPrice">New Price</string>
-    <string name="confirmChangesButton">CONFIRM ALL CHANGES</string>
-
 </resources>

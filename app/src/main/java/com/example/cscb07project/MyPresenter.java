@@ -10,6 +10,7 @@ public class MyPresenter implements Contract.Presenter{
     }
 
     public void checkUsername() {
+
         String username = view.getUsername();
         if(username.equals(""))
             view.displayMessage("Username cannot be empty");

@@ -61,14 +61,6 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
             startActivity(intent);
         }*/
 
-        /*[Jason] Remove the code below. The code below was used for
-        testing store owner activities.
-         */
-        Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
-        startActivity(intent);
-
-
-
     }
 
 

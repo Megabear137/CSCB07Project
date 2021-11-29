@@ -27,8 +27,6 @@ public class SignupActivity extends AppCompatActivity {
         Spinner spinner = (Spinner)findViewById(R.id.spinner2);
         String value = String.valueOf(spinner.getSelectedItem());
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
 
         /*
         if (value == "I am a customer.") {
@@ -37,15 +35,12 @@ public class SignupActivity extends AppCompatActivity {
             Intent intent = new Intent(this, CustomerUsage.class);
             startActivity(intent);
         }
-
         if (value == "I am a store owner.") {
             Code for adding store owner to the firebase
-            Intent intent = new Intent(this, RegisterStoreActivity.class);
+            Intent intent = new Intent(this, StoreOwnerUsage.class);
             startActivity(intent);
         }
+
          */
-        /*[Jason] Changed from StoreOwnerUsage.class to RegisterStoreActivity.class.
-                (New store owners should register their store during signup)
-        */
     }
 }
