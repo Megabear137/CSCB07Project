@@ -9,13 +9,12 @@ public class  Store {
     ArrayList<Order> incomingOrders; //[Pintao] changed the element type from Product to Order
     ArrayList<Order> outgoingOrders; //[Pintao] changed the element type from Product to Order
 
-    public Store (String name, StoreOwner owner, ArrayList<Product> products,
-                  ArrayList<Order> incomingOrders, ArrayList<Order> outgoingOrders ) {
+    public Store (String name, StoreOwner owner) {
         this.name = name;
         this.owner = owner;
-        this.products = products;
-        this.incomingOrders = incomingOrders;
-        this.outgoingOrders = outgoingOrders;
+        products = new ArrayList<Product>();
+        incomingOrders = new ArrayList<Order>();
+        outgoingOrders = new ArrayList<Order>();
     }
 
     public void receiveOrder(Order order) {
