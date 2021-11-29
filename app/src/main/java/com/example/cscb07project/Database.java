@@ -238,7 +238,7 @@ public class Database implements Contract.Model{
         return 1;
     }
 
-    //Adds product to cart belonging to customer with matching username.
+    /*Adds product to cart belonging to customer with matching username.
     //returns 1 if successful
     //return 0 if no customer has a matching username
     int addProductToCart(String customerName, Product product){
@@ -249,6 +249,8 @@ public class Database implements Contract.Model{
         }
         return 0;
     }
+
+     */
 
     void makeOrder(Order order){
 
