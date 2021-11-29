@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         presenter = new MyPresenter(new MyModel(), this);
     }
 
@@ -37,37 +36,33 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
 
     // Will display a message if there is any error with the login (user not found, wrong password, etc.)
     public void displayMessage(String message){
-        TextView textView = (TextView) findViewById(R.id.textView5);
+        TextView textView = (TextView) findViewById(R.id.loginText);
         textView.setText(message);
     }
 
     //Will get the username from the username text box
     public String getUsername(){
-        EditText editText = findViewById(R.id.editTextTextPersonName);
+        EditText editText = findViewById(R.id.loginUsername);
         return editText.getText().toString();
     }
 
-    public void loginButton(View view){
-        presenter.checkUsername();
-        //[Zubair] Code for checking username should be moved to the userExists() method in the myModel class
-        /*
-        boolean value = true is the username is that of a store owner, false otherwise;
-        if (value == false) {
-            Intent intent = new Intent(this, CustomerUsage.class);
-            startActivity(intent);
+    //Will get the password from the password text box
+    public String getPassword(){
+        EditText editText = findViewById(R.id.loginPassword);
+        return editText.getText().toString();
+    }
+
+    public void loginButton(View view) {
+        if (presenter.checkLogin() == true) {
+            if (presenter.checkCustomer() == true) {
+                //Intent intent = new Intent(this, CustomerUsage.class);
+                //startActivity(intent);
+            }
+            else {
+                //Intent intent = new Intent(this, StoreOwnerUsage.class);
+                //startActivity(intent);
+            }
         }
-        if (value == true) {
-            Intent intent = new Intent(this, StoreOwnerUsage.class);
-            startActivity(intent);
-        }*/
-
-        /*[Jason] Remove the code below. The code below was used for
-        testing store owner activities.
-         */
-        Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
-        startActivity(intent);
-
-
 
     }
 

@@ -1,53 +1,56 @@
 package com.example.cscb07project;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Order {
-    Customer customer;
-    Store store;
-    ArrayList<Product> products;
+    String customerName;
+    String storeName;
+    HashMap<Product, Integer> products;
     boolean isFulfilled;
 
-    public Order (Customer customer, Store store, ArrayList<Product> products) {
+    public Order (String customerName, String storeName, HashMap<Product, Integer> products) {
         this.products = products;
-        this.customer = customer;
-        this.store = store;
+        this.customerName = customerName;
+        this.storeName = storeName;
         isFulfilled = false;
+    }
 
+    public Order(){
 
     }
 
     //=== Setters === Remove Setters later if not needed
-    public void setProducts(ArrayList<Product> products) {
+    public void setProducts(HashMap<Product, Integer> products) {
         this.products = products;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public void setFulfilled(boolean fulfilled) {
         isFulfilled = fulfilled;
     }
 
-    public void setStore(Store store) {
-        this.store = store;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     // === Getters === Remove getters later if not needed
-    public ArrayList<Product> getProducts() {
+    public HashMap<Product, Integer> getProducts() {
         return products;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public boolean isFulfilled() {
+    public boolean getIsFulfilled() {
         return isFulfilled;
     }
 
-    public Store getStore() {
-        return store;
+    public String getStoreName() {
+        return storeName;
     }
 }

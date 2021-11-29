@@ -2,7 +2,7 @@ package com.example.cscb07project;
 
 import java.util.ArrayList;
 
-public class MyModel implements Contract.Model{
+public class MyModel implements Contract.Model {
     ArrayList<String> usernames;
 
     public MyModel(){
