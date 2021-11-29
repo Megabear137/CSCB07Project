@@ -42,10 +42,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".StoreOwnerViewIncomingActivity"
+            android:parentActivityName=".StoreOwnerHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StoreOwnerHomeActivity" />
+        </activity>
+        <activity
+            android:name=".StoreOwnerViewFulfilledActivity"
+            android:parentActivityName=".StoreOwnerHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StoreOwnerHomeActivity" />
+        </activity>
+        <activity
+            android:name=".StoreOwnerEditActivity"
+            android:parentActivityName=".StoreOwnerHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StoreOwnerHomeActivity" />
+        </activity>
+        <activity
+            android:name=".StoreOwnerHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoreOwnerAddActivity"
+            android:parentActivityName=".StoreOwnerHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StoreOwnerHomeActivity" />
+        </activity>
+        <activity
+            android:name=".RegisterStoreActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

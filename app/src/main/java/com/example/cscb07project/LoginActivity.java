@@ -1,5 +1,6 @@
 package com.example.cscb07project;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -53,7 +54,8 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
     }
 
     public void loginButton(View view) {
-        if (presenter.checkLogin() == true) {
+
+        /*if (presenter.checkLogin() == true) {
             if (presenter.checkCustomer() == true) {
                 //Intent intent = new Intent(this, CustomerUsage.class);
                 //startActivity(intent);
@@ -63,6 +65,13 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
                 //startActivity(intent);
             }
         }
+
+         */
+
+        Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
+        startActivity(intent);
+
+
 
     }
 
