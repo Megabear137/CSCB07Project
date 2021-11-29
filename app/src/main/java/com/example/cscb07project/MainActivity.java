@@ -1,25 +1,13 @@
 package com.example.cscb07project;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-
-import java.util.ArrayList;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,9 +16,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Database database = Database.getInstance();
-        //NEVER EVER EVER EVER MAKE ANY CHANGES TO THE DATABASE INSIDE OF THE MAIN ACTIVITY UNLESS
-        //YOU LIKE WIPING OUR DATA >:(
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
     }
 
     public void navigateToLogin(View view) {
@@ -40,12 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void navigateToSignup(View view) {
         Intent intent = new Intent(this, SignupActivity.class);
-        startActivity(intent);
-    }
-
-    public void navigateToCustomer(View view) {
-        Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
-        intent.putExtra("USERNAME", "Zubair");
         startActivity(intent);
     }
 }

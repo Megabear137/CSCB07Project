@@ -5,24 +5,11 @@
     <string name="restaurant_owner_button">I am a Restaurant Owner</string>
     <string name="button_login">LOG IN</string>
     <string name="button_signup">SIGN UP</string>
-    <string name="view_orders">View my Orders</string>
-    <string name="view_stores">View Stores</string>
-    <string name="title_activity_view_stores">Stores</string>
-    <string name="title_activity_view_orders">My Orders</string>
-    <string name="action_settings">Action Settings</string>
-    <string name="large_text">Large Text</string>
-    <string name="next">Next Page</string>
-    <string name="previous">Previous Page</string>
-    <string name="pending_orders">Pending Orders</string>
-    <string name="shopping_cart">Shopping Cart</string>
-    <string name="completed_orders">Completed Orders</string>
 
     <string-array name="signup_spinner_values">
         <item>I am a customer.</item>
         <item>I am a store owner.</item>
     </string-array>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
     <string name="ownerWelcomeText">Welcome Back!</string>
     <string name="storeOwnerAddButton">ADD PRODUCT TO STORE</string>
     <string name="storeOwnerEditButton">EDIT PRODUCT INFORMATION</string>
@@ -39,6 +26,8 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>

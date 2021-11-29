@@ -1,31 +1,21 @@
 package com.example.cscb07project;
 
-import android.provider.ContactsContract;
-
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 
 public class  Store {
     String name;
-    String ownerName;
+    StoreOwner owner;
     ArrayList<Product> products;
     ArrayList<Order> incomingOrders; //[Pintao] changed the element type from Product to Order
     ArrayList<Order> outgoingOrders; //[Pintao] changed the element type from Product to Order
-    Database database = Database.getInstance();
 
-    public Store (String name, String ownerName) {
+    public Store (String name, StoreOwner owner, ArrayList<Product> products,
+                  ArrayList<Order> incomingOrders, ArrayList<Order> outgoingOrders ) {
         this.name = name;
-        this.ownerName = ownerName;
-        products = new ArrayList<Product>();
-        incomingOrders = new ArrayList<Order>();
-        outgoingOrders = new ArrayList<Order>();
-    }
-
-    public Store(){
-        products = new ArrayList<Product>();
-        incomingOrders = new ArrayList<Order>();
-        outgoingOrders = new ArrayList<Order>();
+        this.owner = owner;
+        this.products = products;
+        this.incomingOrders = incomingOrders;
+        this.outgoingOrders = outgoingOrders;
     }
 
     public void receiveOrder(Order order) {
@@ -35,8 +25,7 @@ public class  Store {
     public void fulfillOrder(Order order) {
         incomingOrders.remove(order);
         outgoingOrders.add(order);
-        Customer customer = database.findCustomer(order.getCustomerName());
-        customer.moveToCompleteOrders(order);
+        order.getCustomer().moveToCompleteOrders(order);
     }
 
     //=== Getters === Remove getters later if not needed
@@ -44,10 +33,9 @@ public class  Store {
         return name;
     }
 
-    public String getOwnerName() {
-        return ownerName;
+    public StoreOwner getOwner() {
+        return owner;
     }
-
 
     public ArrayList<Product> getProducts() {
         return products;
@@ -66,8 +54,8 @@ public class  Store {
         this.name = name;
     }
 
-    public void setOwner(String ownerName) {
-        this.ownerName = ownerName;
+    public void setOwner(StoreOwner owner) {
+        this.owner = owner;
     }
 
     public void setProducts(ArrayList<Product> products) {
@@ -80,12 +68,5 @@ public class  Store {
 
     public void setOutgoingOrders(ArrayList<Order> outgoingOrders) {
         this.outgoingOrders = outgoingOrders;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        Database database = Database.getInstance();
-        return  database.findStoreOwner(ownerName).toString() + " " + name;
     }
 }

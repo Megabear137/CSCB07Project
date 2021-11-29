@@ -11,14 +11,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CSCB07Project">
         <activity
-            android:name=".ViewOrders"
-            android:exported="true" />
+            android:name=".StoreOwnerViewIncomingActivity"
+            android:parentActivityName=".StoreOwnerHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StoreOwnerHomeActivity" />
+        </activity>
         <activity
-            android:name=".ViewStores"
-            android:exported="true" />
+            android:name=".StoreOwnerViewFulfilledActivity"
+            android:parentActivityName=".StoreOwnerHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StoreOwnerHomeActivity" />
+        </activity>
         <activity
-            android:name=".CustomerUsageEntryScreen"
-            android:exported="true" />
+            android:name=".StoreOwnerEditActivity"
+            android:parentActivityName=".StoreOwnerHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StoreOwnerHomeActivity" />
+        </activity>
+        <activity
+            android:name=".StoreOwnerHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoreOwnerAddActivity"
+            android:parentActivityName=".StoreOwnerHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StoreOwnerHomeActivity" />
+        </activity>
+        <activity
+            android:name=".RegisterStoreActivity"
+            android:exported="false" />
         <activity
             android:name=".SignupActivity"
             android:parentActivityName=".MainActivity">

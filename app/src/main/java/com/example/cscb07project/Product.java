@@ -11,10 +11,6 @@ public class Product {
         this.name = name;
     }
 
-    public Product(){
-
-    }
-
     //=== Getters === Remove getters later if not needed
     public String getName() {
         return name;

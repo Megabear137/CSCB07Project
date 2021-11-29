@@ -5,19 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-public class SignupActivity extends AppCompatActivity implements Contract.View {
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-    private Contract.Presenter presenter; // This class will contain the presenter that will validate the login process
+public class SignupActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        presenter = new MyPresenter(new MyModel(), this);
     }
 
     public void moveToLogin(View view) {
@@ -25,36 +23,29 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
         startActivity(intent);
     }
 
-    // Will display a message if there is any error with the login (user not found, wrong password, etc.)
-    public void displayMessage(String message){
-        TextView textView = (TextView) findViewById(R.id.signupText);
-        textView.setText(message);
-    }
-
-    //Will get the username from the username text box
-    public String getUsername(){
-        EditText editText = findViewById(R.id.signupUsername);
-        return editText.getText().toString();
-    }
-
-    //Will get the password from the password text box
-    public String getPassword(){
-        EditText editText = findViewById(R.id.signupPassword);
-        return editText.getText().toString();
-    }
-
     public void signupButton(View view) {
-        Spinner spinner = (Spinner)findViewById(R.id.spinner);
+        Spinner spinner = (Spinner)findViewById(R.id.spinner2);
         String value = String.valueOf(spinner.getSelectedItem());
-        if (presenter.checkSignup() == true) {
-            if (value == "I am a Customer") {
-                //Intent intent = new Intent(this, CustomerUsage.class);
-                //startActivity(intent);
-            }
-            if (value == "I am a Restaurant Owner") {
-                //Intent intent = new Intent(this, StoreOwnerUsage.class);
-                //startActivity(intent);
-            }
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+        /*
+        if (value == "I am a customer.") {
+            Customer cust = new Customer(username from import, password from import);
+            myRef.child("customers")
+            Intent intent = new Intent(this, CustomerUsage.class);
+            startActivity(intent);
         }
+
+        if (value == "I am a store owner.") {
+            Code for adding store owner to the firebase
+            Intent intent = new Intent(this, RegisterStoreActivity.class);
+            startActivity(intent);
+        }
+         */
+        /*[Jason] Changed from StoreOwnerUsage.class to RegisterStoreActivity.class.
+                (New store owners should register their store during signup)
+        */
     }
 }

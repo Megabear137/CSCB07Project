@@ -1,20 +1,17 @@
 package com.example.cscb07project;
 
 public interface Contract {
-    public interface Model {
+    public interface Model{
         public boolean userExists(String username);
     }
 
-    public interface View {
-        public void displayMessage(String message);
+    public interface View{
         public String getUsername();
-        public String getPassword();
+        public void displayMessage(String message);
     }
 
-    public interface Presenter {
-        public boolean checkLogin();
-        public boolean checkSignup();
-        public boolean checkCustomer();
+    public interface Presenter{
+        public void checkUsername();
     }
 }
 
