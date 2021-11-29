@@ -31,5 +31,20 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="editProductMessage">Choose a Product to Edit</string>
+    <string name="fulfilledText">Fulfilled Orders</string>
+    <string name="fulfilledOrderInfo">Order Information:</string>
+    <string name="incomingText">Incoming Orders</string>
+    <string name="incomingOrderInfo">Order Information:</string>
+    <string name="markFulfilledButton">FULFILL ORDER</string>
+    <string name="changeToLabel">Change To:</string>
+    <string name="currentInfoLabel">Current Info:</string>
+    <string name="currentNameText">Current Name</string>
+    <string name="currentBrandText">Current Brand</string>
+    <string name="currentPrice">Current Price</string>
+    <string name="editProductName">New Product Name</string>
+    <string name="editBrandName">New Brand Name</string>
+    <string name="editPrice">New Price</string>
+    <string name="confirmChangesButton">CONFIRM ALL CHANGES</string>
 
 </resources>
