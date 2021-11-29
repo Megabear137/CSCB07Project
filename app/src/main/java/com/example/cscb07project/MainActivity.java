@@ -18,9 +18,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        final Database database = Database.getInstance();
+        //NEVER EVER EVER EVER MAKE ANY CHANGES TO THE DATABASE INSIDE OF THE MAIN ACTIVITY UNLESS
+        //YOU LIKE WIPING OUR DATA >:(
     }
 
     public void navigateToLogin(View view) {
@@ -30,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void navigateToSignup(View view) {
         Intent intent = new Intent(this, SignupActivity.class);
+        startActivity(intent);
+    }
+
+    public void navigateToCustomer(View view) {
+        Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
+        intent.putExtra("USERNAME", "Zubair");
         startActivity(intent);
     }
 }

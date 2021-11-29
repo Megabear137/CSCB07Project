@@ -3,17 +3,19 @@ package com.example.cscb07project;
 import java.util.ArrayList;
 
 public class Order {
-    Customer customer;
-    Store store;
+    String customerName;
+    String storeName;
     ArrayList<Product> products;
     boolean isFulfilled;
 
-    public Order (Customer customer, Store store, ArrayList<Product> products) {
+    public Order (String customerName, String storeName, ArrayList<Product> products) {
         this.products = products;
-        this.customer = customer;
-        this.store = store;
+        this.customerName = customerName;
+        this.storeName = storeName;
         isFulfilled = false;
+    }
 
+    public Order(){
 
     }
 
@@ -22,16 +24,16 @@ public class Order {
         this.products = products;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public void setFulfilled(boolean fulfilled) {
         isFulfilled = fulfilled;
     }
 
-    public void setStore(Store store) {
-        this.store = store;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     // === Getters === Remove getters later if not needed
@@ -39,15 +41,15 @@ public class Order {
         return products;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public boolean isFulfilled() {
+    public boolean getIsFulfilled() {
         return isFulfilled;
     }
 
-    public Store getStore() {
-        return store;
+    public String getStoreName() {
+        return storeName;
     }
 }

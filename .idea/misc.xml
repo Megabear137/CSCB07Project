@@ -3,9 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.221875" />
+        <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.221875" />
+        <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/layout/activity_customer_usage_entry_screen.xml" value="0.264" />
         <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/layout/activity_login.xml" value="0.4" />
         <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/layout/activity_signup.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/layout/activity_view_orders.xml" value="0.264" />
+        <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/layout/activity_view_stores.xml" value="0.264" />
+        <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/layout/content_scrolling.xml" value="0.264" />
+        <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/layout/content_view_stores.xml" value="0.20572916666666666" />
+        <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/layout/customer_usage.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/layout/fragment_first.xml" value="0.20572916666666666" />
+        <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/layout/fragment_second.xml" value="0.20572916666666666" />
+        <entry key="..\:/Users/zubai/Desktop/Uni Stuff/Second Year/Fall/CSCB07/Our Project/app/src/main/res/menu/menu_view_stores.xml" value="0.20572916666666666" />
       </map>
     </option>
   </component>

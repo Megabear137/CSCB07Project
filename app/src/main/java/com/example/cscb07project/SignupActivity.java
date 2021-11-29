@@ -27,8 +27,6 @@ public class SignupActivity extends AppCompatActivity {
         Spinner spinner = (Spinner)findViewById(R.id.spinner2);
         String value = String.valueOf(spinner.getSelectedItem());
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
 
         /*
         if (value == "I am a customer.") {

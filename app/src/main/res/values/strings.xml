@@ -5,9 +5,22 @@
     <string name="restaurant_owner_button">I am a Restaurant Owner</string>
     <string name="button_login">LOG IN</string>
     <string name="button_signup">SIGN UP</string>
-    
+    <string name="view_orders">View my Orders</string>
+    <string name="view_stores">View Stores</string>
+    <string name="title_activity_view_stores">Stores</string>
+    <string name="title_activity_view_orders">My Orders</string>
+    <string name="action_settings">Action Settings</string>
+    <string name="large_text">Large Text</string>
+    <string name="next">Next Page</string>
+    <string name="previous">Previous Page</string>
+    <string name="pending_orders">Pending Orders</string>
+    <string name="shopping_cart">Shopping Cart</string>
+    <string name="completed_orders">Completed Orders</string>
+
     <string-array name="signup_spinner_values">
         <item>I am a customer.</item>
         <item>I am a store owner.</item>
     </string-array>
+
+    <!-- Strings used for fragments for navigation -->
 </resources>
