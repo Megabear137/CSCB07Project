@@ -52,12 +52,15 @@ public class MyPresenter implements Contract.Presenter {
 
             addToFirebase(username, view.getPassword());
             view.displayMessage("success");
-            return true;
              */
+
+            return true;
+
+
         }
     }
 
     public boolean checkCustomer() {
-        return isCustomer(view.getUsername());
+        return database.isCustomer(view.getUsername());
     }
 }
