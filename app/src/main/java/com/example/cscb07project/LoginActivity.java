@@ -64,12 +64,11 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
                 //Intent intent = new Intent(this, StoreOwnerUsage.class);
                 //startActivity(intent);
             }
-        }
-
-         */
+        }*/
 
         Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
         startActivity(intent);
+
 
 
 

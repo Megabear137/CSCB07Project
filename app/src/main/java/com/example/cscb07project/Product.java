@@ -15,6 +15,29 @@ public class Product {
 
     }
 
+    @Override
+    public int hashCode() {
+        return name.hashCode()/2 + brand.hashCode()/2;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Product other = (Product) obj;
+        if (name!=other.name)
+            return false;
+        if(brand!=other.brand)
+            return false;
+        if (price!=other.price)
+            return false;
+        return true;
+    }
+
     //=== Getters === Remove getters later if not needed
     public String getName() {
         return name;

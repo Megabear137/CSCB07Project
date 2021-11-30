@@ -38,6 +38,7 @@ public class Customer extends User{
     }
 
 
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void addProductToCart(Product product) {
         if (cart.containsKey(product)) {
@@ -68,6 +69,8 @@ public class Customer extends User{
         pendingOrders.remove(order);
         completedOrders.add(order);
     }
+
+
 
     public HashMap<Product, Integer> getCart() {
         return cart;
@@ -111,9 +114,6 @@ public class Customer extends User{
     public void setIsStoreOwner(Boolean isStoreOwner){
         this.isStoreOwner = isStoreOwner;
     }
-
-
-
 
 }
 

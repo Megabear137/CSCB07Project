@@ -39,6 +39,27 @@ public class  Store {
         customer.moveToCompleteOrders(order);
     }
 
+    @Override
+    public int hashCode() {
+        return (name.hashCode()+ownerName.hashCode())/2;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Store other = (Store) obj;
+        if (name!=other.name)
+            return false;
+        if(ownerName!=other.ownerName)
+            return false;
+        return true;
+    }
+
     //=== Getters === Remove getters later if not needed
     public String getName() {
         return name;

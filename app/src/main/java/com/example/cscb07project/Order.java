@@ -8,17 +8,43 @@ public class Order {
     String storeName;
     HashMap<Product, Integer> products;
     boolean isFulfilled;
+    long time;
 
     public Order (String customerName, String storeName, HashMap<Product, Integer> products) {
         this.products = products;
         this.customerName = customerName;
         this.storeName = storeName;
         isFulfilled = false;
+        time = System.currentTimeMillis();
     }
 
     public Order(){
 
     }
+
+    @Override
+    public int hashCode() {
+        return customerName.hashCode()/2+storeName.hashCode()/2-((int)time)%1000000000;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Order other = (Order) obj;
+        if (customerName!=other.customerName)
+            return false;
+        if(storeName!=other.storeName)
+            return false;
+        if (time!=other.time)
+            return false;
+        return true;
+    }
+
 
     //=== Setters === Remove Setters later if not needed
     public void setProducts(HashMap<Product, Integer> products) {

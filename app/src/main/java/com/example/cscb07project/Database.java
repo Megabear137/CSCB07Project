@@ -1,8 +1,10 @@
 package com.example.cscb07project;
 
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -252,8 +254,104 @@ public class Database implements Contract.Model{
 
      */
 
-    void makeOrder(Order order){
+    /* Adds a product to cart belonging to specified customer.
+        return 1 if successful.
+        return 0 if no customer has a matching username
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    int addProductToCart(Customer customer, Product product) {
+        if(!isCustomer(customer.getUsername())) {
+            return 0;
+        }
 
+        HashMap<Product, Integer> newCart = customer.getCart();
+        if (newCart.containsKey(product)) {
+            int quantity = newCart.get(product);
+            newCart.replace(product, quantity+1);
+        }
+        else
+            newCart.put(product, 1);
+        customer.setCart(newCart);
+        updateDatabase();
+        return 1;
+    }
+
+    /* Deletes a product from cart belonging to specified customer.
+    return 1 if successful.
+    return 0 if no customer has a matching username.
+    return -1 if customer exists but has no more specified product to be deleted.
+    Assumption: all products in cart will have count at least 1.
+    */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    int deleteProductFromCart(Customer customer, Product product) {
+        if(!isCustomer(customer.getUsername())) {
+            return 0;
+        }
+
+        HashMap<Product, Integer> newCart = customer.getCart();
+        if (!newCart.containsKey(product))
+            return -1;
+
+        int quantity = newCart.get(product);
+        if(quantity == 1)
+            newCart.remove(product);
+        else
+            newCart.replace(product, quantity-1);
+        customer.setCart(newCart);
+        updateDatabase();
+        return 1;
+    }
+
+    /* Make all products from the store in customer's cart into an order. Then add it
+        to customer.pendingOrder and store.incomingOrder.
+        return 1 if successful.
+          return -1 if customer not found.
+          return -2 if store not found.*/
+    int makeOrder(Customer customer, Store store) {
+        if (!isCustomer(customer.getUsername()))
+            return -1;
+
+        if (findStore(store.getName())==null)
+            return -2;
+
+        HashMap<Product ,Integer> oldCart = customer.getCart();
+        HashMap<Product ,Integer> newCart = new HashMap<Product, Integer>();
+        HashMap<Product, Integer> productsInOrder = new HashMap<Product, Integer>();
+        for (Product product: oldCart.keySet()) {
+            if (product.getBrand().equals(store.getName()))
+                productsInOrder.put(product, oldCart.get(product));
+            else
+                newCart.put(product, oldCart.get(product));
+        }
+
+        customer.setCart(newCart);
+        Order order = new Order(customer.getUsername(), store.getName(), productsInOrder);
+        /*ArrayList<Order> newPendingOrders = customer.getPendingOrders();
+        newPendingOrders.add(order);
+        customer.setPendingOrders(newPendingOrders);
+        ArrayList<Order> newIncomingOrders = store.getIncomingOrders();
+        newIncomingOrders.add(order);
+        store.setIncomingOrders(newIncomingOrders);*/
+        customer.pendingOrders.add(order);
+        store.incomingOrders.add(order);
+        updateDatabase();
+        return 1;
+    }
+
+    /* Move the order from incomingOrder to outgoingOrder and pendingOrder to CompletedOrder. */
+    int fulfillOrder(Order order) {
+        Store store = findStore(order.getStoreName());
+        Customer customer = findCustomer(order.getCustomerName());
+        if (store == null || customer == null) {
+            return 0;
+        }
+
+        store.incomingOrders.remove(order);
+        store.outgoingOrders.add(order);
+        customer.pendingOrders.remove(order);
+        customer.completedOrders.add(order);
+        updateDatabase();
+        return 1;
     }
 
 
