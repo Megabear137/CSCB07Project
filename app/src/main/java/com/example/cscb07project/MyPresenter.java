@@ -3,13 +3,12 @@ package com.example.cscb07project;
 public class MyPresenter implements Contract.Presenter {
     private Contract.Model model;
     private Contract.View view;
+    Database database = Database.getInstance();
 
     public MyPresenter(Contract.Model model, Contract.View view) {
         this.model = model;
         this.view = view;
     }
-
-    Database database = Database.getInstance();
 
     //Will be removed once password reader is implemented in the model
     private boolean checkPassword(String password) {
@@ -46,20 +45,12 @@ public class MyPresenter implements Contract.Presenter {
             view.displayMessage("username already exists");
             return false;
         } else {
-            /*Will be replaced once proper adding to firebase is implemented in model
-            Check if customer or storeowner
-            then add using addCustomer or addStoreOwner
-
-            addToFirebase(username, view.getPassword());
             view.displayMessage("success");
-            */
             return true;
-
-
         }
     }
 
-    public boolean checkCustomer() {
-        return database.isCustomer(view.getUsername());
-    }
+    public boolean checkCustomer() { return database.isCustomer(view.getUsername()); }
+    public boolean addCustomer(String username, String password) { return database.addCustomer(username, password); }
+    public boolean addStoreOwner(String username, String password) { return database.addStoreOwner(username, password); }
 }

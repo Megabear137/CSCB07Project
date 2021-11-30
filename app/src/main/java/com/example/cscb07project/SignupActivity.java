@@ -46,14 +46,17 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
     public void signupButton(View view) {
         Spinner spinner = (Spinner)findViewById(R.id.spinner);
         String value = String.valueOf(spinner.getSelectedItem());
+        System.out.println(value);
         if (presenter.checkSignup() == true) {
-            if (value == "I am a Customer") {
-                //Intent intent = new Intent(this, CustomerUsage.class);
+            if (value == "I am a customer.") {
+                presenter.addCustomer(getUsername(), getPassword());
+                //Intent intent = new Intent(this, CustomerHomeActivity.class);
                 //startActivity(intent);
             }
-            if (value == "I am a Restaurant Owner") {
-                //Intent intent = new Intent(this, StoreOwnerUsage.class);
-                //startActivity(intent);
+            if (value == "I am a store owner.") {
+                presenter.addStoreOwner(getUsername(), getPassword());
+                Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
+                startActivity(intent);
             }
         }
     }

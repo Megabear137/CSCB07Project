@@ -54,25 +54,14 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
     }
 
     public void loginButton(View view) {
-
-        /*if (presenter.checkLogin() == true) {
+        if (presenter.checkLogin() == true) {
             if (presenter.checkCustomer() == true) {
-                //Intent intent = new Intent(this, CustomerUsage.class);
+                //Intent intent = new Intent(this, CustomerHomeActivity.class);
                 //startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
+                startActivity(intent);
             }
-            else {
-                //Intent intent = new Intent(this, StoreOwnerUsage.class);
-                //startActivity(intent);
-            }
-        }*/
-
-        Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
-        startActivity(intent);
-
-
-
-
+        }
     }
-
-
 }

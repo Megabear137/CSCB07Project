@@ -15,6 +15,8 @@ public interface Contract {
         public boolean checkLogin();
         public boolean checkSignup();
         public boolean checkCustomer();
+        public boolean addCustomer(String username, String password);
+        public boolean addStoreOwner(String username, String password);
     }
 }
 

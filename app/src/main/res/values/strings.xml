@@ -16,7 +16,6 @@
     <string name="pending_orders">Pending Orders</string>
     <string name="shopping_cart">Shopping Cart</string>
     <string name="completed_orders">Completed Orders</string>
-
     <string-array name="signup_spinner_values">
         <item>I am a customer.</item>
         <item>I am a store owner.</item>
@@ -39,7 +38,6 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="editProductMessage">Choose a Product to Edit</string>
