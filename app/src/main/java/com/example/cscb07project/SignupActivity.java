@@ -51,9 +51,10 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
                 //Intent intent = new Intent(this, CustomerUsage.class);
                 //startActivity(intent);
             }
-            if (value == "I am a Restaurant Owner") {
-                //Intent intent = new Intent(this, StoreOwnerUsage.class);
-                //startActivity(intent);
+            if (value.equals("I am a store owner.")) {
+                Intent intent = new Intent(this, RegisterStoreActivity.class);
+                intent.putExtra("username", getUsername());
+                startActivity(intent);
             }
         }
     }

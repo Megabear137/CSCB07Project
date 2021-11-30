@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
          */
 
         Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
+        intent.putExtra("username", getUsername());
         startActivity(intent);
 
 

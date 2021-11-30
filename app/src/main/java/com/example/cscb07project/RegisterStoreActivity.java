@@ -22,55 +22,43 @@ public class RegisterStoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_store);
+
     }
 
 
-    public void registerStore (View view) {
+    public void registerStore(View view) {
         //==== read from database to check if unique
         //==== write to database if unique else feedback message
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+        Database database = Database.getInstance();
+
         EditText editText = (EditText) findViewById(R.id.storeNameText);
-
-       /* String storeName = editText.getText().toString();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Stores");
-        ref.child("0").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("demo", "Error getting data", task.getException());
-                }
-                else {
-                    Log.i("demo", task.getResult().getValue().toString());
-                    String [] tokens = task.getResult().getValue().toString().split(", ");
-                    int storeNameLen = tokens[tokens.length- 1].length();
-                    String dataBaseStoreName = tokens[tokens.length- 1].substring(5, storeNameLen-1);
-                    if(storeName.equals(dataBaseStoreName))
-                        Log.i("demo","A");
-
-                    Log.i("demo",storeName);
-                }
-            }
-        });
-    */
-        //=== Successfully registered
-        Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
-        startActivity(intent);
+        TextView textView = findViewById(R.id.registerStoreFeedback);
+        String storeName = editText.getText().toString();
 
 
+        int result = database.addStore(storeName, "me");
 
-
-
+        Intent nextIntent = new Intent(this, StoreOwnerHomeActivity.class);
+        Intent customerIntent = new Intent(this, CustomerUsageEntryScreen.class);
+        Intent previousIntent = new Intent(this, SignupActivity.class);
+        if (result == 1) {
+            startActivity(nextIntent);
+        }
+        else if (result == -1)
+            textView.setText("This store name is already taken. Enter a different store name.");
+        else if (result == -2)
+            startActivity(nextIntent);
+        else if (result == -3)
+            startActivity(customerIntent);
+        else
+            startActivity(previousIntent);
 
 
     }
-
-
-
-
-
-
-
-
-
 
 
 }
+
+

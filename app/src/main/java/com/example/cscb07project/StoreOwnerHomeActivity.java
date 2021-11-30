@@ -15,20 +15,32 @@ public class StoreOwnerHomeActivity extends AppCompatActivity {
     }
 
     public void navigateToAddProducts (View view) {
+        Intent i = getIntent();
+        String username = i.getStringExtra("username");
         Intent intent = new Intent(this, StoreOwnerAddActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
     public void navigateToEditProducts (View view) {
+        Intent i = getIntent();
+        String username = i.getStringExtra("username");
         Intent intent = new Intent(this, StoreOwnerEditActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 
     public void navigateToViewIncoming (View view) {
+        Intent i = getIntent();
+        String username = i.getStringExtra("username");
         Intent intent = new Intent(this, StoreOwnerViewIncomingActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
     public void navigateToViewFulfilled (View view) {
+        Intent i = getIntent();
+        String username = i.getStringExtra("username");
         Intent intent = new Intent(this, StoreOwnerViewFulfilledActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 
