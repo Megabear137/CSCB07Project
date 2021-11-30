@@ -15,12 +15,11 @@ public class Customer extends User{
     ArrayList<Order> pendingOrders;
     ArrayList<Order> completedOrders;
 
-    public Customer (String username, String password) {
+    public Customer (String username) {
         pendingOrders = new ArrayList<Order>();
         completedOrders = new ArrayList<Order>();
 
         this.username = username;
-        this.password = password;
         isStoreOwner = false;
         cart = new HashMap<Product, Integer>();
         pendingOrders = new ArrayList<Order>();
@@ -86,10 +85,6 @@ public class Customer extends User{
 
     public void setUsername(String username){
         this.username = username;
-    }
-
-    public void setPassword(String password){
-        this.password = password;
     }
 
 

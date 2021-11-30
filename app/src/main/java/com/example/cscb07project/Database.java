@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,11 +23,13 @@ public class Database implements Contract.Model{
     private ArrayList<Store> stores;
     private static int userCount;
     private static int storeCount;
+    HashMap<String, String> passwords;
 
     private Database() {
 
         users = new ArrayList<>();
         stores = new ArrayList<>();
+        passwords = new HashMap<>();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
@@ -38,25 +41,39 @@ public class Database implements Contract.Model{
                     Log.e("demo", "Error getting data");
                 } else {
                     userCount = Integer.parseInt(task.getResult().getValue().toString());
-                    //Initializes stores array list by getting currently stored stores in Firebase Database
+                    //Initializes users array list by getting currently stored users in Firebase Database. Also gets hashmap of passwords
+                    //store in database
                     for (int i = 0; i < userCount; i++) {
                         int finalI = i;
                         ref.child("Users").child(i + "").child("isStoreOwner").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                if(!task.getResult().getValue(Boolean.class)){
+                                if (!task.getResult().getValue(Boolean.class)) {
                                     ref.child("Users").child(finalI + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                                             users.add(task.getResult().getValue(Customer.class));
+                                            String username = task.getResult().getValue(Customer.class).getUsername();
+                                            ref.child("Passwords").child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                    passwords.put(username, task.getResult().getValue(String.class));
+                                                }
+                                            });
                                         }
                                     });
-                                }
-                                else{
+                                } else {
                                     ref.child("Users").child(finalI + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                                             users.add(task.getResult().getValue(StoreOwner.class));
+                                            String username = task.getResult().getValue(Customer.class).getUsername();
+                                            ref.child("Passwords").child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                    passwords.put(username, task.getResult().getValue(String.class));
+                                                }
+                                            });
                                         }
                                     });
                                 }
@@ -89,6 +106,7 @@ public class Database implements Contract.Model{
                 }
             }
         });
+
 
     }
 
@@ -182,8 +200,10 @@ public class Database implements Contract.Model{
         userCount++;
         FirebaseDatabase.getInstance().getReference().child("UserCount").setValue(userCount);
 
-        Customer customer = new Customer(username, password);
+        Customer customer = new Customer(username);
         users.add(customer);
+        FirebaseDatabase.getInstance().getReference().child("Passwords").child(username).setValue(password);
+
         updateDatabase();
         return true;
     }
@@ -239,20 +259,6 @@ public class Database implements Contract.Model{
         updateDatabase();
         return 1;
     }
-
-    /*Adds product to cart belonging to customer with matching username.
-    //returns 1 if successful
-    //return 0 if no customer has a matching username
-    int addProductToCart(String customerName, Product product){
-        if(isCustomer(customerName)){
-            findCustomer(customerName).cart.add(product);
-            updateDatabase();
-            return 1;
-        }
-        return 0;
-    }
-
-     */
 
     /* Adds a product to cart belonging to specified customer.
         return 1 if successful.

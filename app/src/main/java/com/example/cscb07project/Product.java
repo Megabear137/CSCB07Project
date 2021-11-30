@@ -1,5 +1,7 @@
 package com.example.cscb07project;
 
+import androidx.annotation.NonNull;
+
 public class Product {
     String name;
     String brand;
@@ -29,9 +31,9 @@ public class Product {
         if (getClass() != obj.getClass())
             return false;
         Product other = (Product) obj;
-        if (name!=other.name)
+        if (!name.equals(other.name))
             return false;
-        if(brand!=other.brand)
+        if(!brand.equals(other.brand))
             return false;
         if (price!=other.price)
             return false;
@@ -63,4 +65,5 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
+
 }

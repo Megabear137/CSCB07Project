@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void navigateToCustomer(View view) {
         Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
-        intent.putExtra("USERNAME", "Zubair");
+        intent.putExtra("Username", "Check");
         startActivity(intent);
     }
 }

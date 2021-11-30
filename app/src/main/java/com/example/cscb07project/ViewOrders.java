@@ -1,6 +1,7 @@
 package com.example.cscb07project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -42,6 +43,9 @@ public class ViewOrders extends AppCompatActivity {
         title.setText(R.string.shopping_cart);
         leftButton.setText(R.string.pending_orders);
         rightButton.setText(R.string.completed_orders);
+
+        Button myButton = new Button(this);
+        myButton.setText("My Button");
 
 
     }

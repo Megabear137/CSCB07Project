@@ -31,7 +31,7 @@ public abstract class User {
         if (getClass() != obj.getClass())
             return false;
         User other = (User) obj;
-        if (username!=other.username)
+        if (!username.equals(other.username))
             return false;
         return true;
     }

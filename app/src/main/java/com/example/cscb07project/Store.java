@@ -53,9 +53,9 @@ public class  Store {
         if (getClass() != obj.getClass())
             return false;
         Store other = (Store) obj;
-        if (name!=other.name)
+        if (!name.equals(other.name))
             return false;
-        if(ownerName!=other.ownerName)
+        if(!ownerName.equals(other.ownerName))
             return false;
         return true;
     }

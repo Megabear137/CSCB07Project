@@ -5,7 +5,250 @@
     android:id="@+id/ordersLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00EF0000"
     tools:context=".ViewOrders">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/viewOrdersConfirm6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground5"
+        app:layout_constraintEnd_toEndOf="@+id/viewOrdersConfirm5"
+        app:layout_constraintStart_toStartOf="@+id/viewOrdersConfirm5"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground5"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/viewOrdersConfirm5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground4"
+        app:layout_constraintEnd_toEndOf="@+id/viewOrdersConfirm4"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/viewOrdersConfirm4"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground4"
+        app:layout_constraintVertical_bias="0.666"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/viewOrdersConfirm4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground2"
+        app:layout_constraintEnd_toStartOf="@+id/orderBackground2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground2"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/orderX5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#E81D1D"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground5"
+        app:layout_constraintEnd_toEndOf="@+id/orderX2"
+        app:layout_constraintHorizontal_bias="0.586"
+        app:layout_constraintStart_toStartOf="@+id/orderX2"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground5"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@drawable/redx" />
+
+    <TextView
+        android:id="@+id/orderBackground5"
+        android:layout_width="250dp"
+        android:layout_height="59dp"
+        android:background="#DD8E19"
+        android:backgroundTint="#03A9F4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/orderBackground4"
+        app:layout_constraintTop_toBottomOf="@+id/orderBackground4"
+        app:layout_constraintVertical_bias="0.166" />
+
+    <TextView
+        android:id="@+id/orderStoreName5"
+        android:layout_width="61dp"
+        android:layout_height="21dp"
+        android:text="Store:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground5"
+        app:layout_constraintStart_toStartOf="@+id/orderProducts4"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground5"
+        app:layout_constraintVertical_bias="0.184" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/orderX4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#E81D1D"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground2"
+        app:layout_constraintEnd_toEndOf="@+id/orderX1"
+        app:layout_constraintHorizontal_bias="0.605"
+        app:layout_constraintStart_toStartOf="@+id/orderX1"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground2"
+        app:layout_constraintVertical_bias="0.333"
+        tools:srcCompat="@drawable/redx" />
+
+    <TextView
+        android:id="@+id/orderBackground4"
+        android:layout_width="250dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="16dp"
+        android:background="#DD8E19"
+        android:backgroundTint="#03A9F4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/orderBackground2"
+        app:layout_constraintTop_toBottomOf="@+id/orderBackground2"
+        app:layout_constraintVertical_bias="0.049" />
+
+    <TextView
+        android:id="@+id/orderProducts4"
+        android:layout_width="70dp"
+        android:layout_height="23dp"
+        android:text="Products:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground4"
+        app:layout_constraintStart_toStartOf="@+id/orderStoreName4"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground4"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/orderProducts5"
+        android:layout_width="70dp"
+        android:layout_height="23dp"
+        android:text="Products:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground5"
+        app:layout_constraintStart_toStartOf="@+id/orderStoreName5"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground5"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/orderStoreName4"
+        android:layout_width="61dp"
+        android:layout_height="21dp"
+        android:text="Store:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground4"
+        app:layout_constraintStart_toStartOf="@+id/orderProducts2"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/orderX2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#E81D1D"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground4"
+        app:layout_constraintEnd_toEndOf="@+id/orderX4"
+        app:layout_constraintStart_toStartOf="@+id/orderX4"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground4"
+        tools:srcCompat="@drawable/redx" />
+
+    <TextView
+        android:id="@+id/orderBackground2"
+        android:layout_width="250dp"
+        android:layout_height="59dp"
+        android:background="#DD8E19"
+        android:backgroundTint="#03A9F4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/orderBackground1"
+        app:layout_constraintTop_toBottomOf="@+id/orderBackground1"
+        app:layout_constraintVertical_bias="0.072" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/orderX1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#E81D1D"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground1"
+        app:layout_constraintEnd_toEndOf="@+id/OrderX"
+        app:layout_constraintHorizontal_bias="0.586"
+        app:layout_constraintStart_toStartOf="@+id/OrderX"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground1"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@drawable/redx" />
+
+    <TextView
+        android:id="@+id/orderBackground1"
+        android:layout_width="250dp"
+        android:layout_height="59dp"
+        android:background="#DD8E19"
+        android:backgroundTint="#03A9F4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/orderBackground"
+        app:layout_constraintTop_toBottomOf="@+id/orderBackground"
+        app:layout_constraintVertical_bias="0.045" />
+
+    <TextView
+        android:id="@+id/orderProducts1"
+        android:layout_width="70dp"
+        android:layout_height="23dp"
+        android:text="Products:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground1"
+        app:layout_constraintStart_toStartOf="@+id/orderStoreName1"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground1"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/orderProducts2"
+        android:layout_width="70dp"
+        android:layout_height="23dp"
+        android:text="Products:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground2"
+        app:layout_constraintStart_toStartOf="@+id/orderStoreName2"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground2"
+        app:layout_constraintVertical_bias="0.944" />
+
+    <TextView
+        android:id="@+id/orderStoreName1"
+        android:layout_width="61dp"
+        android:layout_height="21dp"
+        android:text="Store:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground1"
+        app:layout_constraintStart_toStartOf="@+id/orderProducts"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground1"
+        app:layout_constraintVertical_bias="0.184" />
+
+    <TextView
+        android:id="@+id/orderStoreName2"
+        android:layout_width="61dp"
+        android:layout_height="21dp"
+        android:text="Store:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground2"
+        app:layout_constraintStart_toStartOf="@+id/orderProducts1"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground2"
+        app:layout_constraintVertical_bias="0.026" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="orderX1,orderBackground1,orderProducts1,orderStoreName1" />
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="orderProducts,orderStoreName,orderBackground,OrderX" />
 
     <Button
         android:id="@+id/viewOrdersNextPageButton"
@@ -17,6 +260,33 @@
         app:layout_constraintHorizontal_bias="0.851"
         app:layout_constraintStart_toEndOf="@+id/viewOrdersPageNumber"
         app:layout_constraintTop_toTopOf="@+id/viewOrdersPageNumber" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/OrderX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#E81D1D"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.315"
+        app:layout_constraintStart_toEndOf="@+id/orderBackground"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@drawable/redx" />
+
+    <TextView
+        android:id="@+id/orderBackground"
+        android:layout_width="250dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="44dp"
+        android:background="#DD8E19"
+        android:backgroundTint="#03A9F4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewOrdersTitles"
+        app:layout_constraintVertical_bias="0.07" />
 
     <Button
         android:id="@+id/viewOrdersPreviousPageButton"
@@ -40,6 +310,19 @@
         app:layout_constraintTop_toBottomOf="@+id/view"
         app:layout_constraintVertical_bias="1.0"
         tools:text="@string/pending_orders" />
+
+    <TextView
+        android:id="@+id/orderStoreName"
+        android:layout_width="61dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="8dp"
+        android:text="Store:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/orderProducts"
+        app:layout_constraintStart_toStartOf="@+id/orderBackground"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground"
+        app:layout_constraintVertical_bias="0.181" />
 
     <View
         android:id="@+id/view"
@@ -94,7 +377,7 @@
 
     <TextView
         android:id="@+id/viewOrdersTitles"
-        android:layout_width="395dp"
+        android:layout_width="416dp"
         android:layout_height="46dp"
         android:background="#4D00BCD4"
         android:fontFamily="sans-serif"
@@ -107,5 +390,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/orderProducts"
+        android:layout_width="74dp"
+        android:layout_height="21dp"
+        android:layout_marginBottom="4dp"
+        android:text="Products:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground"
+        app:layout_constraintStart_toStartOf="@+id/orderStoreName" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/viewOrdersConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground"
+        app:layout_constraintEnd_toStartOf="@+id/orderBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/viewOrdersConfirm1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/orderBackground1"
+        app:layout_constraintEnd_toEndOf="@+id/viewOrdersConfirm"
+        app:layout_constraintStart_toStartOf="@+id/viewOrdersConfirm"
+        app:layout_constraintTop_toTopOf="@+id/orderBackground1"
+        app:srcCompat="@drawable/ic_launcher_background" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

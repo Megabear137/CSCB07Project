@@ -1,22 +1,31 @@
 package com.example.cscb07project;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+
 public class CustomerUsageEntryScreen extends AppCompatActivity {
     User customer;
+    String username;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_usage_entry_screen);
 
         Intent intent = getIntent();
-        String username = intent.getStringExtra("Username");
+        username = intent.getStringExtra("Username");
 
         Database database = Database.getInstance();
         customer = database.findCustomer(username);
@@ -24,18 +33,26 @@ public class CustomerUsageEntryScreen extends AppCompatActivity {
         TextView welcome = findViewById(R.id.customerUsageWelcomeView);
         welcome.setText("Welcome " + username + "!");
 
+        Customer cust = database.findCustomer("Check");
+        Product product = database.findStore("Zubair's Store").getProducts().get(1);
+
+        Order order = new Order("Check", "Zubair's Store");
+        order.addProductToOrder(product);
+        cust.pendingOrders.add(order);
+
+        database.updateDatabase();
     }
 
     public void viewStores(View view){
         Intent intent = new Intent(this, ViewStores.class);
-        intent.putExtra("Username", customer.getUsername());
+        intent.putExtra("Username", username);
         startActivity(intent);
     }
 
 
     public void viewOrders(View view){
         Intent intent = new Intent(this, ViewOrders.class);
-        intent.putExtra("Username", customer.getUsername());
+        intent.putExtra("Username", username);
         startActivity(intent);
     }
 
