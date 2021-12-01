@@ -107,8 +107,6 @@ public class Database implements Contract.Model{
                 }
             }
         });
-
-
     }
 
     //Function that is used to get an instance of the database. Getting an instance allows usage of functions in this class
@@ -134,6 +132,15 @@ public class Database implements Contract.Model{
         return false;
     }
 
+    public boolean matchPass(String username, String password) {
+        for (String user : passwords.keySet()) {
+            if (user.equals(username) && password.equals(passwords.get(user))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean storeExists(String storeName){
         for (Store store: stores){
             if(store.getName().equals(storeName))
@@ -147,7 +154,6 @@ public class Database implements Contract.Model{
             if(user.getUsername().equals(username) && !user.isStoreOwner)
                 return true;
         }
-
         return false;
     }
 
@@ -170,7 +176,6 @@ public class Database implements Contract.Model{
         }
 
         return null;
-
     }
 
     public StoreOwner findStoreOwner(String username){
@@ -178,7 +183,6 @@ public class Database implements Contract.Model{
             if(user.getUsername().equals(username) && !isCustomer(username))
                 return (StoreOwner)user;
         }
-
         return null;
     }
 
@@ -365,8 +369,6 @@ public class Database implements Contract.Model{
         return 1;
     }
 
-
-
     public ArrayList<User> getUsers() {
         return users;
     }
@@ -382,6 +384,4 @@ public class Database implements Contract.Model{
     int getUserCount(){
         return userCount;
     }
-
-
 }

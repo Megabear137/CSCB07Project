@@ -4,6 +4,7 @@ public interface Contract {
     interface Model {
         void updateDatabase();
         boolean userExists(String username);
+        boolean matchPass(String username, String password);
         boolean storeExists(String storeName);
         boolean isCustomer(String username);
         boolean isStoreOwner(String username);
@@ -30,8 +31,8 @@ public interface Contract {
         boolean checkLogin();
         boolean checkSignup();
         boolean checkCustomer();
-        boolean addCustomer(String username, String password);
-        boolean addStoreOwner(String username, String password);
+        boolean addCustomer();
+        boolean addStoreOwner();
     }
 }
 

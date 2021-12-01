@@ -8,11 +8,6 @@ public class MyPresenter implements Contract.Presenter {
         this.view = view;
     }
 
-    //Will be removed once password reader is implemented in the model
-    private boolean checkPassword(String password) {
-        return true;
-    }
-
     //Checks the validity of login input
     public boolean checkLogin() {
         String username = view.getUsername();
@@ -20,7 +15,7 @@ public class MyPresenter implements Contract.Presenter {
             view.displayMessage("username cannot be empty");
             return false;
         } else if (database.userExists(username)) {
-            if (checkPassword(view.getPassword())) {
+            if (database.matchPass(username, view.getPassword()) == true) {
                 view.displayMessage("user found");
                 return true;
             } else {
@@ -49,6 +44,6 @@ public class MyPresenter implements Contract.Presenter {
     }
 
     public boolean checkCustomer() { return database.isCustomer(view.getUsername()); }
-    public boolean addCustomer(String username, String password) { return database.addCustomer(username, password); }
-    public boolean addStoreOwner(String username, String password) { return database.addStoreOwner(username, password); }
+    public boolean addCustomer() { return database.addCustomer(view.getUsername(), view.getPassword()); }
+    public boolean addStoreOwner() { return database.addStoreOwner(view.getUsername(), view.getPassword()); }
 }
