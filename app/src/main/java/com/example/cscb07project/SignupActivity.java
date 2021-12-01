@@ -17,7 +17,7 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        presenter = new MyPresenter(new MyModel(), this);
+        presenter = new MyPresenter(this);
     }
 
     public void moveToLogin(View view) {

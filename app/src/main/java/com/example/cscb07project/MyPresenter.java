@@ -1,12 +1,10 @@
 package com.example.cscb07project;
 
 public class MyPresenter implements Contract.Presenter {
-    private Contract.Model model;
     private Contract.View view;
     Database database = Database.getInstance();
 
-    public MyPresenter(Contract.Model model, Contract.View view) {
-        this.model = model;
+    public MyPresenter(Contract.View view) {
         this.view = view;
     }
 
@@ -21,8 +19,8 @@ public class MyPresenter implements Contract.Presenter {
         if (username.equals("")) {
             view.displayMessage("username cannot be empty");
             return false;
-        } else if (model.userExists(username)) {
-            if (checkPassword(view.getPassword()) == true) {
+        } else if (database.userExists(username)) {
+            if (checkPassword(view.getPassword())) {
                 view.displayMessage("user found");
                 return true;
             } else {
@@ -41,7 +39,7 @@ public class MyPresenter implements Contract.Presenter {
         if (username.equals("")) {
             view.displayMessage("username cannot be empty");
             return false;
-        } else if (model.userExists(username)) {
+        } else if (database.userExists(username)) {
             view.displayMessage("username already exists");
             return false;
         } else {

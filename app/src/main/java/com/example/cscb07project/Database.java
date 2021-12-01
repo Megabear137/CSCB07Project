@@ -118,7 +118,7 @@ public class Database implements Contract.Model{
         return database;
     }
 
-    void updateDatabase(){
+    public void updateDatabase(){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.child("Users").setValue(users);
         ref.child("Stores").setValue(stores);
@@ -134,7 +134,7 @@ public class Database implements Contract.Model{
         return false;
     }
 
-    boolean storeExists(String storeName){
+    public boolean storeExists(String storeName){
         for (Store store: stores){
             if(store.getName().equals(storeName))
                 return true;
@@ -142,7 +142,7 @@ public class Database implements Contract.Model{
         return false;
     }
 
-    boolean isCustomer(String username){
+    public boolean isCustomer(String username){
         for(User user: users){
             if(user.getUsername().equals(username) && !user.isStoreOwner)
                 return true;
@@ -151,7 +151,7 @@ public class Database implements Contract.Model{
         return false;
     }
 
-    boolean isStoreOwner(String username){
+    public boolean isStoreOwner(String username){
         for(User user: users){
             if(user.getUsername().equals(username) && user.isStoreOwner)
                 return true;
@@ -162,7 +162,7 @@ public class Database implements Contract.Model{
 
     //Returns Customer/StoreOwner object with matching username stored in Firebase Database. Returns null if no user has
     //matching username.
-    Customer findCustomer(String username){
+    public Customer findCustomer(String username){
 
         for (User user: users){
             if(user.getUsername().equals(username) && isCustomer(username))
@@ -173,7 +173,7 @@ public class Database implements Contract.Model{
 
     }
 
-    StoreOwner findStoreOwner(String username){
+    public StoreOwner findStoreOwner(String username){
         for (User user: users){
             if(user.getUsername().equals(username) && !isCustomer(username))
                 return (StoreOwner)user;
@@ -184,7 +184,7 @@ public class Database implements Contract.Model{
 
     //Returns Store object with matching storeName stored in Firebase Database. Returns null if no store has
     //matching storeName.
-    Store findStore(String storeName){
+    public Store findStore(String storeName){
         for (Store store: stores){
             if(store.getName().equals(storeName))
                 return store;
@@ -193,7 +193,7 @@ public class Database implements Contract.Model{
     }
 
     //Adds a new customer to the Database. Returns true if successful, returns false if a user in the database already has the passed in username.
-    boolean addCustomer(String username, String password){
+    public boolean addCustomer(String username, String password){
 
         if(userExists(username))
             return false;
@@ -210,7 +210,7 @@ public class Database implements Contract.Model{
     }
 
     //Adds a new Store Owner to the Database. Returns true if successful, returns false if a user in the database already has the passed in username.
-    boolean addStoreOwner(String username, String password){
+    public boolean addStoreOwner(String username, String password){
         if(userExists(username))
             return false;
 
@@ -234,7 +234,7 @@ public class Database implements Contract.Model{
     returns -3 if passed in username belongs to a customer, not a StoreOwner.
     returns -4 if passed in username belongs to no one
     */
-    int addStore(String storeName, String ownerName){
+    public int addStore(String storeName, String ownerName){
 
         if(storeExists(storeName)) return -1;
         if(!findStoreOwner(ownerName).getStoreName().equals("")) return -2;
@@ -254,7 +254,7 @@ public class Database implements Contract.Model{
     //Adds product to store with storeName.
     //returns 1 if successful
     //return 0 if no store has storeName as its name
-    int addProductToStore(String storeName, Product product){
+    public int addProductToStore(String storeName, Product product){
         if(!storeExists(storeName)) return 0;
 
         findStore(storeName).products.add(product);
@@ -267,7 +267,7 @@ public class Database implements Contract.Model{
         return 0 if no customer has a matching username
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    int addProductToCart(Customer customer, Store store, Product product,int quantity) {
+    public int addProductToCart(Customer customer, Store store, Product product,int quantity) {
         if(!isCustomer(customer.getUsername())) {
             return 0;
         }
@@ -292,7 +292,7 @@ public class Database implements Contract.Model{
     Assumption: all products in cart will have count at least 1.
     */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    int deleteProductFromCart(Customer customer, Product product) {
+    public int deleteProductFromCart(Customer customer, Product product) {
         if(!isCustomer(customer.getUsername())) {
             return 0;
         }
@@ -317,7 +317,7 @@ public class Database implements Contract.Model{
         return 1 if successful.
           return -1 if customer not found.
           return -2 if store not found.*/
-    int makeOrder(Customer customer, Store store) {
+    public int makeOrder(Customer customer, Store store) {
         if (!isCustomer(customer.getUsername()))
             return -1;
 
@@ -350,7 +350,7 @@ public class Database implements Contract.Model{
     }
 
     /* Move the order from incomingOrder to outgoingOrder and pendingOrder to CompletedOrder. */
-    int fulfillOrder(Order order) {
+    public int fulfillOrder(Order order) {
         Store store = findStore(order.getStoreName());
         Customer customer = findCustomer(order.getCustomerName());
         if (store == null || customer == null) {

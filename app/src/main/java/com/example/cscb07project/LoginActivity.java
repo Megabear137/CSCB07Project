@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        presenter = new MyPresenter(new MyModel(), this);
+        presenter = new MyPresenter(this);
 
         Database database = Database.getInstance();
     }
