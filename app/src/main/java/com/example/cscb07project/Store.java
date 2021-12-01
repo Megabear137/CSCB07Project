@@ -10,8 +10,8 @@ public class  Store {
     String name;
     String ownerName;
     ArrayList<Product> products;
-    ArrayList<Order> incomingOrders; //[Pintao] changed the element type from Product to Order
-    ArrayList<Order> outgoingOrders; //[Pintao] changed the element type from Product to Order
+    ArrayList<Order> incomingOrders;
+    ArrayList<Order> outgoingOrders;
     Database database = Database.getInstance();
 
     public Store (String name, String ownerName) {
@@ -28,7 +28,7 @@ public class  Store {
         outgoingOrders = new ArrayList<Order>();
     }
 
-    public void receiveOrder(Order order) {
+   /* public void receiveOrder(Order order) {
         incomingOrders.add(order);
     }
 
@@ -37,6 +37,16 @@ public class  Store {
         outgoingOrders.add(order);
         Customer customer = database.findCustomer(order.getCustomerName());
         customer.moveToCompleteOrders(order);
+    }
+    */
+
+    //Search product by name in the store and return it. Return null if no matching product found.
+    public Product findProduct(String productName) {
+        for (Product product: products) {
+            if (product.getName().equals(productName))
+                return product;
+        }
+        return null;
     }
 
     @Override

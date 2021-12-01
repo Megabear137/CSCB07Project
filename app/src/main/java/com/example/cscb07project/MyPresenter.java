@@ -1,18 +1,11 @@
 package com.example.cscb07project;
 
 public class MyPresenter implements Contract.Presenter {
-    private Contract.Model model;
     private Contract.View view;
     Database database = Database.getInstance();
 
-    public MyPresenter(Contract.Model model, Contract.View view) {
-        this.model = model;
+    public MyPresenter(Contract.View view) {
         this.view = view;
-    }
-
-    //Will be removed once password reader is implemented in the model
-    private boolean checkPassword(String password) {
-        return true;
     }
 
     //Checks the validity of login input
@@ -21,8 +14,8 @@ public class MyPresenter implements Contract.Presenter {
         if (username.equals("")) {
             view.displayMessage("username cannot be empty");
             return false;
-        } else if (model.userExists(username)) {
-            if (checkPassword(view.getPassword())) {
+        } else if (database.userExists(username)) {
+            if (database.matchPass(username, view.getPassword()) == true) {
                 view.displayMessage("user found");
                 return true;
             } else {
@@ -41,7 +34,7 @@ public class MyPresenter implements Contract.Presenter {
         if (username.equals("")) {
             view.displayMessage("username cannot be empty");
             return false;
-        } else if (model.userExists(username)) {
+        } else if (database.userExists(username)) {
             view.displayMessage("username already exists");
             return false;
         } else {
@@ -51,6 +44,6 @@ public class MyPresenter implements Contract.Presenter {
     }
 
     public boolean checkCustomer() { return database.isCustomer(view.getUsername()); }
-    public boolean addCustomer(String username, String password) { return database.addCustomer(username, password); }
-    public boolean addStoreOwner(String username, String password) { return database.addStoreOwner(username, password); }
+    public boolean addCustomer() { return database.addCustomer(view.getUsername(), view.getPassword()); }
+    public boolean addStoreOwner() { return database.addStoreOwner(view.getUsername(), view.getPassword()); }
 }

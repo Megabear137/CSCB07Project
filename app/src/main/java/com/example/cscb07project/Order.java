@@ -10,11 +10,11 @@ import java.util.HashMap;
 public class Order {
     String customerName;
     String storeName;
-    HashMap<Product, Integer> products;
+    HashMap<String, String> products;
     boolean isFulfilled;
     long time;
 
-    public Order (String customerName, String storeName, HashMap<Product, Integer> products) {
+    public Order (String customerName, String storeName, HashMap<String, String> products) {
         this.products = products;
         this.customerName = customerName;
         this.storeName = storeName;
@@ -57,7 +57,7 @@ public class Order {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+   /* @RequiresApi(api = Build.VERSION_CODES.N)
     public void addProductToOrder(Product product){
         if(products.containsKey(product)){
             int old = products.get(product);
@@ -67,9 +67,10 @@ public class Order {
             products.put(product, 1);
         }
     }
+    */
 
     //=== Setters === Remove Setters later if not needed
-    public void setProducts(HashMap<Product, Integer> products) {
+    public void setProducts(HashMap<String, String> products) {
         this.products = products;
     }
 
@@ -86,7 +87,7 @@ public class Order {
     }
 
     // === Getters === Remove getters later if not needed
-    public HashMap<Product, Integer> getProducts() {
+    public HashMap<String, String> getProducts() {
         return products;
     }
 

@@ -17,7 +17,7 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        presenter = new MyPresenter(new MyModel(), this);
+        presenter = new MyPresenter(this);
     }
 
     public void moveToLogin(View view) {
@@ -49,12 +49,12 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
         System.out.println(value);
         if (presenter.checkSignup()) {
             if (value.equals("I am a customer.")) {
-                presenter.addCustomer(getUsername(), getPassword());
+                presenter.addCustomer();
                 Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
                 startActivity(intent);
             }
             if (value.equals("I am a store owner.")) {
-                presenter.addStoreOwner(getUsername(), getPassword());
+                presenter.addStoreOwner();
                 Intent intent = new Intent(this, RegisterStoreActivity.class);
                 intent.putExtra("username", getUsername());
                 startActivity(intent);
