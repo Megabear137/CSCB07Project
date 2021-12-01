@@ -28,6 +28,8 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         presenter = new MyPresenter(new MyModel(), this);
+
+        Database database = Database.getInstance();
     }
 
     public void moveToSignup(View view) {

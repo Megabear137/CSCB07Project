@@ -9,17 +9,15 @@ public class StoreOwner extends User{
     ArrayList<String> stock;
     ArrayList<Order> orders;
 
-    public StoreOwner (String username, String password) {
+    public StoreOwner (String username) {
         this.username = username;
-        this.password = password;
         isStoreOwner = true;
         this.storeName = "";
     }
 
     public StoreOwner () {
         this.username = "";
-        this.password = "";
-        isStoreOwner = true;
+        this.isStoreOwner = true;
         this.storeName = "";
         stock = new ArrayList<String>();
         orders = new ArrayList<Order>();
@@ -36,12 +34,9 @@ public class StoreOwner extends User{
         return stock;
     }
 
-    public void setPassword(String password){
-        this.password = password;
-    }
 
-    public void setIsStoreOwner(){
-        this.isStoreOwner = true;
+    public void setIsStoreOwner(boolean isStoreOwner){
+        this.isStoreOwner = isStoreOwner;
     }
     public void setStock(ArrayList<String> stock) {
         this.stock = stock;
@@ -52,10 +47,6 @@ public class StoreOwner extends User{
     }
     public ArrayList<Order> getOrders() {
         return orders;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getStoreName() {

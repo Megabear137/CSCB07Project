@@ -37,8 +37,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.registerStoreFeedback);
         String storeName = editText.getText().toString();
 
-
-        int result = database.addStore(storeName, "me");
+        int result = database.addStore("Bob's birds", "Bob");
 
         Intent nextIntent = new Intent(this, StoreOwnerHomeActivity.class);
         Intent customerIntent = new Intent(this, CustomerUsageEntryScreen.class);

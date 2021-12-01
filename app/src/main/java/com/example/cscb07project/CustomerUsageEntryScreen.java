@@ -32,15 +32,6 @@ public class CustomerUsageEntryScreen extends AppCompatActivity {
 
         TextView welcome = findViewById(R.id.customerUsageWelcomeView);
         welcome.setText("Welcome " + username + "!");
-
-        Customer cust = database.findCustomer("Check");
-        Product product = database.findStore("Zubair's Store").getProducts().get(1);
-
-        Order order = new Order("Check", "Zubair's Store");
-        order.addProductToOrder(product);
-        cust.pendingOrders.add(order);
-
-        database.updateDatabase();
     }
 
     public void viewStores(View view){

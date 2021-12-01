@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public abstract class User {
     String username;
-    String password;
     boolean isStoreOwner;
 
     @Override
@@ -40,23 +39,11 @@ public abstract class User {
         return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public boolean getIsStoreOwner() {
         return isStoreOwner;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isStoreOwner() {
-        return isStoreOwner;
-    }
-
-    public void setStoreOwner(boolean storeOwner) {
-        isStoreOwner = storeOwner;
+    public void setIsStoreOwner(boolean isStoreOwner) {
+        this.isStoreOwner = isStoreOwner;
     }
 }

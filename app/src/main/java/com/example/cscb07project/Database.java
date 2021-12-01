@@ -45,7 +45,7 @@ public class Database implements Contract.Model{
                     //store in database
                     for (int i = 0; i < userCount; i++) {
                         int finalI = i;
-                        ref.child("Users").child(i + "").child("isStoreOwner").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        ref.child("Users").child(finalI + "").child("isStoreOwner").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DataSnapshot> task) {
                                 if (!task.getResult().getValue(Boolean.class)) {
@@ -216,8 +216,9 @@ public class Database implements Contract.Model{
         userCount++;
         FirebaseDatabase.getInstance().getReference().child("UserCount").setValue(userCount);
 
-        StoreOwner storeOwner = new StoreOwner(username, password);
+        StoreOwner storeOwner = new StoreOwner(username);
         users.add(storeOwner);
+        FirebaseDatabase.getInstance().getReference().child("Passwords").child(username).setValue(password);
         updateDatabase();
         return true;
     }

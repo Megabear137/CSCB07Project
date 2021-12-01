@@ -32,8 +32,7 @@ public class Customer extends User{
         completedOrders = new ArrayList<Order>();
 
         this.username = "";
-        this.password = "";
-        isStoreOwner = false;
+        this.isStoreOwner = false;
     }
 
 
@@ -100,16 +99,18 @@ public class Customer extends User{
     @NonNull
     @Override
     public String toString() {
-        return username + " " + password + " " + isStoreOwner ;
+        return username + " " + " " + isStoreOwner ;
     }
 
     public void setCart(HashMap<Product, Integer> cart) {
         this.cart = cart;
     }
-    public void setIsStoreOwner(Boolean isStoreOwner){
+
+    public void setIsStoreOwner(boolean isStoreOwner){
         this.isStoreOwner = isStoreOwner;
     }
 
+    public boolean getIsStoreOwner() { return isStoreOwner;}
 }
 
 
