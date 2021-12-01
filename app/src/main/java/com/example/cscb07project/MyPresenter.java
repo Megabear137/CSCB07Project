@@ -22,7 +22,7 @@ public class MyPresenter implements Contract.Presenter {
             view.displayMessage("username cannot be empty");
             return false;
         } else if (model.userExists(username)) {
-            if (checkPassword(view.getPassword()) == true) {
+            if (checkPassword(view.getPassword())) {
                 view.displayMessage("user found");
                 return true;
             } else {

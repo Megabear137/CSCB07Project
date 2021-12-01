@@ -361,6 +361,35 @@ public class Database implements Contract.Model{
         return 1;
     }
 
+    //Returns Product object in database given a store name and product name. Returns null if
+    // store or product does not exist
+    Product findProductInStore(String storeName, String productName){
+        for (Store store: stores){
+            if(store.getName().equals(storeName)){
+                ArrayList<Product> products = store.getProducts();
+                for (Product product: products){
+                    if (product.getName().equals(productName)) {
+                        return product;
+                    }
+                }
+                return null;
+            }
+
+        }
+        return null;
+    }
+
+    //Returns true iff product is found in a store, given the store name and product name
+    boolean productExists(String storeName, String productName){
+        if (findProductInStore(storeName,productName) == null) {
+            return false;
+        }
+        return true;
+    }
+
+
+
+
 
 
     public ArrayList<User> getUsers() {
