@@ -15,6 +15,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Database implements Contract.Model{
 
@@ -261,29 +262,30 @@ public class Database implements Contract.Model{
         return 1;
     }
 
-    /* Adds a product to cart belonging to specified customer.
+    /* Adds a product from the store of specified quantity to cart belonging to specified customer.
         return 1 if successful.
         return 0 if no customer has a matching username
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    int addProductToCart(Customer customer, Product product) {
+    int addProductToCart(Customer customer, Store store, Product product,int quantity) {
         if(!isCustomer(customer.getUsername())) {
             return 0;
         }
 
-        HashMap<Product, Integer> newCart = customer.getCart();
-        if (newCart.containsKey(product)) {
-            int quantity = newCart.get(product);
-            newCart.replace(product, quantity+1);
+        String productName = product.getName();
+        HashMap<String, String> newCart = customer.getCart();
+        if (newCart.containsKey(productName)) {
+            int old = Integer.parseInt(Objects.requireNonNull(newCart.get(productName)));
+            newCart.replace(productName, String.valueOf(old+quantity));
         }
         else
-            newCart.put(product, 1);
+            newCart.put(productName, String.valueOf(quantity));
         customer.setCart(newCart);
         updateDatabase();
         return 1;
     }
 
-    /* Deletes a product from cart belonging to specified customer.
+    /* Deletes one piece of product from cart belonging to specified customer.
     return 1 if successful.
     return 0 if no customer has a matching username.
     return -1 if customer exists but has no more specified product to be deleted.
@@ -295,15 +297,16 @@ public class Database implements Contract.Model{
             return 0;
         }
 
-        HashMap<Product, Integer> newCart = customer.getCart();
-        if (!newCart.containsKey(product))
+        HashMap<String, String> newCart = customer.getCart();
+        String productName = product.getName();
+        if (!newCart.containsKey(productName))
             return -1;
 
-        int quantity = newCart.get(product);
+        int quantity = Integer.parseInt(Objects.requireNonNull(newCart.get(productName)));
         if(quantity == 1)
-            newCart.remove(product);
+            newCart.remove(productName);
         else
-            newCart.replace(product, quantity-1);
+            newCart.replace(productName, String.valueOf(quantity-1));
         customer.setCart(newCart);
         updateDatabase();
         return 1;
@@ -321,14 +324,15 @@ public class Database implements Contract.Model{
         if (findStore(store.getName())==null)
             return -2;
 
-        HashMap<Product ,Integer> oldCart = customer.getCart();
-        HashMap<Product ,Integer> newCart = new HashMap<Product, Integer>();
-        HashMap<Product, Integer> productsInOrder = new HashMap<Product, Integer>();
-        for (Product product: oldCart.keySet()) {
-            if (product.getBrand().equals(store.getName()))
-                productsInOrder.put(product, oldCart.get(product));
+        HashMap<String ,String> oldCart = customer.getCart();
+        HashMap<String ,String> newCart = new HashMap<String, String>();
+        HashMap<String, String> productsInOrder = new HashMap<String, String>();
+        for (String productName: oldCart.keySet()) {
+            Product product = store.findProduct(productName);
+            if (product!=null && product.getBrand().equals(store.getName()))
+                productsInOrder.put(productName, oldCart.get(productName));
             else
-                newCart.put(product, oldCart.get(product));
+                newCart.put(productName, oldCart.get(productName));
         }
 
         customer.setCart(newCart);

@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.HashMap;
 
 public class Customer extends User{
-    HashMap<Product, Integer> cart;
+    HashMap<String, String> cart;
     ArrayList<Order> pendingOrders;
     ArrayList<Order> completedOrders;
 
@@ -21,13 +21,13 @@ public class Customer extends User{
 
         this.username = username;
         isStoreOwner = false;
-        cart = new HashMap<Product, Integer>();
+        cart = new HashMap<String, String>();
         pendingOrders = new ArrayList<Order>();
         completedOrders = new ArrayList<Order>();
     }
 
     public Customer () {
-        cart = new HashMap<Product, Integer>();
+        cart = new HashMap<String, String>();
         pendingOrders = new ArrayList<Order>();
         completedOrders = new ArrayList<Order>();
 
@@ -37,7 +37,7 @@ public class Customer extends User{
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    /*@RequiresApi(api = Build.VERSION_CODES.N)
     public void addProductToCart(Product product) {
         if (cart.containsKey(product)) {
             int quantity = cart.get(product);
@@ -48,8 +48,6 @@ public class Customer extends User{
         }
     }
 
-    /* Assumption: Whenever a customer makes an order in a store,
-    all products in his/her cart from the specified store will be cleared and pended. */
     public void makeOrder(Store store) {
         HashMap<Product, Integer> productsInOrder = new HashMap<Product, Integer>();
         for (Product product: cart.keySet()) {
@@ -68,9 +66,10 @@ public class Customer extends User{
         completedOrders.add(order);
     }
 
+     */
 
 
-    public HashMap<Product, Integer> getCart() {
+    public HashMap<String, String> getCart() {
         return cart;
     }
 
@@ -102,7 +101,7 @@ public class Customer extends User{
         return username + " " + " " + isStoreOwner ;
     }
 
-    public void setCart(HashMap<Product, Integer> cart) {
+    public void setCart(HashMap<String, String> cart) {
         this.cart = cart;
     }
 

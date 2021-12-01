@@ -35,8 +35,6 @@ public class Product {
             return false;
         if(!brand.equals(other.brand))
             return false;
-        if (price!=other.price)
-            return false;
         return true;
     }
 
