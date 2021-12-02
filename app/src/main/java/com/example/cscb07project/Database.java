@@ -32,12 +32,9 @@ public class Database implements Contract.Model{
     public static int userCount;
     public static int storeCount;
 
-    private Contract.View view;
-
-    public Database(Contract.View view) {
+    public Database() {
 
         stores = new ArrayList<>();
-        this.view = view;
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("UserCount");
         ValueEventListener listener = new ValueEventListener() {
@@ -71,10 +68,6 @@ public class Database implements Contract.Model{
 
     }
 
-    public Database(){
-
-    }
-
     public static Database getInstance() {
         return database;
     }
@@ -89,7 +82,7 @@ public class Database implements Contract.Model{
         }
     }
 
-    public void initializeUser(String username, boolean isLogin) {
+    public void initializeUser(String username, boolean isLogin, Contract.Presenter presenter) {
 
         FirebaseDatabase.getInstance().getReference("UserCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -106,12 +99,12 @@ public class Database implements Contract.Model{
                                         if (snapshot.child("isStoreOwner").getValue(Boolean.class)) {
                                             user = snapshot.getValue(StoreOwner.class);
                                             userIndex = Integer.parseInt(snapshot.getKey());
-                                            if(isLogin) view.validateLogin(user);
+                                            if(isLogin) presenter.validateLogin(user);
                                             initializeStore(snapshot.child("storeName").getValue(String.class));
                                         } else {
                                             user = snapshot.getValue(Customer.class);
                                             userIndex = Integer.parseInt(snapshot.getKey());
-                                            if(isLogin) view.validateLogin(user);
+                                            if(isLogin) presenter.validateLogin(user);
                                             initializeStores();
                                         }
                                     }
@@ -190,14 +183,14 @@ public class Database implements Contract.Model{
         });
     }
 
-    public void matchPass(String username, String password) {
+    public void matchPass(String username, String password,  Contract.Presenter presenter) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Passwords").child(username);
         ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.getResult().getValue() != null && task.getResult().getValue(String.class).equals(password)) initializeUser(username, true);
-                else if(task.getResult().getValue() != null) view.displayMessage("Incorrect Password");
-                else view.displayMessage("User Not Found");
+                if(task.getResult().getValue() != null && task.getResult().getValue(String.class).equals(password)) initializeUser(username, true, presenter);
+                else if(task.getResult().getValue() != null) presenter.invalidateLogin(0);
+                else presenter.invalidateLogin(1);
             }
         });
     }
@@ -248,7 +241,7 @@ public class Database implements Contract.Model{
     }
 
     //Adds a new customer to the Database. Returns true if successful, returns false if a user in the database already has the passed in username.
-    public void addCustomer(String username, String password){
+    public void addCustomer(String username, String password, Contract.Presenter presenter){
 
         FirebaseDatabase.getInstance().getReference("Passwords").child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -261,21 +254,20 @@ public class Database implements Contract.Model{
                     FirebaseDatabase.getInstance().getReference().child("Users").child(userCount - 1 + "").setValue(customer);
                     FirebaseDatabase.getInstance().getReference().child("Passwords").child(username).setValue(password);
 
-                    initializeUser(username, false);
+                    initializeUser(username, false, presenter);
                     initializeStores();
 
-                    view.displayMessage("Success");
-                    view.validateSignup(customer);
+                    presenter.validateSignup(customer);
                 }
                 else{
-                    view.displayMessage("Username taken");
+                    presenter.invalidateSignup();
                 }
             }
         });
     }
 
     //Adds a new Store Owner to the Database. Returns true if successful, returns false if a user in the database already has the passed in username.
-    public void addStoreOwner(String username, String password){
+    public void addStoreOwner(String username, String password, Contract.Presenter presenter){
 
         FirebaseDatabase.getInstance().getReference("Passwords").child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -289,13 +281,12 @@ public class Database implements Contract.Model{
                     FirebaseDatabase.getInstance().getReference().child("Passwords").child(username).setValue(password);
                     FirebaseDatabase.getInstance().getReference().child("StoreOwners").child(username).setValue("");
 
-                    initializeUser(username, false);
+                    initializeUser(username, false, presenter);
 
-                    view.displayMessage("Success");
-                    view.validateSignup(storeOwner);
+                    presenter.validateSignup(storeOwner);
                 }
                 else{
-                    view.displayMessage("Username taken");
+                    presenter.invalidateSignup();
                 }
             }
         });

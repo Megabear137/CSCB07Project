@@ -16,7 +16,7 @@ public class MyPresenter implements Contract.Presenter {
     public void checkLogin() {
         String username = view.getUsername();
         String password = view.getPassword();
-        database.matchPass(username, password);
+        database.matchPass(username, password, this);
     }
 
 
@@ -32,10 +32,24 @@ public class MyPresenter implements Contract.Presenter {
         }
     }
 
-    public boolean checkCustomer() { return database.isCustomer(); }
-    public void addCustomer() {
-
-        database.addCustomer(view.getUsername(), view.getPassword());
+    public void validateLogin(User user){
+        view.validateLogin(user);
     }
-    public void addStoreOwner() { database.addStoreOwner(view.getUsername(), view.getPassword()); }
+
+    public void invalidateLogin(int result){
+        if(result == 0) view.displayMessage("Incorrect Password");
+        else view.displayMessage("User Not Found");
+    }
+
+    public void validateSignup(User user){
+        view.displayMessage("Success");
+        view.validateSignup(user);
+    }
+    public void invalidateSignup(){
+        view.displayMessage("Username Taken");
+    }
+
+    public boolean checkCustomer() { return database.isCustomer(); }
+    public void addCustomer() { database.addCustomer(view.getUsername(), view.getPassword(), this); }
+    public void addStoreOwner() { database.addStoreOwner(view.getUsername(), view.getPassword(), this); }
 }

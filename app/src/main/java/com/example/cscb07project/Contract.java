@@ -3,15 +3,15 @@ package com.example.cscb07project;
 public interface Contract {
     interface Model {
         void updateDatabase();
-        void matchPass(String username, String password);
+        void matchPass(String username, String password, Contract.Presenter presenter);
         boolean storeExists(String storeName);
         boolean productExists(String productName);
         boolean isCustomer();
         boolean isStoreOwner();
         Store findStore(String storeName);
         Product findProduct(String productName);
-        void addCustomer(String username, String password);
-        void addStoreOwner(String username, String password);
+        void addCustomer(String username, String password, Contract.Presenter presenter);
+        void addStoreOwner(String username, String password, Contract.Presenter presenter);
         void addStore(String storeName, String ownerName, RegisterStoreActivity rsa);
         int addProductToStore(String storeName, Product product);
         //int addProductToCart(String customerName, String storeName, String productName, int quantity);
@@ -34,6 +34,10 @@ public interface Contract {
         void addCustomer();
         void addStoreOwner();
         void checkSignup(String value);
+        void validateLogin(User user);
+        void invalidateLogin(int result);
+        void validateSignup(User user);
+        void invalidateSignup();
     }
 }
 

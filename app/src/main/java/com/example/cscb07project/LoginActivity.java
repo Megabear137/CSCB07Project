@@ -33,8 +33,7 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        database = new Database(this);
-        presenter = new MyPresenter(this, database);
+        presenter = new MyPresenter(this, new Database());
     }
 
     public void moveToSignup(View view) {
