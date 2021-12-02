@@ -25,7 +25,7 @@ public class CustomerUsageEntryScreen extends AppCompatActivity {
         setContentView(R.layout.activity_customer_usage_entry_screen);
 
         Intent intent = getIntent();
-        username = intent.getStringExtra("Username");
+        username = intent.getStringExtra("username");
 
         Database database = Database.getInstance();
         customer = database.findCustomer(username);
@@ -36,14 +36,14 @@ public class CustomerUsageEntryScreen extends AppCompatActivity {
 
     public void viewStores(View view){
         Intent intent = new Intent(this, ViewStores.class);
-        intent.putExtra("Username", username);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 
 
     public void viewOrders(View view){
         Intent intent = new Intent(this, ViewOrders.class);
-        intent.putExtra("Username", username);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 

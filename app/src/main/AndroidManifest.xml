@@ -18,7 +18,8 @@
             android:exported="true" />
         <activity
             android:name=".CustomerUsageEntryScreen"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".LoginActivity"/>
         <activity
             android:name=".SignupActivity"
             android:parentActivityName=".MainActivity">

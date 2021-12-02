@@ -6,12 +6,13 @@ import androidx.annotation.RequiresApi;
 
 import androidx.annotation.NonNull;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashMap;
 
 public class Customer extends User{
-    HashMap<String, String> cart;
+    ArrayList<Order> cart;
     ArrayList<Order> pendingOrders;
     ArrayList<Order> completedOrders;
 
@@ -21,13 +22,13 @@ public class Customer extends User{
 
         this.username = username;
         isStoreOwner = false;
-        cart = new HashMap<String, String>();
+        cart = new ArrayList<>();
         pendingOrders = new ArrayList<Order>();
         completedOrders = new ArrayList<Order>();
     }
 
     public Customer () {
-        cart = new HashMap<String, String>();
+        cart = new ArrayList<>();
         pendingOrders = new ArrayList<Order>();
         completedOrders = new ArrayList<Order>();
 
@@ -69,7 +70,7 @@ public class Customer extends User{
      */
 
 
-    public HashMap<String, String> getCart() {
+    public ArrayList<Order> getCart() {
         return cart;
     }
 
@@ -101,7 +102,7 @@ public class Customer extends User{
         return username + " " + " " + isStoreOwner ;
     }
 
-    public void setCart(HashMap<String, String> cart) {
+    public void setCart(ArrayList<Order> cart) {
         this.cart = cart;
     }
 

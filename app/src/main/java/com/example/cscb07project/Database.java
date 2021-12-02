@@ -149,6 +149,16 @@ public class Database implements Contract.Model{
         return false;
     }
 
+    public boolean productExists(String productName){
+        for (Store store: stores){
+            for(Product product: store.products){
+                if(product.getName().equals(productName)) return true;
+            }
+        }
+
+        return false;
+    }
+
     public boolean isCustomer(String username){
         for(User user: users){
             if(user.getUsername().equals(username) && !user.isStoreOwner)
@@ -186,6 +196,19 @@ public class Database implements Contract.Model{
         return null;
     }
 
+    public Product findProduct(String productName, String storeName){
+        for (Store store: stores){
+            if(store.getName().equals(storeName)){
+                for(Product product: store.products){
+                    if(product.getName().equals(productName)) return product;
+                }
+            }
+        }
+
+        return null;
+
+    }
+
     //Returns Store object with matching storeName stored in Firebase Database. Returns null if no store has
     //matching storeName.
     public Store findStore(String storeName){
@@ -219,7 +242,6 @@ public class Database implements Contract.Model{
             return false;
 
         userCount++;
-        FirebaseDatabase.getInstance().getReference().child("UserCount").setValue(userCount);
 
         StoreOwner storeOwner = new StoreOwner(username);
         users.add(storeOwner);
@@ -246,7 +268,6 @@ public class Database implements Contract.Model{
         if(isCustomer(ownerName)) return -4;
 
         storeCount++;
-        FirebaseDatabase.getInstance().getReference().child("StoreCount").setValue(storeCount);
 
         Store store = new Store(storeName, ownerName);
         findStoreOwner(ownerName).setStoreName(storeName);
@@ -271,20 +292,32 @@ public class Database implements Contract.Model{
         return 0 if no customer has a matching username
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public int addProductToCart(Customer customer, Store store, Product product,int quantity) {
-        if(!isCustomer(customer.getUsername())) {
+    public int addProductToCart(String customerName, String storeName, String productName, int quantity) {
+        if(!isCustomer(customerName)) {
             return 0;
         }
 
-        String productName = product.getName();
-        HashMap<String, String> newCart = customer.getCart();
-        if (newCart.containsKey(productName)) {
-            int old = Integer.parseInt(Objects.requireNonNull(newCart.get(productName)));
-            newCart.replace(productName, String.valueOf(old+quantity));
+        Customer customer = findCustomer(customerName);
+
+
+        for(Order order: findCustomer(customerName).getCart()){
+            if(order.getStoreName().equals(storeName)) {
+                if(order.products.containsKey(productName)){
+                    int productNum = order.products.get(productName);
+                    order.products.replace(productName, productNum + quantity);
+                }
+                else{
+                    order.products.put(productName, quantity);
+                }
+                updateDatabase();
+                return 1;
+            }
         }
-        else
-            newCart.put(productName, String.valueOf(quantity));
-        customer.setCart(newCart);
+
+        Order order = new Order(customerName, storeName);
+        order.products.put(productName, quantity);
+        customer.cart.add(order);
+
         updateDatabase();
         return 1;
     }
@@ -294,7 +327,7 @@ public class Database implements Contract.Model{
     return 0 if no customer has a matching username.
     return -1 if customer exists but has no more specified product to be deleted.
     Assumption: all products in cart will have count at least 1.
-    */
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public int deleteProductFromCart(Customer customer, Product product) {
         if(!isCustomer(customer.getUsername())) {
@@ -315,12 +348,13 @@ public class Database implements Contract.Model{
         updateDatabase();
         return 1;
     }
+    */
 
     /* Make all products from the store in customer's cart into an order. Then add it
         to customer.pendingOrder and store.incomingOrder.
         return 1 if successful.
           return -1 if customer not found.
-          return -2 if store not found.*/
+          return -2 if store not found.
     public int makeOrder(Customer customer, Store store) {
         if (!isCustomer(customer.getUsername()))
             return -1;
@@ -347,11 +381,12 @@ public class Database implements Contract.Model{
         ArrayList<Order> newIncomingOrders = store.getIncomingOrders();
         newIncomingOrders.add(order);
         store.setIncomingOrders(newIncomingOrders);*/
-        customer.pendingOrders.add(order);
+        /*customer.pendingOrders.add(order);
         store.incomingOrders.add(order);
         updateDatabase();
         return 1;
     }
+    */
 
     /* Move the order from incomingOrder to outgoingOrder and pendingOrder to CompletedOrder. */
     public int fulfillOrder(Order order) {
