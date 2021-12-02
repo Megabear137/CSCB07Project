@@ -14,12 +14,15 @@
             android:name=".ViewOrders"
             android:exported="true" />
         <activity
+            android:name=".ViewStoreActivity"
+            android:exported="true" />
+        <activity
             android:name=".ViewStores"
             android:exported="true" />
         <activity
             android:name=".CustomerUsageEntryScreen"
             android:exported="true"
-            android:parentActivityName=".LoginActivity"/>
+            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".SignupActivity"
             android:parentActivityName=".MainActivity">
@@ -66,8 +69,8 @@
         </activity>
         <activity
             android:name=".StoreOwnerHomeActivity"
-            android:launchMode="singleTop"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTop" />
         <activity
             android:name=".StoreOwnerAddActivity"
             android:parentActivityName=".StoreOwnerHomeActivity">
@@ -82,7 +85,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
 
 </manifest>
