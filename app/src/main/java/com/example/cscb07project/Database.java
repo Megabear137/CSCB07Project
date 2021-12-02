@@ -342,9 +342,9 @@ public class Database implements Contract.Model{
         return 0 if no customer has a matching username
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public int addProductToCart(String storeName, String productName, int quantity) {
+    public void addProductToCart(String storeName, String productName, int quantity) {
         if(!isCustomer()) {
-            return 0;
+            return;
         }
 
         Customer customer = (Customer)user;
@@ -359,16 +359,20 @@ public class Database implements Contract.Model{
                     order.products.put(productName, quantity);
                 }
                 updateDatabase();
-                return 1;
+                return;
             }
         }
 
-        Order order = new Order(customer.getUsername(), storeName);
-        order.products.put(productName, quantity);
-        customer.cart.add(order);
+        FirebaseDatabase.getInstance().getReference("OrderID").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                Order order = new Order(customer.getUsername(), storeName, task.getResult().getValue(Integer.class));
+                order.products.put(productName, quantity);
+                customer.cart.add(order);
 
-        updateDatabase();
-        return 1;
+                updateDatabase();
+            }
+        });
     }
 
     /* Deletes one piece of product from cart belonging to specified customer.

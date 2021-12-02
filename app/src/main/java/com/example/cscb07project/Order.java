@@ -24,11 +24,13 @@ public class Order {
         time = System.currentTimeMillis();
     }
 
-    public Order (String customerName, String storeName) {
+    public Order (String customerName, String storeName, int id) {
+        this.id = id;
         this.products = new HashMap<>();
         this.customerName = customerName;
         this.storeName = storeName;
         isFulfilled = false;
+        time = System.currentTimeMillis();
     }
 
     public Order(){
