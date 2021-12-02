@@ -367,6 +367,7 @@ public class Database implements Contract.Model{
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 Order order = new Order(customer.getUsername(), storeName, task.getResult().getValue(Integer.class));
+                FirebaseDatabase.getInstance().getReference("OrderID").setValue(task.getResult().getValue(Integer.class) + 1);
                 order.products.put(productName, quantity);
                 customer.cart.add(order);
 
