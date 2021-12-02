@@ -30,7 +30,7 @@ public class StoreOwnerAddActivity extends AppCompatActivity {
         String price = editPrice.getText().toString();
         StoreOwner user = (StoreOwner) Database.user;
         Database database = new Database();
-        Store userStore = database.findStore(user.getStoreName());
+        Store userStore = Database.store;
 
         // ==================== Toast
         Context context = getApplicationContext();
@@ -55,7 +55,7 @@ public class StoreOwnerAddActivity extends AppCompatActivity {
         }
 
         //=== Remains to deal with uniqueness
-        Product other = userStore.findProduct(productName);
+        Product other = database.findProduct(productName);
 
 
         if (!productName.isEmpty() && !price.isEmpty() && !brandName.isEmpty()) {

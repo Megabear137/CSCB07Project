@@ -9,7 +9,7 @@ public interface Contract {
         boolean isCustomer();
         boolean isStoreOwner();
         Store findStore(String storeName);
-        Product findProduct(String productName, String storeName);
+        Product findProduct(String productName);
         void addCustomer(String username, String password);
         void addStoreOwner(String username, String password);
         void addStore(String storeName, String ownerName, RegisterStoreActivity rsa);

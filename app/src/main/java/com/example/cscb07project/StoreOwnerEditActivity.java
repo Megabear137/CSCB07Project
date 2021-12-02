@@ -33,8 +33,8 @@ public class StoreOwnerEditActivity extends AppCompatActivity implements Adapter
         Spinner spinner = (Spinner) findViewById(R.id.productSpinner);
         spinner.setOnItemSelectedListener(this);
         Database database = Database.getInstance();
-        StoreOwner user = database.findStoreOwner(username);
-        Store userStore = database.findStore(user.getStoreName());
+        StoreOwner user = (StoreOwner) Database.user;
+        Store userStore = Database.store;
         ArrayList<Product> products = userStore.getProducts();
         ArrayList<String> allProducts = new ArrayList<String>();
         for (Product product: products) {
@@ -51,13 +51,13 @@ public class StoreOwnerEditActivity extends AppCompatActivity implements Adapter
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
-        Database database = Database.getInstance();
+        Database database = new Database();
         Intent i = getIntent();
         String username = i.getStringExtra("username");
         String productName = parent.getItemAtPosition(position).toString();
-        StoreOwner user = database.findStoreOwner(username);
-        Store userStore = database.findStore(user.getStoreName());
-        Product product = database.findProductInStore(userStore.getName(),productName);
+        StoreOwner user = (StoreOwner) Database.user;
+        Store userStore = Database.store;
+        Product product = database.findProductInStore(productName);
         EditText productText = (EditText) findViewById(R.id.editProductName);
         EditText brandText = (EditText) findViewById(R.id.editBrandName);
         EditText priceText = (EditText) findViewById(R.id.editPrice);
@@ -96,8 +96,8 @@ public class StoreOwnerEditActivity extends AppCompatActivity implements Adapter
         String newPrice = priceText.getText().toString();
 
         Database database = Database.getInstance();
-        StoreOwner user = database.findStoreOwner(username);
-        Store userStore = database.findStore(user.getStoreName());
+        StoreOwner user = (StoreOwner) Database.user;
+        Store userStore = Database.store;
         Product oldProduct = userStore.findProduct(productName);
 
         // ==================== Toast

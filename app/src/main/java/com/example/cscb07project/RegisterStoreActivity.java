@@ -34,7 +34,6 @@ public class RegisterStoreActivity extends AppCompatActivity {
         //==== write to database if unique else feedback message
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
-        Database database = Database.getInstance();
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         CharSequence text = "Store name already exists!";
@@ -57,7 +56,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.registerStoreFeedback);
 
         if (result == 1) {
-            nextIntent.putExtra("username",username);
+            nextIntent.putExtra("username",Database.user.getUsername());
             startActivity(nextIntent);
         }
         else{
