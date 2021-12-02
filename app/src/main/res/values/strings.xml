@@ -56,5 +56,6 @@
     <string name="editPrice">New Price</string>
     <string name="confirmChangesButton">CONFIRM ALL CHANGES</string>
     <string name="registerStoreFeedback"></string>
+    <string name="logoutButton">LOGOUT</string>
 
 </resources>

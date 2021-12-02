@@ -44,6 +44,14 @@ public class StoreOwnerHomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void logout (View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+
+
+
 
 
 
