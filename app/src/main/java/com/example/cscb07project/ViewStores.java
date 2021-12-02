@@ -29,7 +29,7 @@ public class ViewStores extends AppCompatActivity {
         maxPage = (int) Math.ceil(database.getStoreCount() / 5.0);
 
         Intent intent = getIntent();
-        String username = intent.getStringExtra("Username");
+        String username = intent.getStringExtra("username");
         customer = database.findCustomer(username);
 
         pageNumber = findViewById(R.id.viewStoresPageNumber);
@@ -40,6 +40,12 @@ public class ViewStores extends AppCompatActivity {
 
         next = findViewById(R.id.viewStoreNextPageButton);
         if(maxPage == 1) next.setVisibility(View.GONE);
+    }
+
+    public void Back(View view){
+        Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
+        intent.putExtra("username", customer.getUsername());
+        startActivity(intent);
     }
 
     void nextPage(View view){

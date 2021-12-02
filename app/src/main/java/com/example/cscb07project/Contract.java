@@ -6,18 +6,20 @@ public interface Contract {
         boolean userExists(String username);
         boolean matchPass(String username, String password);
         boolean storeExists(String storeName);
+        boolean productExists(String productName);
         boolean isCustomer(String username);
         boolean isStoreOwner(String username);
         Customer findCustomer(String username);
         StoreOwner findStoreOwner(String username);
         Store findStore(String storeName);
+        Product findProduct(String productName, String storeName);
         boolean addCustomer(String username, String password);
         boolean addStoreOwner(String username, String password);
         int addStore(String storeName, String ownerName);
         int addProductToStore(String storeName, Product product);
-        int addProductToCart(Customer customer, Store store, Product product,int quantity);
-        int deleteProductFromCart(Customer customer, Product product);
-        int makeOrder(Customer customer, Store store);
+        int addProductToCart(String customerName, String storeName, String productName, int quantity);
+        //int deleteProductFromCart(Customer customer, Product product);
+        //int makeOrder(Customer customer, Store store);
         int fulfillOrder(Order order);
     }
 

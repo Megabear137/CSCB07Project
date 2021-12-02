@@ -51,6 +51,7 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
             if (value.equals("I am a customer.")) {
                 presenter.addCustomer();
                 Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
+                intent.putExtra("username", getUsername());
                 startActivity(intent);
             }
             if (value.equals("I am a store owner.")) {

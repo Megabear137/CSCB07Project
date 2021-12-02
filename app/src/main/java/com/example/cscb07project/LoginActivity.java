@@ -2,10 +2,12 @@ package com.example.cscb07project;
 
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
 
     private Contract.Presenter presenter; // This class will contain the presenter that will validate the login process
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,8 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
         presenter = new MyPresenter(this);
 
         Database database = Database.getInstance();
+        Product product = database.findProduct("Pixel 7","McDonalds");
+        database.addProductToCart("Zubair", "McDonalds", product.name, 2);
     }
 
     public void moveToSignup(View view) {
@@ -56,12 +61,14 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
     }
 
     public void loginButton(View view) {
-        if (presenter.checkLogin() == true) {
-            if (presenter.checkCustomer() == true) {
+        if (presenter.checkLogin()) {
+            if (presenter.checkCustomer()) {
                 Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
+                intent.putExtra("username", getUsername());
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
+                intent.putExtra("username", getUsername());
                 startActivity(intent);
             }
         }

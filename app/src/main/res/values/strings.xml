@@ -35,6 +35,7 @@
     <string name="storeNameText">Store name</string>
     <string name="registerStoreButton">REGISTER</string>
     <string name="title_activity_store_owner_view_incoming">StoreOwnerViewIncomingActivity</string>
+    <string name="back">Back</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
