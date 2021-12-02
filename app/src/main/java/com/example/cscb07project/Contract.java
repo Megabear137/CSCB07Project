@@ -3,21 +3,18 @@ package com.example.cscb07project;
 public interface Contract {
     interface Model {
         void updateDatabase();
-        boolean userExists(String username);
-        boolean matchPass(String username, String password);
+        void matchPass(String username, String password);
         boolean storeExists(String storeName);
         boolean productExists(String productName);
-        boolean isCustomer(String username);
-        boolean isStoreOwner(String username);
-        Customer findCustomer(String username);
-        StoreOwner findStoreOwner(String username);
+        boolean isCustomer();
+        boolean isStoreOwner();
         Store findStore(String storeName);
         Product findProduct(String productName, String storeName);
-        boolean addCustomer(String username, String password);
-        boolean addStoreOwner(String username, String password);
-        int addStore(String storeName, String ownerName);
+        void addCustomer(String username, String password);
+        void addStoreOwner(String username, String password);
+        void addStore(String storeName, String ownerName, RegisterStoreActivity rsa);
         int addProductToStore(String storeName, Product product);
-        int addProductToCart(String customerName, String storeName, String productName, int quantity);
+        //int addProductToCart(String customerName, String storeName, String productName, int quantity);
         //int deleteProductFromCart(Customer customer, Product product);
         //int makeOrder(Customer customer, Store store);
         int fulfillOrder(Order order);
@@ -27,14 +24,16 @@ public interface Contract {
         void displayMessage(String message);
         String getUsername();
         String getPassword();
+        void validateLogin(User user);
+        void validateSignup(User user);
     }
 
     interface Presenter {
-        boolean checkLogin();
-        boolean checkSignup();
+        void checkLogin();
         boolean checkCustomer();
-        boolean addCustomer();
-        boolean addStoreOwner();
+        void addCustomer();
+        void addStoreOwner();
+        void checkSignup(String value);
     }
 }
 

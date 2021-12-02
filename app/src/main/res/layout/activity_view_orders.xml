@@ -248,17 +248,6 @@
         app:layout_constraintTop_toTopOf="@+id/orderBackground2"
         app:layout_constraintVertical_bias="0.026" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="orderX1,orderBackground1,orderProducts1,orderStoreName1" />
-
-    <androidx.constraintlayout.widget.Group
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="orderProducts0,orderStoreName0,orderBackground0,orderX0" />
-
     <Button
         android:id="@+id/viewOrdersNextPageButton"
         android:layout_width="80dp"

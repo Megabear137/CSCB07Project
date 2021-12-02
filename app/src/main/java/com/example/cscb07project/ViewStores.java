@@ -23,14 +23,12 @@ public class ViewStores extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_stores);
 
-        Database database = Database.getInstance();
-
         page = 1;
-        maxPage = (int) Math.ceil(database.getStoreCount() / 5.0);
+        maxPage = (int) Math.ceil(Database.storeCount / 5.0);
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
-        customer = database.findCustomer(username);
+        customer = (Customer)Database.user;
 
         pageNumber = findViewById(R.id.viewStoresPageNumber);
         pageNumber.setText(page + "");

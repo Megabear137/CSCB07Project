@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Database database = Database.getInstance();
+        //final Database database = Database.getInstance();
         //NEVER EVER EVER EVER MAKE ANY CHANGES TO THE DATABASE INSIDE OF THE MAIN ACTIVITY UNLESS
         //YOU LIKE WIPING OUR DATA >:(
     }

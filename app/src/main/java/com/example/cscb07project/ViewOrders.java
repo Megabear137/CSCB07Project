@@ -39,7 +39,7 @@ public class ViewOrders extends AppCompatActivity {
 
         Intent intent = getIntent();
         String customerName = intent.getStringExtra("username");
-        customer = database.findCustomer(customerName);
+        customer = (Customer)database.user;
 
         int cartSize;
         if(customer.cart == null) cartSize = 0;
@@ -95,7 +95,7 @@ public class ViewOrders extends AppCompatActivity {
         orders.add(findViewById(R.id.orderBackground3));
         orders.add(findViewById(R.id.orderBackground4));
 
-        /*
+
         for(int i = 0; i < 5; i++){
             orders.get(i).setVisibility(View.GONE);
             productNames.get(i).setVisibility(View.GONE);
@@ -104,11 +104,11 @@ public class ViewOrders extends AppCompatActivity {
             deleteButtons.get(i).setVisibility(View.GONE);
         }
 
-         */
+
 
         int ordersOnPage = Math.min(cartSize, 5);
 
-        /*
+
         for(int i = 0; i < ordersOnPage; i++){
             Order order = customer.getCart().get(i);
             orders.get(i).setVisibility(View.VISIBLE);
@@ -122,7 +122,7 @@ public class ViewOrders extends AppCompatActivity {
             confirmButtons.get(i).setVisibility(View.VISIBLE);
             deleteButtons.get(i).setVisibility(View.VISIBLE);
         }
-         */
+
 
     }
 

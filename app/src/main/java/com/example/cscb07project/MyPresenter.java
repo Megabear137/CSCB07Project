@@ -1,49 +1,41 @@
 package com.example.cscb07project;
 
+import android.util.Log;
+
 public class MyPresenter implements Contract.Presenter {
     private Contract.View view;
-    Database database = Database.getInstance();
+    private Contract.Model database;
 
-    public MyPresenter(Contract.View view) {
+    public MyPresenter(Contract.View view,  Contract.Model database) {
+
         this.view = view;
+        this.database = database;
     }
 
     //Checks the validity of login input
-    public boolean checkLogin() {
+    public void checkLogin() {
+        String username = view.getUsername();
+        String password = view.getPassword();
+        database.matchPass(username, password);
+    }
+
+
+    public void checkSignup(String value) {
         String username = view.getUsername();
         if (username.equals("")) {
             view.displayMessage("username cannot be empty");
-            return false;
-        } else if (database.userExists(username)) {
-            if (database.matchPass(username, view.getPassword()) == true) {
-                view.displayMessage("user found");
-                return true;
-            } else {
-                view.displayMessage("incorrect password");
-                return false;
-            }
-        } else {
-            view.displayMessage("user not found");
-            return false;
+        }
+        else{
+            Log.i("demo", value);
+            if(value.equals("I am a customer.")) addCustomer();
+            else addStoreOwner();
         }
     }
 
-    //Checks the validity of signup input
-    public boolean checkSignup() {
-        String username = view.getUsername();
-        if (username.equals("")) {
-            view.displayMessage("username cannot be empty");
-            return false;
-        } else if (database.userExists(username)) {
-            view.displayMessage("username already exists");
-            return false;
-        } else {
-            view.displayMessage("success");
-            return true;
-        }
-    }
+    public boolean checkCustomer() { return database.isCustomer(); }
+    public void addCustomer() {
 
-    public boolean checkCustomer() { return database.isCustomer(view.getUsername()); }
-    public boolean addCustomer() { return database.addCustomer(view.getUsername(), view.getPassword()); }
-    public boolean addStoreOwner() { return database.addStoreOwner(view.getUsername(), view.getPassword()); }
+        database.addCustomer(view.getUsername(), view.getPassword());
+    }
+    public void addStoreOwner() { database.addStoreOwner(view.getUsername(), view.getPassword()); }
 }

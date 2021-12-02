@@ -26,13 +26,13 @@ public class StoreOwnerAddActivity extends AppCompatActivity {
         product.setBrand(editBrand.getText().toString());
         product.setName(editName.getText().toString());
         String price = editPrice.getText().toString();
+        Database database = Database.getInstance();
         //=== May need to do better type checking for price
         try
         {
             Double doublePrice = Double.parseDouble(price);
             product.setPrice(doublePrice);
-            Database database = Database.getInstance();
-            StoreOwner user = database.findStoreOwner(username);
+            StoreOwner user = (StoreOwner)Database.user;
             database.addProductToStore(user.getStoreName(), product);
 
         }

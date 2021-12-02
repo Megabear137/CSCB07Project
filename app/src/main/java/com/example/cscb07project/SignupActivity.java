@@ -12,12 +12,14 @@ import android.widget.TextView;
 public class SignupActivity extends AppCompatActivity implements Contract.View {
 
     private Contract.Presenter presenter; // This class will contain the presenter that will validate the login process
+    private Contract.Model database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        presenter = new MyPresenter(this);
+        database = new Database(this);
+        presenter = new MyPresenter(this, database);
     }
 
     public void moveToLogin(View view) {
@@ -46,20 +48,30 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
     public void signupButton(View view) {
         Spinner spinner = (Spinner)findViewById(R.id.spinner);
         String value = String.valueOf(spinner.getSelectedItem());
-        System.out.println(value);
-        if (presenter.checkSignup()) {
-            if (value.equals("I am a customer.")) {
-                presenter.addCustomer();
-                Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
-                intent.putExtra("username", getUsername());
-                startActivity(intent);
-            }
-            if (value.equals("I am a store owner.")) {
-                presenter.addStoreOwner();
-                Intent intent = new Intent(this, RegisterStoreActivity.class);
-                intent.putExtra("username", getUsername());
-                startActivity(intent);
-            }
+        presenter.checkSignup(value);
+        /*presenter.checkSignup()) {
+
+        }
+
+         */
+    }
+
+    public void validateLogin(User user){
+
+    }
+
+    public void validateSignup(User user){
+        if (!user.isStoreOwner) {
+            presenter.addCustomer();
+            Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
+            intent.putExtra("username", getUsername());
+            startActivity(intent);
+        }
+        if (user.isStoreOwner) {
+            presenter.addStoreOwner();
+            Intent intent = new Intent(this, RegisterStoreActivity.class);
+            intent.putExtra("username", getUsername());
+            startActivity(intent);
         }
     }
 }

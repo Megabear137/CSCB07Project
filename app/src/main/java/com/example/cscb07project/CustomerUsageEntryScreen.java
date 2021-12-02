@@ -15,7 +15,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 
 public class CustomerUsageEntryScreen extends AppCompatActivity {
-    User customer;
     String username;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -26,9 +25,6 @@ public class CustomerUsageEntryScreen extends AppCompatActivity {
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
-
-        Database database = Database.getInstance();
-        customer = database.findCustomer(username);
 
         TextView welcome = findViewById(R.id.customerUsageWelcomeView);
         welcome.setText("Welcome " + username + "!");

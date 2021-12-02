@@ -9,6 +9,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -24,17 +26,15 @@ import com.google.firebase.database.FirebaseDatabase;
 public class LoginActivity extends AppCompatActivity implements Contract.View{
 
     private Contract.Presenter presenter; // This class will contain the presenter that will validate the login process
+    Database database;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        presenter = new MyPresenter(this);
-
-        Database database = Database.getInstance();
-        Product product = database.findProduct("Pixel 7","McDonalds");
-        database.addProductToCart("Zubair", "McDonalds", product.name, 2);
+        database = new Database(this);
+        presenter = new MyPresenter(this, database);
     }
 
     public void moveToSignup(View view) {
@@ -61,16 +61,25 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
     }
 
     public void loginButton(View view) {
-        if (presenter.checkLogin()) {
-            if (presenter.checkCustomer()) {
-                Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
-                intent.putExtra("username", getUsername());
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
-                intent.putExtra("username", getUsername());
-                startActivity(intent);
-            }
+        presenter.checkLogin();
+    }
+
+    public void validateLogin(User user){
+
+        if(user.isStoreOwner){
+            Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
+            intent.putExtra("username", getUsername());
+            startActivity(intent);
         }
+        else{
+            Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
+            intent.putExtra("username", getUsername());
+            startActivity(intent);
+        }
+
+    }
+
+    public void validateSignup(User user) {
+
     }
 }

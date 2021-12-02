@@ -12,7 +12,6 @@ public class  Store {
     ArrayList<Product> products;
     ArrayList<Order> incomingOrders;
     ArrayList<Order> outgoingOrders;
-    Database database = Database.getInstance();
 
     public Store (String name, String ownerName) {
         this.name = name;
@@ -116,7 +115,7 @@ public class  Store {
     @NonNull
     @Override
     public String toString() {
-        Database database = Database.getInstance();
-        return  database.findStoreOwner(ownerName).toString() + " " + name;
+        StoreOwner storeOwner = (StoreOwner)Database.user;
+        return  storeOwner.toString() + " " + name;
     }
 }

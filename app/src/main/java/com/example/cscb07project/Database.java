@@ -1,6 +1,7 @@
 package com.example.cscb07project;
 
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -9,136 +10,196 @@ import androidx.annotation.RequiresApi;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
 
 public class Database implements Contract.Model{
 
-    private static Database database = null;
-    private ArrayList<User> users;
-    private ArrayList<Store> stores;
-    private static int userCount;
-    private static int storeCount;
-    HashMap<String, String> passwords;
+    public static Database database;
 
-    private Database() {
+    public static User user;
+    private static int userIndex;
 
-        users = new ArrayList<>();
+    public static Store store;
+    private static int storeIndex;
+
+    public static ArrayList<Store> stores;
+    public static int userCount;
+    public static int storeCount;
+
+    private Contract.View view;
+
+    public Database(Contract.View view) {
+
         stores = new ArrayList<>();
-        passwords = new HashMap<>();
+        this.view = view;
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-
-        //Initializes userCount variable by getting currently stored value in Firebase Database
-        ref.child("UserCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("UserCount");
+        ValueEventListener listener = new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("demo", "Error getting data");
-                } else {
-                    userCount = Integer.parseInt(task.getResult().getValue().toString());
-                    //Initializes users array list by getting currently stored users in Firebase Database. Also gets hashmap of passwords
-                    //store in database
-                    for (int i = 0; i < userCount; i++) {
-                        int finalI = i;
-                        ref.child("Users").child(finalI + "").child("isStoreOwner").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                if (!task.getResult().getValue(Boolean.class)) {
-                                    ref.child("Users").child(finalI + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                            users.add(task.getResult().getValue(Customer.class));
-                                            String username = task.getResult().getValue(Customer.class).getUsername();
-                                            ref.child("Passwords").child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                                    passwords.put(username, task.getResult().getValue(String.class));
-                                                }
-                                            });
-                                        }
-                                    });
-                                } else {
-                                    ref.child("Users").child(finalI + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                            users.add(task.getResult().getValue(StoreOwner.class));
-                                            String username = task.getResult().getValue(Customer.class).getUsername();
-                                            ref.child("Passwords").child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                                    passwords.put(username, task.getResult().getValue(String.class));
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            }
-                        });
-
-                    }
-
-                }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userCount = snapshot.getValue(Integer.class);
+                Log.i("demo", userCount + "");
             }
-        });
 
-        ref.child("StoreCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("demo", "Error getting data");
-                } else {
-                    storeCount = Integer.parseInt(task.getResult().getValue().toString());
-                    //Initializes stores array list by getting currently stored stores in Firebase Database
-                    for (int i = 0; i < storeCount; i++) {
-                        ref.child("Stores").child(i + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                stores.add(task.getResult().getValue(Store.class));
-                            }
-                        });
-                    }
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                }
             }
-        });
+        };
+        ref.addValueEventListener(listener);
+
+        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("StoreCount");
+        ValueEventListener listener1 = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                storeCount = snapshot.getValue(Integer.class);
+                Log.i("demo", storeCount + "");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        ref1.addValueEventListener(listener1);
+
     }
 
-    //Function that is used to get an instance of the database. Getting an instance allows usage of functions in this class
-    public static Database getInstance(){
-        if(database == null)
-            database = new Database();
+    public Database(){
+
+    }
+
+    public static Database getInstance() {
         return database;
     }
 
     public void updateDatabase(){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.child("Users").setValue(users);
-        ref.child("Stores").setValue(stores);
-        ref.child("UserCount").setValue(users.size());
-        ref.child("StoreCount").setValue(stores.size());
-    }
-
-    public boolean userExists(String username){
-        for(User user: users){
-            if(user.getUsername().equals(username))
-                return true;
+        FirebaseDatabase.getInstance().getReference().child("Users").child(userIndex + "").setValue(user);
+        if(user.isStoreOwner){
+            FirebaseDatabase.getInstance().getReference("Stores").child(storeIndex + "").setValue(store);
         }
-        return false;
+        else{
+            FirebaseDatabase.getInstance().getReference("Stores").setValue(stores);
+        }
     }
 
-    public boolean matchPass(String username, String password) {
-        for (String user : passwords.keySet()) {
-            if (user.equals(username) && password.equals(passwords.get(user))) {
-                return true;
+    public void initializeUser(String username, boolean isLogin) {
+
+        FirebaseDatabase.getInstance().getReference("UserCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                for (int i = 0; i < userCount; i++) {
+                    FirebaseDatabase.getInstance().getReference("Users").child(i + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.getResult().child("username").getValue(String.class).equals(username)) {
+                                DatabaseReference ref = task.getResult().getRef();
+                                ValueEventListener listener = new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.child("isStoreOwner").getValue(Boolean.class)) {
+                                            user = snapshot.getValue(StoreOwner.class);
+                                            userIndex = Integer.parseInt(snapshot.getKey());
+                                            if(isLogin) view.validateLogin(user);
+                                            initializeStore(snapshot.child("storeName").getValue(String.class));
+                                        } else {
+                                            user = snapshot.getValue(Customer.class);
+                                            userIndex = Integer.parseInt(snapshot.getKey());
+                                            if(isLogin) view.validateLogin(user);
+                                            initializeStores();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                };
+                                ref.addValueEventListener(listener);
+                            }
+                        }
+                    });
+                }
             }
-        }
-        return false;
+        });
+    }
+
+    public void initializeStores(){
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Stores");
+
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                stores.clear();
+                for(int i = 0; i < storeCount; i++){
+                    FirebaseDatabase.getInstance().getReference("Stores").child(i + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            stores.add(task.getResult().getValue(Store.class));
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+
+        ref.addValueEventListener(listener);
+    }
+
+    public void initializeStore(String storeName){
+
+        FirebaseDatabase.getInstance().getReference("StoreCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                int storeCount = task.getResult().getValue(Integer.class);
+                for (int i = 0; i < storeCount; i++) {
+                    FirebaseDatabase.getInstance().getReference("Stores").child(i + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.getResult().child("name").getValue(String.class).equals(storeName)) {
+                                DatabaseReference ref = task.getResult().getRef();
+                                ValueEventListener listener = new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            store = snapshot.getValue(Store.class);
+                                            storeIndex = Integer.parseInt(snapshot.getKey());
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                };
+                                ref.addValueEventListener(listener);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void matchPass(String username, String password) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Passwords").child(username);
+        ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.getResult().getValue() != null && task.getResult().getValue(String.class).equals(password)) initializeUser(username, true);
+                else if(task.getResult().getValue() != null) view.displayMessage("Incorrect Password");
+                else view.displayMessage("User Not Found");
+            }
+        });
     }
 
     public boolean storeExists(String storeName){
@@ -159,41 +220,12 @@ public class Database implements Contract.Model{
         return false;
     }
 
-    public boolean isCustomer(String username){
-        for(User user: users){
-            if(user.getUsername().equals(username) && !user.isStoreOwner)
-                return true;
-        }
-        return false;
+    public boolean isCustomer(){
+        return !user.isStoreOwner;
     }
 
-    public boolean isStoreOwner(String username){
-        for(User user: users){
-            if(user.getUsername().equals(username) && user.isStoreOwner)
-                return true;
-        }
-
-        return false;
-    }
-
-    //Returns Customer/StoreOwner object with matching username stored in Firebase Database. Returns null if no user has
-    //matching username.
-    public Customer findCustomer(String username){
-
-        for (User user: users){
-            if(user.getUsername().equals(username) && isCustomer(username))
-                return (Customer)user;
-        }
-
-        return null;
-    }
-
-    public StoreOwner findStoreOwner(String username){
-        for (User user: users){
-            if(user.getUsername().equals(username) && !isCustomer(username))
-                return (StoreOwner)user;
-        }
-        return null;
+    public boolean isStoreOwner(){
+        return user.isStoreOwner;
     }
 
     public Product findProduct(String productName, String storeName){
@@ -220,34 +252,58 @@ public class Database implements Contract.Model{
     }
 
     //Adds a new customer to the Database. Returns true if successful, returns false if a user in the database already has the passed in username.
-    public boolean addCustomer(String username, String password){
+    public void addCustomer(String username, String password){
 
-        if(userExists(username))
-            return false;
+        FirebaseDatabase.getInstance().getReference("Passwords").child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(!task.getResult().exists()){
+                    userCount++;
+                    FirebaseDatabase.getInstance().getReference().child("UserCount").setValue(userCount);
 
-        userCount++;
-        FirebaseDatabase.getInstance().getReference().child("UserCount").setValue(userCount);
+                    Customer customer = new Customer(username);
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(userCount - 1 + "").setValue(customer);
+                    FirebaseDatabase.getInstance().getReference().child("Passwords").child(username).setValue(password);
 
-        Customer customer = new Customer(username);
-        users.add(customer);
-        FirebaseDatabase.getInstance().getReference().child("Passwords").child(username).setValue(password);
+                    initializeUser(username, false);
+                    initializeStores();
 
-        updateDatabase();
-        return true;
+                    view.displayMessage("Success");
+                    view.validateSignup(customer);
+                }
+                else{
+                    view.displayMessage("Username taken");
+                }
+            }
+        });
     }
 
     //Adds a new Store Owner to the Database. Returns true if successful, returns false if a user in the database already has the passed in username.
-    public boolean addStoreOwner(String username, String password){
-        if(userExists(username))
-            return false;
+    public void addStoreOwner(String username, String password){
 
-        userCount++;
+        FirebaseDatabase.getInstance().getReference("Passwords").child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(!task.getResult().exists()){
+                    userCount++;
+                    FirebaseDatabase.getInstance().getReference().child("UserCount").setValue(userCount);
 
-        StoreOwner storeOwner = new StoreOwner(username);
-        users.add(storeOwner);
-        FirebaseDatabase.getInstance().getReference().child("Passwords").child(username).setValue(password);
-        updateDatabase();
-        return true;
+                    StoreOwner storeOwner = new StoreOwner(username);
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(userCount - 1 + "").setValue(storeOwner);
+                    FirebaseDatabase.getInstance().getReference().child("Passwords").child(username).setValue(password);
+                    FirebaseDatabase.getInstance().getReference().child("StoreOwners").child(username).setValue("");
+
+                    initializeUser(username, false);
+
+                    view.displayMessage("Success");
+                    view.validateSignup(storeOwner);
+                }
+                else{
+                    view.displayMessage("Username taken");
+                }
+            }
+        });
+
     }
 
 
@@ -255,25 +311,32 @@ public class Database implements Contract.Model{
     Adds a new store to the database and assigns it to the storeOwner whose username matches the passed in username.
     Returns 1 if successful
     four possible failures:
-    returns -1 if a store in the database already has the passed in storeName
-    returns -2 if StoreOwner already has a store
-    returns -3 if passed in username belongs to a customer, not a StoreOwner.
-    returns -4 if passed in username belongs to no one
     */
-    public int addStore(String storeName, String ownerName){
+    public void addStore(String storeName, String ownerName, RegisterStoreActivity rsa){
 
-        if(storeExists(storeName)) return -1;
-        if(!findStoreOwner(ownerName).getStoreName().equals("")) return -2;
-        if(!userExists(ownerName)) return -3;
-        if(isCustomer(ownerName)) return -4;
+        FirebaseDatabase.getInstance().getReference("StoreOwners").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                boolean storeExists = false;
+                for(DataSnapshot snapshot: task.getResult().getChildren()){
+                    if(snapshot.getValue(String.class).equals(storeName)){
+                        rsa.verifyRegisterStore(0);
+                        storeExists = true;
+                    }
+                }
 
-        storeCount++;
+                if(!storeExists){
+                    Store store = new Store(storeName, ownerName);
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(userIndex + "").child("storeName").setValue(storeName);
+                    FirebaseDatabase.getInstance().getReference().child("StoreOwners").child(ownerName).setValue(storeName);
+                    FirebaseDatabase.getInstance().getReference().child("Stores").child(storeCount + "").setValue(store);
+                    storeCount++;
+                    FirebaseDatabase.getInstance().getReference().child("StoreCount").setValue(storeCount);
+                    rsa.verifyRegisterStore(1);
+                }
 
-        Store store = new Store(storeName, ownerName);
-        findStoreOwner(ownerName).setStoreName(storeName);
-        stores.add(store);
-        updateDatabase();
-        return 1;
+            }
+        });
     }
 
     //Adds product to store with storeName.
@@ -292,15 +355,14 @@ public class Database implements Contract.Model{
         return 0 if no customer has a matching username
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public int addProductToCart(String customerName, String storeName, String productName, int quantity) {
-        if(!isCustomer(customerName)) {
+    public int addProductToCart(String storeName, String productName, int quantity) {
+        if(!isCustomer()) {
             return 0;
         }
 
-        Customer customer = findCustomer(customerName);
+        Customer customer = (Customer)user;
 
-
-        for(Order order: findCustomer(customerName).getCart()){
+        for(Order order: customer.getCart()){
             if(order.getStoreName().equals(storeName)) {
                 if(order.products.containsKey(productName)){
                     int productNum = order.products.get(productName);
@@ -314,7 +376,7 @@ public class Database implements Contract.Model{
             }
         }
 
-        Order order = new Order(customerName, storeName);
+        Order order = new Order(customer.getUsername(), storeName);
         order.products.put(productName, quantity);
         customer.cart.add(order);
 
@@ -391,7 +453,7 @@ public class Database implements Contract.Model{
     /* Move the order from incomingOrder to outgoingOrder and pendingOrder to CompletedOrder. */
     public int fulfillOrder(Order order) {
         Store store = findStore(order.getStoreName());
-        Customer customer = findCustomer(order.getCustomerName());
+        Customer customer = (Customer)user;
         if (store == null || customer == null) {
             return 0;
         }
@@ -402,10 +464,6 @@ public class Database implements Contract.Model{
         customer.completedOrders.add(order);
         updateDatabase();
         return 1;
-    }
-
-    public ArrayList<User> getUsers() {
-        return users;
     }
 
     public ArrayList<Store> getStores() {
