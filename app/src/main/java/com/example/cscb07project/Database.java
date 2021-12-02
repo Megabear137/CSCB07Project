@@ -330,9 +330,8 @@ public class Database implements Contract.Model{
     //returns 1 if successful
     //return 0 if no store has storeName as its name
     public int addProductToStore(String storeName, Product product){
-        if(!storeExists(storeName)) return 0;
 
-        findStore(storeName).products.add(product);
+        store.products.add(product);
         updateDatabase();
         return 1;
     }
@@ -457,7 +456,7 @@ public class Database implements Contract.Model{
                            double newPrice) {
         if (product == null)
             return -1;
-        Store store = findStore(storeName);
+        Store store = this.store;
         if (store == null || storeName == null || storeName.isEmpty())
             return -2;
         if (newName.isEmpty())

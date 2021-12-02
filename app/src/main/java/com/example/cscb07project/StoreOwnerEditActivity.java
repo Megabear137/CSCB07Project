@@ -95,7 +95,7 @@ public class StoreOwnerEditActivity extends AppCompatActivity implements Adapter
         String newBrandName =  brandText.getText().toString();
         String newPrice = priceText.getText().toString();
 
-        Database database = Database.getInstance();
+        Database database = new Database();
         StoreOwner user = (StoreOwner) Database.user;
         Store userStore = Database.store;
         Product oldProduct = userStore.findProduct(productName);

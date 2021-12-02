@@ -77,20 +77,20 @@ public class StoreOwnerAddActivity extends AppCompatActivity {
                     text = "Successfully added!";
                     toast = Toast.makeText(context, text, duration);
                     toast.show();
-                    database.addProductToStore(user.getStoreName(), product);
-                }
-                try {
-                    doublePrice = Double.parseDouble(price);
-                    product.setPrice(doublePrice);
-                    user = (StoreOwner) Database.user;
-                    database.addProductToStore(user.getStoreName(), product);
+                    try {
+                        doublePrice = Double.parseDouble(price);
+                        product.setPrice(doublePrice);
+                        user = (StoreOwner) Database.user;
+                        database.addProductToStore(user.getStoreName(), product);
 
-                } catch (NumberFormatException e) {
-                    text = "Price must be numeric!";
-                    toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                    e.printStackTrace();
+                    } catch (NumberFormatException e) {
+                        text = "Price must be numeric!";
+                        toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        e.printStackTrace();
+                    }
                 }
+
             }catch (Exception e){
 
             }

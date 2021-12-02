@@ -13,7 +13,6 @@ public class StoreOwnerHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_owner_home);
-        Log.i("name", Database.user.toString());
     }
 
     public void navigateToAddProducts (View view) {
