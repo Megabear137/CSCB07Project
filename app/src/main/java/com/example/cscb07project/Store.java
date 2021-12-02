@@ -49,6 +49,31 @@ public class  Store {
         return null;
     }
 
+    //Edits the fields of a product in the store given a Product, its new name, new brand,
+    // and new price.
+    // Return 1 if successful, -1 otherwise.
+
+    public int editProductInfo(Product product, String newName, String newBrand, double newPrice) {
+        if(product.getName() == null){
+            return -1;
+        }
+        Product editedProduct = findProduct(product.getName());
+        if (product != null) {
+            product.setName(newName);
+            product.setBrand(newBrand);
+            product.setPrice(newPrice);
+            return 1;
+        }
+        return -1;
+
+
+    }
+
+
+
+
+
+
     @Override
     public int hashCode() {
         return (name.hashCode()+ownerName.hashCode())/2;

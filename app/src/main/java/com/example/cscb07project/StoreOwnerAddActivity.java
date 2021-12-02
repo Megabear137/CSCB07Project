@@ -58,7 +58,7 @@ public class StoreOwnerAddActivity extends AppCompatActivity {
         }
 
         //=== Remains to deal with uniqueness
-        Product other = database.findProductInStore(userStore.getName(), productName);
+        Product other = userStore.findProduct(productName);
 
 
 
@@ -69,7 +69,12 @@ public class StoreOwnerAddActivity extends AppCompatActivity {
                 product.setPrice(doublePrice);
                 product.setBrand(editBrand.getText().toString());
                 product.setName(editName.getText().toString());
-                if (database.productExists(userStore.getName(), productName)
+                if (doublePrice <= 0) {
+                    text = "Price must be positive!";
+                    toast = Toast.makeText(context,text,duration);
+                    toast.show();
+                }
+                else if (database.productExists(userStore.getName(), productName)
                     || product.equals(other) ){
                     text = "Product already exists. Try editing from previous menu.";
                     toast = Toast.makeText(context, text, duration);
