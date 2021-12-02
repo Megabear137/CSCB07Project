@@ -23,7 +23,7 @@
     <EditText
         android:id="@+id/storeNameText"
         android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginTop="100dp"
         android:ems="10"
         android:hint="@string/storeNameText"
@@ -38,29 +38,21 @@
         android:id="@+id/registerStoreButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="384dp"
+        android:layout_marginTop="60dp"
         android:onClick="registerStore"
         android:text="@string/registerStoreButton"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/storeNameFeedback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/registerStoreButton"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/storeNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/registerStoreFeedback" />
 
     <TextView
         android:id="@+id/registerStoreFeedback"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/registerStoreButton"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/storeNameText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

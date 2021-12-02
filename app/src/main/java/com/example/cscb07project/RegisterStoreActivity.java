@@ -3,12 +3,15 @@ package com.example.cscb07project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,12 +28,17 @@ public class RegisterStoreActivity extends AppCompatActivity {
 
     }
 
-//TODO Fix adding of store
+
     public void registerStore(View view) {
         //==== read from database to check if unique
         //==== write to database if unique else feedback message
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
+        Database database = Database.getInstance();
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        CharSequence text = "Store name already exists!";
+        Toast toast = Toast.makeText(context, text, duration);
 
         EditText editText = (EditText) findViewById(R.id.storeNameText);
         String storeName = editText.getText().toString();
@@ -49,6 +57,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.registerStoreFeedback);
 
         if (result == 1) {
+            nextIntent.putExtra("username",username);
             startActivity(nextIntent);
         }
         else{

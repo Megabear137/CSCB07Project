@@ -466,6 +466,90 @@ public class Database implements Contract.Model{
         return 1;
     }
 
+    public int editProduct(Product product, String storeName, String newName, String newBrand,
+                           double newPrice) {
+        if (product == null)
+            return -1;
+        Store store = findStore(storeName);
+        if (store == null || storeName == null || storeName.isEmpty())
+            return -2;
+        if (newName.isEmpty())
+            return -3;
+        if(newBrand.isEmpty()){
+            return -4;
+        }
+        if(newPrice < 0) {
+            return -5;
+        }
+
+        store.editProductInfo(product,newName, newBrand,newPrice);
+        updateDatabase();
+        return 1;
+
+
+    }
+
+    //Returns Product object in database given a store name and product name. Returns null if
+    // store or product does not exist
+    public Product findProductInStore(String storeName, String productName){
+        for (Store store: stores){
+            if(store.getName().equals(storeName)){
+                ArrayList<Product> products = store.getProducts();
+                for (Product product: products){
+                    if (product.getName().equals(productName)) {
+                        return product;
+                    }
+                }
+                return null;
+            }
+
+        }
+        return null;
+    }
+
+    //Returns true iff product is found in a store, given the store name and product name
+    public boolean productExists(String storeName, String productName){
+        if (findProductInStore(storeName,productName) == null) {
+            return false;
+        }
+        return true;
+    }
+
+    //Returns 1 upon successfully updating the database with edited product, when given a Product,
+    // store name, new name, new brand name, new price.
+    //Returns -1 on invalid product, -2 on invalid store name, -3 on invalid product name.
+    // -4 on invalid brand name, -5 on invalid price
+
+    public int editProduct(Product product, String storeName, String newName, String newBrand,
+                           double newPrice) {
+        if (product == null)
+            return -1;
+        Store store = findStore(storeName);
+        if (store == null || storeName == null || storeName.isEmpty())
+            return -2;
+        if (newName.isEmpty())
+            return -3;
+        if(newBrand.isEmpty()){
+            return -4;
+        }
+        if(newPrice < 0) {
+            return -5;
+        }
+
+        store.editProductInfo(product,newName, newBrand,newPrice);
+        updateDatabase();
+        return 1;
+
+
+    }
+
+
+
+
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+
     public ArrayList<Store> getStores() {
         return stores;
     }
