@@ -7,8 +7,97 @@
     android:foregroundTint="#0E0E0E"
     tools:context=".ViewStores">
 
+    <TextView
+        android:id="@+id/viewStoresStore3"
+        android:layout_width="378dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="@+id/viewStoresStore2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/viewStoresStore2"
+        app:layout_constraintTop_toBottomOf="@+id/viewStoresStore2" />
+
+    <TextView
+        android:id="@+id/viewStoresStore2"
+        android:layout_width="378dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/viewStoresStore1"
+        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintStart_toStartOf="@+id/viewStoresStore1"
+        app:layout_constraintTop_toBottomOf="@+id/viewStoresStore1" />
+
+    <TextView
+        android:id="@+id/viewStoresStore"
+        android:layout_width="378dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewStoresHeader" />
+
+    <TextView
+        android:id="@+id/viewStoresStoreName"
+        android:layout_width="350dp"
+        android:layout_height="38dp"
+        android:background="#A1F44336"
+        android:onClick="viewStore"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/viewStoresStore"
+        app:layout_constraintStart_toStartOf="@+id/viewStoresStore" />
+
+    <TextView
+        android:id="@+id/viewStoresStoreName3"
+        android:layout_width="350dp"
+        android:layout_height="38dp"
+        android:background="#599C27B0"
+        android:onClick="viewStore"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/viewStoresStore3"
+        app:layout_constraintStart_toStartOf="@+id/viewStoresStore2" />
+
+    <TextView
+        android:id="@+id/viewStoresStoreName2"
+        android:layout_width="350dp"
+        android:layout_height="38dp"
+        android:background="#9A4CAF50"
+        android:onClick="viewStore"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/viewStoresStore2"
+        app:layout_constraintStart_toStartOf="@+id/viewStoresStore1" />
+
+    <TextView
+        android:id="@+id/viewStoresStoreName1"
+        android:layout_width="350dp"
+        android:layout_height="38dp"
+        android:background="#8D00BCD4"
+        android:onClick="viewStore"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/viewStoresStore1"
+        app:layout_constraintStart_toStartOf="@+id/viewStoresStore" />
+
+    <TextView
+        android:id="@+id/viewStoresStore1"
+        android:layout_width="378dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="@+id/viewStoresStore"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/viewStoresStore"
+        app:layout_constraintTop_toBottomOf="@+id/viewStoresStore" />
+
     <View
-        android:id="@+id/view2"
+        android:id="@+id/viewStoresHeader"
         android:layout_width="415dp"
         android:layout_height="75dp"
         android:background="#3F51B5"
@@ -29,14 +118,15 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view2"
-        app:layout_constraintStart_toStartOf="@+id/view2" />
+        app:layout_constraintBottom_toBottomOf="@+id/viewStoresHeader"
+        app:layout_constraintStart_toStartOf="@+id/viewStoresHeader" />
 
     <Button
-        android:id="@+id/viewStorePreviousPageButton"
+        android:id="@+id/viewStoresPreviousPageButton"
         android:layout_width="110dp"
         android:layout_height="53dp"
         android:background="#000000"
+        android:onClick="previousPage"
         android:text="@string/previous"
         app:layout_constraintEnd_toStartOf="@+id/viewStoresPageNumber"
         app:layout_constraintHorizontal_bias="0.228"
@@ -44,10 +134,11 @@
         app:layout_constraintTop_toTopOf="@+id/viewStoresPageNumber" />
 
     <Button
-        android:id="@+id/viewStoreNextPageButton"
+        android:id="@+id/viewStoresNextPageButton"
         android:layout_width="110dp"
         android:layout_height="53dp"
         android:background="#000000"
+        android:onClick="nextPage"
         android:text="@string/next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.724"
@@ -66,18 +157,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
+        app:layout_constraintTop_toBottomOf="@+id/viewStoresHeader"
         app:layout_constraintVertical_bias="0.992" />
 
     <Button
         android:id="@+id/button9"
-        android:layout_width="74dp"
-        android:layout_height="40dp"
+        android:layout_width="80dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:onClick="Back"
         android:text="@string/back"
         app:layout_constraintEnd_toStartOf="@+id/textView6"
-        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintStart_toStartOf="@+id/viewStoresHeader"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

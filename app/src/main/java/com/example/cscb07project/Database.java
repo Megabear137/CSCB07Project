@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Database implements Contract.Model{
 
@@ -341,9 +342,9 @@ public class Database implements Contract.Model{
         return 0 if no customer has a matching username
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public int addProductToCart(String storeName, String productName, int quantity) {
+    public void addProductToCart(String storeName, String productName, int quantity) {
         if(!isCustomer()) {
-            return 0;
+            return;
         }
 
         Customer customer = (Customer)user;
@@ -358,83 +359,90 @@ public class Database implements Contract.Model{
                     order.products.put(productName, quantity);
                 }
                 updateDatabase();
-                return 1;
+                return;
             }
         }
 
-        Order order = new Order(customer.getUsername(), storeName);
-        order.products.put(productName, quantity);
-        customer.cart.add(order);
+        FirebaseDatabase.getInstance().getReference("OrderID").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                Order order = new Order(customer.getUsername(), storeName, task.getResult().getValue(Integer.class));
+                FirebaseDatabase.getInstance().getReference("OrderID").setValue(task.getResult().getValue(Integer.class) + 1);
+                order.products.put(productName, quantity);
+                customer.cart.add(order);
 
-        updateDatabase();
-        return 1;
+                updateDatabase();
+            }
+        });
     }
 
     /* Deletes one piece of product from cart belonging to specified customer.
     return 1 if successful.
     return 0 if no customer has a matching username.
-    return -1 if customer exists but has no more specified product to be deleted.
     Assumption: all products in cart will have count at least 1.
+    Assumption: The function is only called when there is at least one such product in cart. */
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public int deleteProductFromCart(Customer customer, Product product) {
-        if(!isCustomer(customer.getUsername())) {
+    public int deleteProductFromCart(String productName, String storeName) {
+        Customer customer = (Customer)user;
+        if(!isCustomer()) {
             return 0;
         }
 
-        HashMap<String, String> newCart = customer.getCart();
-        String productName = product.getName();
-        if (!newCart.containsKey(productName))
-            return -1;
-
-        int quantity = Integer.parseInt(Objects.requireNonNull(newCart.get(productName)));
-        if(quantity == 1)
-            newCart.remove(productName);
-        else
-            newCart.replace(productName, String.valueOf(quantity-1));
-        customer.setCart(newCart);
+        for (Order order: customer.getCart()) {
+            if(order.getStoreName().equals(storeName)) {
+                for(String name: order.getProducts().keySet()) {
+                    if(name.equals(productName)) {
+                        int quantity = order.getProducts().get(productName);
+                        if(quantity == 1) {
+                            order.products.remove(productName);
+                        }
+                        else {
+                            order.products.replace(productName, quantity-1);
+                        }
+                        return 1;
+                    }
+                }
+            }
+        }
         updateDatabase();
         return 1;
     }
-    */
+
 
     /* Make all products from the store in customer's cart into an order. Then add it
         to customer.pendingOrder and store.incomingOrder.
         return 1 if successful.
           return -1 if customer not found.
           return -2 if store not found.
-    public int makeOrder(Customer customer, Store store) {
-        if (!isCustomer(customer.getUsername()))
+          return -3 if cart has no order to be realized from the store.*/
+    public int makeOrder(String storeName) {
+        if (!isCustomer())
             return -1;
 
-        if (findStore(store.getName())==null)
+        if (findStore(storeName)==null)
             return -2;
 
-        HashMap<String ,String> oldCart = customer.getCart();
-        HashMap<String ,String> newCart = new HashMap<String, String>();
-        HashMap<String, String> productsInOrder = new HashMap<String, String>();
-        for (String productName: oldCart.keySet()) {
-            Product product = store.findProduct(productName);
-            if (product!=null && product.getBrand().equals(store.getName()))
-                productsInOrder.put(productName, oldCart.get(productName));
-            else
-                newCart.put(productName, oldCart.get(productName));
+        Customer customer = (Customer)user;
+        Order transferedOrder = null;
+        for(Order order: customer.getCart()) {
+            if(order.getStoreName().equals(storeName)) {
+                transferedOrder = order;
+                customer.cart.remove(order);
+                break;
+            }
+        }
+        if (transferedOrder == null) {
+            return -3;
         }
 
-        customer.setCart(newCart);
-        Order order = new Order(customer.getUsername(), store.getName(), productsInOrder);
-        /*ArrayList<Order> newPendingOrders = customer.getPendingOrders();
-        newPendingOrders.add(order);
-        customer.setPendingOrders(newPendingOrders);
-        ArrayList<Order> newIncomingOrders = store.getIncomingOrders();
-        newIncomingOrders.add(order);
-        store.setIncomingOrders(newIncomingOrders);*/
-        /*customer.pendingOrders.add(order);
-        store.incomingOrders.add(order);
+        customer.pendingOrders.add(transferedOrder);
+        Store store = findStore(storeName);
+        store.incomingOrders.add(transferedOrder);
         updateDatabase();
         return 1;
     }
-    */
+
 
     /* Move the order from incomingOrder to outgoingOrder and pendingOrder to CompletedOrder. */
     public int fulfillOrder(Order order) {
@@ -450,6 +458,35 @@ public class Database implements Contract.Model{
         customer.completedOrders.add(order);
         updateDatabase();
         return 1;
+    }
+
+    /*Remove the order from the customer's completedOrder.
+    Return 1 if successful.
+    Return -1 if no such order found.
+     */
+    public int customerDeleteHistory(Order order) {
+        Customer customer = (Customer)user;
+        if (customer.completedOrders.contains(order)) {
+            customer.completedOrders.remove(order);
+            updateDatabase();
+            return 1;
+        }
+        else
+            return -1;
+    }
+
+    /*Remove the order from the store's outgoingOrder.
+    Return 1 if successful.
+    Return -1 if no such order found.
+     */
+    public int storeDeleteHistory(Order order) {
+        if (store.outgoingOrders.contains(order)) {
+            store.outgoingOrders.remove(order);
+            updateDatabase();
+            return 1;
+        }
+        else
+            return -1;
     }
 
     public int editProduct(Product product, String storeName, String newName, String newBrand,
@@ -471,9 +508,8 @@ public class Database implements Contract.Model{
         store.editProductInfo(product,newName, newBrand,newPrice);
         updateDatabase();
         return 1;
-
-
     }
+
 
     //Returns Product object in database given a store name and product name. Returns null if
     // store or product does not exist

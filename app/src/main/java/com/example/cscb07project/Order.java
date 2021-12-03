@@ -13,20 +13,24 @@ public class Order {
     HashMap<String, Integer> products;
     boolean isFulfilled;
     long time;
+    int id;
 
-    public Order (String customerName, String storeName, HashMap<String, Integer> products) {
+    public Order (String customerName, String storeName, HashMap<String, Integer> products, int id) {
         this.products = products;
         this.customerName = customerName;
         this.storeName = storeName;
         isFulfilled = false;
+        this.id = id;
         time = System.currentTimeMillis();
     }
 
-    public Order (String customerName, String storeName) {
+    public Order (String customerName, String storeName, int id) {
+        this.id = id;
         this.products = new HashMap<>();
         this.customerName = customerName;
         this.storeName = storeName;
         isFulfilled = false;
+        time = System.currentTimeMillis();
     }
 
     public Order(){
@@ -86,6 +90,10 @@ public class Order {
         this.storeName = storeName;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     // === Getters === Remove getters later if not needed
     public HashMap<String, Integer> getProducts() {
         return products;
@@ -101,5 +109,9 @@ public class Order {
 
     public String getStoreName() {
         return storeName;
+    }
+
+    public int getId() {
+        return id;
     }
 }
