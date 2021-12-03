@@ -37,7 +37,7 @@ public class Order {
         double total = 0;
         Database database = new Database();
         for(String productName: products.keySet()) {
-            double price = database.findProduct(productName).getPrice();
+            double price = database.findProductInStore(productName, storeName).getPrice();
             total += price * products.get(productName);
         }
 

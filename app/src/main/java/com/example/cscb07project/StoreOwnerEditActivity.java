@@ -57,7 +57,7 @@ public class StoreOwnerEditActivity extends AppCompatActivity implements Adapter
         String productName = parent.getItemAtPosition(position).toString();
         StoreOwner user = (StoreOwner) Database.user;
         Store userStore = Database.store;
-        Product product = database.findProductInStore(productName);
+        Product product = database.findProductInStore(productName, userStore.getName());
         EditText productText = (EditText) findViewById(R.id.editProductName);
         EditText brandText = (EditText) findViewById(R.id.editBrandName);
         EditText priceText = (EditText) findViewById(R.id.editPrice);

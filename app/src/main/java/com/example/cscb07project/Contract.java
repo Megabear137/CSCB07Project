@@ -10,6 +10,7 @@ public interface Contract {
         boolean isStoreOwner();
         Store findStore(String storeName);
         Product findProduct(String productName);
+        Product findProductInStore(String productName, String storeName);
         void addCustomer(String username, String password, Contract.Presenter presenter);
         void addStoreOwner(String username, String password, Contract.Presenter presenter);
         void addStore(String storeName, String ownerName, RegisterStoreActivity rsa);

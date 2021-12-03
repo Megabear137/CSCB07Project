@@ -22,6 +22,7 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
     Customer customer;
 
     boolean canOrder = true;
+    String storeName;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -29,7 +30,7 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_store);
 
-        String storeName = getIntent().getStringExtra("store");
+        storeName = getIntent().getStringExtra("store");
         Database database = new Database();
         store = database.findStore(storeName);
         customer = (Customer) Database.user;
@@ -74,7 +75,7 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
         Database database = new Database();
         ArrayList<String> productsInSpinner = new ArrayList<String>();
         for(String productName: orderInCart.products.keySet()){
-            Product product = database.findProduct(productName);
+            Product product = database.findProductInStore(productName, storeName);
             String orderInfo = product.toString() + "    *" + orderInCart.products.get(productName);
             productsInSpinner.add(orderInfo);
         }
