@@ -533,7 +533,7 @@ public class Database implements Contract.Model{
         return true;
     }
 
-    // Returns Order if given orderID corresponding to order is found, null otherwise
+    // Returns incoming Order if given orderID corresponding to order is found, null otherwise
     public Order findIncomingOrder(int orderID) {
         for (Order order: store.incomingOrders) {
             if (orderID == order.getId()){
@@ -550,6 +550,7 @@ public class Database implements Contract.Model{
     public int storeCompleteOrder(int orderID) {
         Order order = findIncomingOrder(orderID);
         if (store.incomingOrders.contains(order)) {
+            order.setFulfilled(true);
             store.incomingOrders.remove(order);
             store.outgoingOrders.add(order);
             updateDatabase();
@@ -557,6 +558,17 @@ public class Database implements Contract.Model{
         }
         else
             return -1;
+    }
+
+    // Returns outgoing Order if given orderID corresponding to order is found, null otherwise
+    public Order findOutgoingOrder(int orderID) {
+        for (Order order: store.outgoingOrders) {
+            if (orderID == order.getId()){
+                return order;
+            }
+        }
+        return null;
+
     }
 
 

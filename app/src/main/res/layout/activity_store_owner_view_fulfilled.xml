@@ -22,9 +22,10 @@
         android:id="@+id/fulfilledOrderInfo"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
-        android:layout_marginTop="172dp"
         android:text="@string/fulfilledOrderInfo"
+        app:layout_constraintBottom_toTopOf="@+id/deleteFulfilledOrder"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fulfilledOrders" />
 
@@ -36,8 +37,21 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="1dp"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/fulfilledOrderInfo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fulfilledText" />
+
+    <Button
+        android:id="@+id/deleteFulfilledOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/deleteFulfilledOrder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fulfilledOrderInfo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

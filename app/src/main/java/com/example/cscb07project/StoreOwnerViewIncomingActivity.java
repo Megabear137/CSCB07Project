@@ -60,12 +60,12 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
         TextView orderInfo = (TextView) findViewById(R.id.incomingOrderInfo);
         HashMap<String, Integer> products =  order.getProducts();
         if (products != null) {
-            String allOrderInfo = "";
+            String allProductsInfo = "";
             for(Map.Entry<String,Integer> m: products.entrySet()) {
                 Product current = userStore.findProduct((String) m.getKey());
-                allOrderInfo += m.getKey() + " " +  current.getPrice() + " " +  m.getValue() + "\n";
+                allProductsInfo += m.getKey() + " " +  current.getPrice() + " " +  m.getValue() + "\n";
             }
-            allOrderInfo += order.getCustomerName() + "\n";
+            String allOrderInfo = order.getCustomerName() + "\n" + allProductsInfo;
             orderInfo.setText(allOrderInfo);
         }
 
@@ -80,7 +80,7 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
         int duration = Toast.LENGTH_SHORT;
-        CharSequence text = "Select a product to edit";
+        CharSequence text = "Select an order to view";
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
@@ -96,14 +96,14 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
         Spinner spinner = (Spinner) findViewById(R.id.incomingOrderSpinner);
         String orderID = (String)spinner.getSelectedItem();
 
-        //==
+
         int duration = Toast.LENGTH_SHORT;
         CharSequence text = "Failed to fulfill order";
         Context context = getApplicationContext();
         if (userStore.incomingOrders == null || userStore.incomingOrders.isEmpty()){
             text = "You have no incoming orders";
         }
-        //=== Remove from store orders
+
         else if (database.storeCompleteOrder(Integer.parseInt(orderID)) == 1) {
             text = "Successfully fulfilled order!";
             updateSpinner();

@@ -58,5 +58,6 @@
     <string name="confirmChangesButton">CONFIRM ALL CHANGES</string>
     <string name="registerStoreFeedback"></string>
     <string name="logoutButton">LOGOUT</string>
+    <string name="deleteFulfilledOrder">DELETE FULFILLED ORDER</string>
 
 </resources>
