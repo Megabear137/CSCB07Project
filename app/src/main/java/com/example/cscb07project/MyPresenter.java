@@ -16,7 +16,10 @@ public class MyPresenter implements Contract.Presenter {
     public void checkLogin() {
         String username = view.getUsername();
         String password = view.getPassword();
-        database.matchPass(username, password, this);
+
+        if(username.equals("")) view.displayMessage("Please Enter a Username");
+        else if(password.equals("")) view.displayMessage("Please Enter a Password");
+        else database.matchPass(username, password, this);
     }
 
 
