@@ -26,8 +26,9 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="1dp"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/incomingOrderInfo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/incomingText" />
 
@@ -35,10 +36,10 @@
         android:id="@+id/incomingOrderInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
         android:text="@string/incomingOrderInfo"
+        app:layout_constraintBottom_toTopOf="@+id/markFulfilledButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/incomingOrderSpinner" />
 
@@ -46,9 +47,10 @@
         android:id="@+id/markFulfilledButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
         android:text="@string/markFulfilledButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/incomingOrderInfo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

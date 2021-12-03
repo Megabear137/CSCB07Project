@@ -65,6 +65,15 @@ public class  Store {
         }
         return -1;
 
+    }
+    // Returns Order if given orderID corresponding to order is found, null otherwise
+    public Order findIncomingOrder(int orderID) {
+        for (Order order: incomingOrders) {
+            if (orderID == order.getID()){
+                return order;
+            }
+        }
+        return null;
 
     }
 
