@@ -77,7 +77,6 @@ public class StoreOwnerEditActivity extends AppCompatActivity implements Adapter
         CharSequence text = "Select a product to edit";
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, duration);
-
     }
 
     public void editProduct(View view) {

@@ -390,7 +390,7 @@ public class Database implements Contract.Model{
         });
     }
 
-    /* Deletes one piece of product from cart belonging to specified customer.
+    /* Deletes entire product from cart belonging to specified customer.
     return 1 if successful.
     return 0 if no customer has a matching username.
     Assumption: all products in cart will have count at least 1.
@@ -403,17 +403,11 @@ public class Database implements Contract.Model{
             return 0;
         }
 
-        for (Order order: customer.getCart()) {
+        for (Order order: customer.cart) {
             if(order.getStoreName().equals(storeName)) {
                 for(String name: order.getProducts().keySet()) {
                     if(name.equals(productName)) {
-                        int quantity = order.getProducts().get(productName);
-                        if(quantity == 1) {
-                            order.products.remove(productName);
-                        }
-                        else {
-                            order.products.replace(productName, quantity-1);
-                        }
+                        order.products.remove(name);
                         return 1;
                     }
                 }

@@ -33,6 +33,17 @@ public class Order {
         time = System.currentTimeMillis();
     }
 
+    public double calculateTotal() {
+        double total = 0;
+        Database database = new Database();
+        for(String productName: products.keySet()) {
+            double price = database.findProduct(productName).getPrice();
+            total += price * products.get(productName);
+        }
+
+        return total;
+    }
+
     public Order(){
 
     }
