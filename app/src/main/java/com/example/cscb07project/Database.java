@@ -533,6 +533,34 @@ public class Database implements Contract.Model{
         return true;
     }
 
+    // Returns Order if given orderID corresponding to order is found, null otherwise
+    public Order findIncomingOrder(int orderID) {
+        for (Order order: store.incomingOrders) {
+            if (orderID == order.getId()){
+                return order;
+            }
+        }
+        return null;
+
+    }
+
+
+    //Returns 1 iff order has been successfully removed from incoming orders,
+    // and added to outgoing orders, and returns -1 otherwise
+    public int storeCompleteOrder(int orderID) {
+        Order order = findIncomingOrder(orderID);
+        if (store.incomingOrders.contains(order)) {
+            store.incomingOrders.remove(order);
+            store.outgoingOrders.add(order);
+            updateDatabase();
+            return 1;
+        }
+        else
+            return -1;
+    }
+
+
+
 
     public ArrayList<Store> getStores() {
         return stores;

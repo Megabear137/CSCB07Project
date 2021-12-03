@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,7 +30,7 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
     public void updateSpinner() {
         Intent i = getIntent();
         String username = i.getStringExtra("username");
-        Spinner spinner = (Spinner) findViewById(R.id.productSpinner);
+        Spinner spinner = (Spinner) findViewById(R.id.incomingOrderSpinner);
         spinner.setOnItemSelectedListener(this);
         Database database = Database.getInstance();
         StoreOwner user = (StoreOwner) Database.user;
@@ -37,7 +38,7 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
         ArrayList<Order> orders = userStore.getIncomingOrders();
         ArrayList<String> allOrders= new ArrayList<String>();
         for (Order order: orders) {
-            allOrders.add(Integer.toString(order.getID()));
+            allOrders.add(Integer.toString(order.getId()));
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, allOrders);
@@ -55,7 +56,7 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
         StoreOwner user = (StoreOwner) Database.user;
         Store userStore = Database.store;
         int intOrderID = Integer.parseInt(orderID);
-        Order order = userStore.findIncomingOrder(intOrderID);
+        Order order = database.findIncomingOrder(intOrderID);
         TextView orderInfo = (TextView) findViewById(R.id.incomingOrderInfo);
         HashMap<String, Integer> products =  order.getProducts();
         if (products != null) {
@@ -82,10 +83,45 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
         CharSequence text = "Select a product to edit";
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
 
     }
 
     public void markCompleted(View view) {
+        Database database = new Database();
+        StoreOwner user = (StoreOwner) Database.user;
+        Store userStore = Database.store;
+        Intent i = getIntent();
+        String username = user.getUsername();
+        Spinner spinner = (Spinner) findViewById(R.id.incomingOrderSpinner);
+        String orderID = (String)spinner.getSelectedItem();
+
+        //==
+        int duration = Toast.LENGTH_SHORT;
+        CharSequence text = "Failed to fulfill order";
+        Context context = getApplicationContext();
+        if (userStore.incomingOrders == null || userStore.incomingOrders.isEmpty()){
+            text = "You have no incoming orders";
+        }
+        //=== Remove from store orders
+        else if (database.storeCompleteOrder(Integer.parseInt(orderID)) == 1) {
+            text = "Successfully fulfilled order!";
+            updateSpinner();
+        }
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
