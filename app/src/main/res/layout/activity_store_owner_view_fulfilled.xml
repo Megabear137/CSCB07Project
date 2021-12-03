@@ -21,7 +21,7 @@
     <TextView
         android:id="@+id/fulfilledOrderInfo"
         android:layout_width="wrap_content"
-        android:layout_height="19dp"
+        android:layout_height="wrap_content"
         android:text="@string/fulfilledOrderInfo"
         app:layout_constraintBottom_toTopOf="@+id/deleteFulfilledOrder"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +47,7 @@
         android:id="@+id/deleteFulfilledOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="deleteFulfilledOrder"
         android:text="@string/deleteFulfilledOrder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
