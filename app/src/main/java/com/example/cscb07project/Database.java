@@ -35,8 +35,6 @@ public class Database implements Contract.Model{
 
     public Database() {
 
-        stores = new ArrayList<>();
-
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("UserCount");
         ValueEventListener listener = new ValueEventListener() {
             @Override
@@ -75,10 +73,10 @@ public class Database implements Contract.Model{
 
     public void updateDatabase(){
         FirebaseDatabase.getInstance().getReference().child("Users").child(userIndex + "").setValue(user);
-        if(user.isStoreOwner){
+        if(user.isStoreOwner && store != null){
             FirebaseDatabase.getInstance().getReference("Stores").child(storeIndex + "").setValue(store);
         }
-        else{
+        else if(stores != null && !stores.isEmpty()){
             FirebaseDatabase.getInstance().getReference("Stores").setValue(stores);
         }
     }
@@ -98,15 +96,29 @@ public class Database implements Contract.Model{
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         if (snapshot.child("isStoreOwner").getValue(Boolean.class)) {
-                                            user = snapshot.getValue(StoreOwner.class);
-                                            userIndex = Integer.parseInt(snapshot.getKey());
-                                            if(isLogin) presenter.validateLogin(user);
-                                            initializeStore(snapshot.child("storeName").getValue(String.class));
+                                            if(user == null || !user.getUsername().equals(username)){
+                                                user = snapshot.getValue(StoreOwner.class);
+                                                userIndex = Integer.parseInt(snapshot.getKey());
+                                                presenter.validateLogin(user);
+                                                initializeStore(snapshot.child("storeName").getValue(String.class));
+                                            }
+                                            else{
+                                                user = snapshot.getValue(StoreOwner.class);
+                                                userIndex = Integer.parseInt(snapshot.getKey());
+                                                initializeStore(snapshot.child("storeName").getValue(String.class));
+                                            }
                                         } else {
-                                            user = snapshot.getValue(Customer.class);
-                                            userIndex = Integer.parseInt(snapshot.getKey());
-                                            if(isLogin) presenter.validateLogin(user);
-                                            initializeStores();
+                                            if(user == null || !user.getUsername().equals(username)){
+                                                user = snapshot.getValue(Customer.class);
+                                                userIndex = Integer.parseInt(snapshot.getKey());
+                                                if(isLogin) presenter.validateLogin(user);
+                                                initializeStores();
+                                            }
+                                            else{
+                                                user = snapshot.getValue(Customer.class);
+                                                userIndex = Integer.parseInt(snapshot.getKey());
+                                                initializeStores();
+                                            }
                                         }
                                     }
 
@@ -125,6 +137,8 @@ public class Database implements Contract.Model{
     }
 
     public void initializeStores(){
+
+        stores = new ArrayList<>();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Stores");
 
@@ -189,7 +203,7 @@ public class Database implements Contract.Model{
         ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.getResult().getValue() != null && task.getResult().getValue(String.class).equals(password)) initializeUser(username, true, presenter);
+                if(task.getResult().exists() && task.getResult().getValue(String.class).equals(password)) initializeUser(username, true, presenter);
                 else if(task.getResult().getValue() != null) presenter.invalidateLogin(0);
                 else presenter.invalidateLogin(1);
             }
@@ -420,7 +434,7 @@ public class Database implements Contract.Model{
         if (!isCustomer())
             return -1;
 
-        if (findStore(storeName)==null)
+        if (findStore(storeName) == null)
             return -2;
 
         Customer customer = (Customer)user;

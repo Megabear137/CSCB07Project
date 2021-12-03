@@ -28,6 +28,7 @@ public class CustomerUsageEntryScreen extends AppCompatActivity {
 
         TextView welcome = findViewById(R.id.customerUsageWelcomeView);
         welcome.setText("Welcome " + username + "!");
+
     }
 
     public void viewStores(View view){

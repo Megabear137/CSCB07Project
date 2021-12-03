@@ -19,6 +19,7 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         presenter = new MyPresenter(this, new Database());
+        Database.user = null;
     }
 
     public void moveToLogin(View view) {
