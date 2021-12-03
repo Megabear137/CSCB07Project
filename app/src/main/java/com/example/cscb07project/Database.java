@@ -386,6 +386,7 @@ public class Database implements Contract.Model{
                 customer.cart.add(order);
 
                 updateDatabase();
+
             }
         });
     }

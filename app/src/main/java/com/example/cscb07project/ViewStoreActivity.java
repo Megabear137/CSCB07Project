@@ -21,6 +21,9 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
     Store store;
     Customer customer;
 
+    boolean canOrder = true;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,13 +99,15 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
         TextView totalTextView = findViewById(R.id.total);
         if(orderInCart == null)
             totalTextView.setText("$0");
-        String total = "$"+String.valueOf(orderInCart.calculateTotal());
-        totalTextView.setText(total);
+        else{
+            String total = "$"+String.valueOf(orderInCart.calculateTotal());
+            totalTextView.setText(total);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void addAmount(View view) {
-        Spinner spinner = (Spinner) findViewById(R.id.productSpinner);
+        Spinner spinner = (Spinner) findViewById(R.id.productsSpinner);
         String productInfo = (String) spinner.getSelectedItem();
         int index = productInfo.indexOf(";");
         String productName = productInfo.substring(0,index);
@@ -141,5 +146,9 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
         Toast.makeText(getApplicationContext(), "Please select an item", Toast.LENGTH_SHORT).show();
+    }
+
+    public void setCanOrder(){
+        canOrder = true;
     }
 }

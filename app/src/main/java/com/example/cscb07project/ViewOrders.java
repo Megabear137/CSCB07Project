@@ -1,8 +1,10 @@
 package com.example.cscb07project;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +33,11 @@ public class ViewOrders extends AppCompatActivity {
     ArrayList<TextView> productNames;
     ArrayList<TextView> orders;
 
+    String current;
+    int page;
+    int maxPage;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +45,8 @@ public class ViewOrders extends AppCompatActivity {
 
 
         Database database = new Database();
+
+        database.makeOrder("McDonalds");
 
         Intent intent = getIntent();
         String customerName = intent.getStringExtra("username");
@@ -47,15 +56,21 @@ public class ViewOrders extends AppCompatActivity {
         if(customer.cart == null) cartSize = 0;
         else cartSize = customer.cart.size();
 
-        int page = 1;
-        int maxPage = (int) Math.ceil(cartSize / 5.0);
+        page = 1;
+        maxPage = (int) Math.ceil(cartSize / 4.0);
+
+        previous = findViewById(R.id.viewOrdersPreviousPageButton);
+        next = findViewById(R.id.viewOrdersNextPageButton);
+
+        previous.setVisibility(View.GONE);
+        if(maxPage == 1) next.setVisibility(View.GONE);
+
+        current = "Shopping Cart";
 
         title = findViewById(R.id.viewOrdersTitles);
         leftButton = findViewById(R.id.viewOrdersLeftButton);
         rightButton = findViewById(R.id.viewOrdersRightButton);
         pageNumber = findViewById(R.id.viewOrdersPageNumber);
-        next = findViewById(R.id.viewOrdersNextPageButton);
-        previous = findViewById(R.id.viewOrdersPreviousPageButton);
 
         title.setText(R.string.shopping_cart);
         leftButton.setText(R.string.pending_orders);
@@ -134,12 +149,54 @@ public class ViewOrders extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showCart(View view){
-        int ordersOnPage;
-        for(Order order: customer.cart){
+    public void rightButton(View view){
+        if(current.equals("Shopping Cart")){
+            title.setText(rightButton.getText());
+            current = (String) rightButton.getText();
+            rightButton.setText("Shopping Cart");
+        }
+        else if(current.equals("Completed Orders")){
+            title.setText(rightButton.getText());
+            current = (String) rightButton.getText();
+            rightButton.setText("Completed Order");
+        }
+        else if(current.equals("Pending Orders")){
+            title.setText(rightButton.getText());
+            current = (String) rightButton.getText();
+            rightButton.setText("Pending Orders");
+        }
+    }
 
+    public void leftButton(View view){
+        if(current.equals("Shopping Cart")){
+            title.setText(leftButton.getText());
+            current = (String) leftButton.getText();
+            leftButton.setText("Shopping Cart");
+        }
+        else if(current.equals("Completed Orders")){
+            title.setText(leftButton.getText());
+            current = (String) leftButton.getText();
+            leftButton.setText("Completed Order");
+        }
+        else if(current.equals("Pending Orders")){
+            title.setText(leftButton.getText());
+            current = (String) leftButton.getText();
+            leftButton.setText("Pending Orders");
         }
     }
 
 
+    public void previousPage(View view){
+        page--;
+        pageNumber.setText(page + "");
+        if(page == 1) previous.setVisibility(View.GONE);
+        if(page < maxPage) next.setVisibility(View.VISIBLE);
+    }
+
+    public void nextPage(View view){
+        page++;
+        pageNumber.setText(page + "");
+        if(page > 1) previous.setVisibility(View.VISIBLE);
+        if(page == maxPage) next.setVisibility(View.GONE);
+    }
 }
