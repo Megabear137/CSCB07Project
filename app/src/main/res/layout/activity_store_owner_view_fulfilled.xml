@@ -23,25 +23,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fulfilledOrderInfo"
-        app:layout_constraintBottom_toTopOf="@+id/deleteFulfilledOrder"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toTopOf="@+id/fulfilledCustomerName"
+        app:layout_constraintEnd_toStartOf="@+id/fulfilledPriceText"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fulfilledOrders" />
 
     <Spinner
         android:id="@+id/fulfilledOrders"
-        android:layout_width="409dp"
+        android:layout_width="264dp"
         android:layout_height="48dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginTop="12dp"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/fulfilledOrderInfo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fulfilledText" />
+        app:layout_constraintTop_toBottomOf="@+id/fulfilledOrderIdText" />
 
     <Button
         android:id="@+id/deleteFulfilledOrder"
@@ -53,6 +51,53 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fulfilledOrderInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/fulfilledCustomerName" />
+
+    <TextView
+        android:id="@+id/fulfilledPriceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/priceText"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toTopOf="@+id/fulfilledCustomerName"
+        app:layout_constraintEnd_toStartOf="@+id/fulfilledQuantityText"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fulfilledOrderInfo"
+        app:layout_constraintTop_toBottomOf="@+id/fulfilledOrders" />
+
+    <TextView
+        android:id="@+id/fulfilledQuantityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/quantityText"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toTopOf="@+id/fulfilledCustomerName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fulfilledPriceText"
+        app:layout_constraintTop_toBottomOf="@+id/fulfilledOrders" />
+
+    <TextView
+        android:id="@+id/fulfilledCustomerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/customerNameText"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toTopOf="@+id/deleteFulfilledOrder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fulfilledPriceText" />
+
+    <TextView
+        android:id="@+id/fulfilledOrderIdText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/orderIdText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.205"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fulfilledText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

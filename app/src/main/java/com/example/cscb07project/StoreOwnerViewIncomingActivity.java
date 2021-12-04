@@ -58,15 +58,25 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
         int intOrderID = Integer.parseInt(orderID);
         Order order = database.findIncomingOrder(intOrderID);
         TextView orderInfo = (TextView) findViewById(R.id.incomingOrderInfo);
+        TextView priceInfo = (TextView) findViewById(R.id.priceText);
+        TextView quantityInfo = (TextView) findViewById(R.id.quantityText);
+        TextView customerInfo = (TextView) findViewById(R.id.customerNameText);
         HashMap<String, Integer> products =  order.getProducts();
         if (products != null) {
-            String allProductsInfo = "";
+            String allProductNames = "Products:\n";
+            String allPrices = "Prices:\n";
+            String allQuantities ="Quantities:\n";
+            String customerName = "Customer name: " +order.getCustomerName();
             for(Map.Entry<String,Integer> m: products.entrySet()) {
                 Product current = userStore.findProduct((String) m.getKey());
-                allProductsInfo += m.getKey() + " " +  current.getPrice() + " " +  m.getValue() + "\n";
+                allProductNames += m.getKey()  + "\n";
+                allPrices += current.getPrice()+ "\n";
+                allQuantities += m.getValue() + "\n";
             }
-            String allOrderInfo = order.getCustomerName() + "\n" + allProductsInfo;
-            orderInfo.setText(allOrderInfo);
+            orderInfo.setText(allProductNames);
+            priceInfo.setText(allPrices);
+            quantityInfo.setText(allQuantities);
+            customerInfo.setText(customerName);
         }
 
         int duration = Toast.LENGTH_SHORT;
