@@ -31,9 +31,6 @@ public interface Contract {
 
     interface Presenter {
         void checkLogin();
-        boolean checkCustomer();
-        void addCustomer();
-        void addStoreOwner();
         void checkSignup(String value);
         void validateLogin(User user);
         void invalidateLogin(int result);
