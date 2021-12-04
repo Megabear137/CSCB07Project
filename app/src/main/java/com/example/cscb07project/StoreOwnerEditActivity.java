@@ -57,7 +57,7 @@ public class StoreOwnerEditActivity extends AppCompatActivity implements Adapter
         String productName = parent.getItemAtPosition(position).toString();
         StoreOwner user = (StoreOwner) Database.user;
         Store userStore = Database.store;
-        Product product = database.findProductInStore(productName, userStore.getName());
+        Product product = userStore.findProduct(productName);
         EditText productText = (EditText) findViewById(R.id.editProductName);
         EditText brandText = (EditText) findViewById(R.id.editBrandName);
         EditText priceText = (EditText) findViewById(R.id.editPrice);
@@ -145,7 +145,7 @@ public class StoreOwnerEditActivity extends AppCompatActivity implements Adapter
                     toast = Toast.makeText(context,text,duration);
                     toast.show();
                 }
-                else if (database.productExists(userStore.getName(), newProductName)
+                else if (userStore.productExists(newProductName)
                         && !newProductName.equals(productName)){
                     text = "Product with this name already exists.";
                     toast = Toast.makeText(context, text, duration);

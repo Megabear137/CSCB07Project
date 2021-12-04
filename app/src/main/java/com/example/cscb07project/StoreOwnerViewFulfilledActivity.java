@@ -64,23 +64,30 @@ public class StoreOwnerViewFulfilledActivity extends AppCompatActivity implement
         TextView priceInfo = (TextView) findViewById(R.id.fulfilledPriceText);
         TextView quantityInfo = (TextView) findViewById(R.id.fulfilledQuantityText);
         TextView customerInfo = (TextView) findViewById(R.id.fulfilledCustomerName);
+        TextView costInfo = (TextView) findViewById(R.id.fulfilledTotalCost);
         if (order != null) {
             HashMap<String, Integer> products =  order.getProducts();
             if (products != null) {
-                String allProductNames = "Products:\n";
-                String allPrices = "Prices:\n";
-                String allQuantities ="Quantities:\n";
+                String allProductNames = "Product:\n";
+                String allPrices = "Price:\n";
+                String allQuantities ="Quantity:\n";
                 String customerName = "Customer name: " +order.getCustomerName();
+                String totalCostMessage;
+                Double totalCost = 0.0;
                 for(Map.Entry<String,Integer> m: products.entrySet()) {
                     Product current = userStore.findProduct((String) m.getKey());
                     allProductNames += m.getKey()  + "\n";
                     allPrices += current.getPrice()+ "\n";
                     allQuantities += m.getValue() + "\n";
+                    totalCost += current.getPrice() * m.getValue();
                 }
+                totalCost = Math.round(totalCost *100.0)/ 100.0;
+                totalCostMessage = "Total cost: $" + Double.toString(totalCost);
                 orderInfo.setText(allProductNames);
                 priceInfo.setText(allPrices);
                 quantityInfo.setText(allQuantities);
                 customerInfo.setText(customerName);
+                costInfo.setText(totalCostMessage);
             }
 
             int duration = Toast.LENGTH_SHORT;
@@ -111,18 +118,17 @@ public class StoreOwnerViewFulfilledActivity extends AppCompatActivity implement
         String username = user.getUsername();
         Spinner spinner = (Spinner) findViewById(R.id.fulfilledOrders);
         String orderID = (String) spinner.getSelectedItem();
-        Order order = database.findOutgoingOrder(Integer.parseInt(orderID));
-
-        //==
+        CharSequence text = "You have no outgoing orders";
         int duration = Toast.LENGTH_SHORT;
-        CharSequence text = "Failed to remove order";
         Context context = getApplicationContext();
-        if (userStore.outgoingOrders == null || userStore.outgoingOrders.isEmpty()) {
-            text = "You have no outgoing orders";
-        } else if (database.storeDeleteHistory(order) == 1) {
-            text = "Successfully removed order!";
-            updateSpinner();
+        if (userStore.getOutgoingOrders()!= null && !userStore.getOutgoingOrders().isEmpty()) {
+            Order order = database.findOutgoingOrder(Integer.parseInt(orderID));
+            if (database.storeDeleteHistory(order) == 1) {
+                text = "Successfully removed order!";
+                updateSpinner();
+            }
         }
+
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }

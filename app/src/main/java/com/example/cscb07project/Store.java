@@ -48,6 +48,13 @@ public class  Store {
         return null;
     }
 
+    public boolean productExists(String productName) {
+        if (findProduct(productName) != null)
+            return true;
+        return false;
+
+    }
+
     //Edits the fields of a product in the store given a Product, its new name, new brand,
     // and new price.
     // Return 1 if successful, -1 otherwise.

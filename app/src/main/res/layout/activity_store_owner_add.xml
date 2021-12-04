@@ -14,6 +14,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/productsMessage"
         android:textAlignment="center"
+        android:textColor="#E91E63"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +30,9 @@
         android:ems="10"
         android:hint="@string/productNameText"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:textAlignment="center"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +45,9 @@
         android:ems="10"
         android:hint="@string/productBrandText"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:textAlignment="center"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productNameText" />
@@ -55,7 +60,9 @@
         android:ems="10"
         android:hint="@string/productPriceText"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:textAlignment="center"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productBrandText" />

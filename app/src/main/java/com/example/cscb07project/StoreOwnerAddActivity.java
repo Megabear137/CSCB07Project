@@ -68,21 +68,20 @@ public class StoreOwnerAddActivity extends AppCompatActivity {
                     text = "Price must be positive!";
                     toast = Toast.makeText(context, text, duration);
                     toast.show();
-                } else if (database.productExists(userStore.getName(), productName)
+                } else if (userStore.productExists(productName)
                         || product.equals(other)) {
                     text = "Product already exists. Try editing from previous menu.";
                     toast = Toast.makeText(context, text, duration);
                     toast.show();
                 } else {
-                    text = "Successfully added!";
-                    toast = Toast.makeText(context, text, duration);
-                    toast.show();
                     try {
                         doublePrice = Double.parseDouble(price);
                         product.setPrice(doublePrice);
                         user = (StoreOwner) Database.user;
                         database.addProductToStore(user.getStoreName(), product);
-
+                        text = "Successfully added!";
+                        toast = Toast.makeText(context, text, duration);
+                        toast.show();
                     } catch (NumberFormatException e) {
                         text = "Price must be numeric!";
                         toast = Toast.makeText(context, text, duration);
@@ -91,9 +90,14 @@ public class StoreOwnerAddActivity extends AppCompatActivity {
                     }
                 }
 
-            }catch (Exception e){
-
             }
+            catch (NumberFormatException e) {
+                text = "Price must be numeric!";
+                toast = Toast.makeText(context, text, duration);
+                toast.show();
+                e.printStackTrace();
+            }
+
 
 
         }

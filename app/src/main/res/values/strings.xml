@@ -45,9 +45,9 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="editProductMessage">Choose a Product to Edit</string>
     <string name="fulfilledText">Fulfilled Orders</string>
-    <string name="fulfilledOrderInfo">Products:</string>
+    <string name="fulfilledOrderInfo">Product:</string>
     <string name="incomingText">Incoming Orders</string>
-    <string name="incomingOrderInfo">Products:</string>
+    <string name="incomingOrderInfo">Product:</string>
     <string name="markFulfilledButton">FULFILL ORDER</string>
     <string name="changeToLabel">Change To:</string>
     <string name="currentInfoLabel">Current Info:</string>
@@ -73,5 +73,6 @@
     <string name="chooseProduct">Choose a product: </string>
     <string name="viewCart">View your cart: </string>
     <string name="makeOrder">Make Order</string>
+    <string name="totalCostMessage">Total cost:</string>
 
 </resources>

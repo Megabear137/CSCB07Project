@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 public class StoreOwnerHomeActivity extends AppCompatActivity {
 
@@ -13,6 +14,10 @@ public class StoreOwnerHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_owner_home);
+        Intent i = getIntent();
+        TextView welcomeText = (TextView) findViewById(R.id.ownerWelcomeText);
+        String welcomeMessage = "Welcome back, \n" + i.getStringExtra("username");
+        welcomeText.setText(welcomeMessage);
     }
 
     public void navigateToAddProducts (View view) {

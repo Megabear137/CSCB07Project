@@ -13,7 +13,9 @@
         android:layout_marginTop="36dp"
         android:text="@string/incomingText"
         android:textAlignment="center"
+        android:textColor="#E91E63"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +38,8 @@
         android:layout_marginTop="80dp"
         android:text="@string/incomingOrderInfo"
         android:textAlignment="viewStart"
-        app:layout_constraintBottom_toTopOf="@+id/customerNameText"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/incomingTotalCost"
         app:layout_constraintEnd_toStartOf="@+id/priceText"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +49,6 @@
         android:id="@+id/markFulfilledButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:onClick="markCompleted"
         android:text="@string/markFulfilledButton"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,7 +64,8 @@
         android:layout_marginTop="80dp"
         android:text="@string/priceText"
         android:textAlignment="viewStart"
-        app:layout_constraintBottom_toTopOf="@+id/customerNameText"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/incomingTotalCost"
         app:layout_constraintEnd_toStartOf="@+id/quantityText"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/incomingOrderInfo"
@@ -75,7 +78,8 @@
         android:layout_marginTop="80dp"
         android:text="@string/quantityText"
         android:textAlignment="viewStart"
-        app:layout_constraintBottom_toTopOf="@+id/customerNameText"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/incomingTotalCost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/priceText"
@@ -86,10 +90,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/customerNameText"
+        android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/markFulfilledButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priceText" />
+        app:layout_constraintTop_toBottomOf="@+id/incomingTotalCost" />
 
     <TextView
         android:id="@+id/incomingOrderIdText"
@@ -97,9 +103,23 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="@string/orderIdText"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.216"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/incomingText" />
+
+    <TextView
+        android:id="@+id/incomingTotalCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/totalCostMessage"
+        android:textAlignment="viewStart"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/customerNameText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priceText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

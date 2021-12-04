@@ -10,10 +10,12 @@
         android:id="@+id/fulfilledText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:text="@string/fulfilledText"
         android:textAlignment="center"
+        android:textColor="#E91E63"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +26,8 @@
         android:layout_height="wrap_content"
         android:text="@string/fulfilledOrderInfo"
         android:textAlignment="viewStart"
-        app:layout_constraintBottom_toTopOf="@+id/fulfilledCustomerName"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/fulfilledTotalCost"
         app:layout_constraintEnd_toStartOf="@+id/fulfilledPriceText"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +62,8 @@
         android:layout_height="wrap_content"
         android:text="@string/priceText"
         android:textAlignment="viewStart"
-        app:layout_constraintBottom_toTopOf="@+id/fulfilledCustomerName"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/fulfilledTotalCost"
         app:layout_constraintEnd_toStartOf="@+id/fulfilledQuantityText"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/fulfilledOrderInfo"
@@ -71,7 +75,8 @@
         android:layout_height="wrap_content"
         android:text="@string/quantityText"
         android:textAlignment="viewStart"
-        app:layout_constraintBottom_toTopOf="@+id/fulfilledCustomerName"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/fulfilledTotalCost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/fulfilledPriceText"
@@ -83,11 +88,12 @@
         android:layout_height="wrap_content"
         android:text="@string/customerNameText"
         android:textAlignment="viewStart"
+        android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/deleteFulfilledOrder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fulfilledPriceText" />
+        app:layout_constraintTop_toBottomOf="@+id/fulfilledTotalCost" />
 
     <TextView
         android:id="@+id/fulfilledOrderIdText"
@@ -95,9 +101,23 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="@string/orderIdText"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.205"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fulfilledText" />
+
+    <TextView
+        android:id="@+id/fulfilledTotalCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/totalCostMessage"
+        android:textAlignment="viewStart"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/fulfilledCustomerName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fulfilledPriceText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

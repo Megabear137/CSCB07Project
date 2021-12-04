@@ -61,22 +61,29 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
         TextView priceInfo = (TextView) findViewById(R.id.priceText);
         TextView quantityInfo = (TextView) findViewById(R.id.quantityText);
         TextView customerInfo = (TextView) findViewById(R.id.customerNameText);
+        TextView costInfo = (TextView) findViewById(R.id.incomingTotalCost);
         HashMap<String, Integer> products =  order.getProducts();
         if (products != null) {
-            String allProductNames = "Products:\n";
-            String allPrices = "Prices:\n";
-            String allQuantities ="Quantities:\n";
+            String allProductNames = "Product:\n";
+            String allPrices = "Price:\n";
+            String allQuantities ="Quantity:\n";
+            String totalCostMessage;
+            Double totalCost = 0.0;
             String customerName = "Customer name: " +order.getCustomerName();
             for(Map.Entry<String,Integer> m: products.entrySet()) {
                 Product current = userStore.findProduct((String) m.getKey());
                 allProductNames += m.getKey()  + "\n";
                 allPrices += current.getPrice()+ "\n";
                 allQuantities += m.getValue() + "\n";
+                totalCost += current.getPrice() * m.getValue();
             }
+            totalCost = Math.round(totalCost *100.0)/ 100.0;
+            totalCostMessage = "Total cost: $" + Double.toString(totalCost);
             orderInfo.setText(allProductNames);
             priceInfo.setText(allPrices);
             quantityInfo.setText(allQuantities);
             customerInfo.setText(customerName);
+            costInfo.setText(totalCostMessage);
         }
 
         int duration = Toast.LENGTH_SHORT;
@@ -110,7 +117,7 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
         int duration = Toast.LENGTH_SHORT;
         CharSequence text = "Failed to fulfill order";
         Context context = getApplicationContext();
-        if (userStore.incomingOrders == null || userStore.incomingOrders.isEmpty()){
+        if (userStore.getIncomingOrders() == null || userStore.getIncomingOrders().isEmpty()){
             text = "You have no incoming orders";
         }
 
