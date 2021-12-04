@@ -100,11 +100,13 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
         }
         TextView totalTextView = findViewById(R.id.total);
         if(orderInCart == null) {
-            totalTextView.setText("$0");
+            totalTextView.setText("$0.00");
             findViewById(R.id.viewStoreEditOrder).setVisibility(View.GONE);
         }
         else{
-            String total = "$"+String.valueOf(orderInCart.calculateTotal());
+            java.text.DecimalFormat df =new java.text.DecimalFormat("#.00");
+            String s = df.format(orderInCart.calculateTotal());
+            String total = "$"+s;
             totalTextView.setText(total);
             findViewById(R.id.viewStoreEditOrder).setVisibility(View.VISIBLE);
         }
