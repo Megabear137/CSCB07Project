@@ -2,6 +2,7 @@ package com.example.cscb07project;
 
 import android.os.Build;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
@@ -31,6 +32,17 @@ public class Order {
         this.storeName = storeName;
         isFulfilled = false;
         time = System.currentTimeMillis();
+    }
+
+    public double calculateTotal() {
+        double total = 0;
+        Database database = new Database();
+        for(String productName: products.keySet()) {
+            double price = database.findProductInStore(productName, storeName).getPrice();
+            total += price * products.get(productName);
+        }
+
+        return total;
     }
 
     public Order(){
@@ -113,5 +125,11 @@ public class Order {
 
     public int getId() {
         return id;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return storeName + ": Order ID: " + id;
     }
 }

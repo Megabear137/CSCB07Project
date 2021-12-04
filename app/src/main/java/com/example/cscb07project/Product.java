@@ -38,6 +38,11 @@ public class Product {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return name + "; brand:" + brand + "; price:" + price;
+    }
+
     //=== Getters === Remove getters later if not needed
     public String getName() {
         return name;

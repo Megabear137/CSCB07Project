@@ -10,13 +10,14 @@ public interface Contract {
         boolean isStoreOwner();
         Store findStore(String storeName);
         Product findProduct(String productName);
+        Product findProductInStore(String productName, String storeName);
         void addCustomer(String username, String password, Contract.Presenter presenter);
         void addStoreOwner(String username, String password, Contract.Presenter presenter);
         void addStore(String storeName, String ownerName, RegisterStoreActivity rsa);
         int addProductToStore(String storeName, Product product);
-        //int addProductToCart(String customerName, String storeName, String productName, int quantity);
-        //int deleteProductFromCart(Customer customer, Product product);
-        //int makeOrder(Customer customer, Store store);
+        void addProductToCart(String storeName, String productName, int quantity, ViewStoreActivity vsa);
+        int deleteProductFromCart(String productName, String storeName);
+        int makeOrder(String storeName);
         int fulfillOrder(Order order);
     }
 
@@ -30,9 +31,6 @@ public interface Contract {
 
     interface Presenter {
         void checkLogin();
-        boolean checkCustomer();
-        void addCustomer();
-        void addStoreOwner();
         void checkSignup(String value);
         void validateLogin(User user);
         void invalidateLogin(int result);

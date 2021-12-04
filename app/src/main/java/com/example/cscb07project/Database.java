@@ -356,7 +356,7 @@ public class Database implements Contract.Model{
         return 0 if no customer has a matching username
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void addProductToCart(String storeName, String productName, int quantity) {
+    public void addProductToCart(String storeName, String productName, int quantity, ViewStoreActivity vsa) {
         if(!isCustomer()) {
             return;
         }
@@ -373,6 +373,8 @@ public class Database implements Contract.Model{
                     order.products.put(productName, quantity);
                 }
                 updateDatabase();
+                vsa.updateCartSpinner();
+                vsa.setCanOrder();
                 return;
             }
         }
@@ -385,12 +387,15 @@ public class Database implements Contract.Model{
                 order.products.put(productName, quantity);
                 customer.cart.add(order);
 
+
                 updateDatabase();
+                vsa.updateCartSpinner();
+                vsa.setCanOrder();
             }
         });
     }
 
-    /* Deletes one piece of product from cart belonging to specified customer.
+    /* Deletes entire product from cart belonging to specified customer.
     return 1 if successful.
     return 0 if no customer has a matching username.
     Assumption: all products in cart will have count at least 1.
@@ -403,22 +408,24 @@ public class Database implements Contract.Model{
             return 0;
         }
 
-        for (Order order: customer.getCart()) {
+        Order orderToRemove = null;
+
+        for (Order order: customer.cart) {
             if(order.getStoreName().equals(storeName)) {
                 for(String name: order.getProducts().keySet()) {
                     if(name.equals(productName)) {
-                        int quantity = order.getProducts().get(productName);
-                        if(quantity == 1) {
-                            order.products.remove(productName);
-                        }
-                        else {
-                            order.products.replace(productName, quantity-1);
-                        }
-                        return 1;
+                        order.products.remove(name);
+                        orderToRemove = order;
                     }
                 }
             }
         }
+
+        if(orderToRemove != null){
+            if(orderToRemove.products.isEmpty()) customer.cart.remove(orderToRemove);
+        }
+
+
         updateDatabase();
         return 1;
     }
@@ -527,21 +534,26 @@ public class Database implements Contract.Model{
 
     //Returns Product object in database given a store name and product name. Returns null if
     // store or product does not exist
-    public Product findProductInStore(String productName){
+    public Product findProductInStore(String productName, String storeName){
 
-        ArrayList<Product> products = store.getProducts();
-        for (Product product: products){
-            if (product.getName().equals(productName)) {
-                return product;
+        for(Store store: stores){
+            if(store.getName().equals(storeName)){
+                ArrayList<Product> products = store.getProducts();
+                for (Product product: products){
+                    if (product.getName().equals(productName)) {
+                        return product;
+                    }
+                }
             }
         }
+
         return null;
 
     }
 
     //Returns true iff product is found in a store, given the store name and product name
     public boolean productExists(String storeName, String productName){
-        if (findProductInStore(productName) == null) {
+        if (findProductInStore(productName, storeName) == null) {
             return false;
         }
         return true;

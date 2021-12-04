@@ -26,19 +26,17 @@ public class MyPresenter implements Contract.Presenter {
     public void checkSignup(String value) {
         String username = view.getUsername();
         if (username.equals("")) {
-            view.displayMessage("username cannot be empty");
+            view.displayMessage("Username Cannot Be Empty");
         }
         else{
-            Log.i("demo", value);
-            if(value.equals("I am a customer.")) addCustomer();
-            else addStoreOwner();
+            if(value.equals("I am a customer.")) database.addCustomer(view.getUsername(), view.getPassword(), this);
+            else database.addStoreOwner(view.getUsername(), view.getPassword(), this);
         }
     }
 
     public void validateLogin(User user){
         view.validateLogin(user);
     }
-
     public void invalidateLogin(int result){
         if(result == 0) view.displayMessage("Incorrect Password");
         else view.displayMessage("User Not Found");
@@ -52,7 +50,4 @@ public class MyPresenter implements Contract.Presenter {
         view.displayMessage("Username Taken");
     }
 
-    public boolean checkCustomer() { return database.isCustomer(); }
-    public void addCustomer() { database.addCustomer(view.getUsername(), view.getPassword(), this); }
-    public void addStoreOwner() { database.addStoreOwner(view.getUsername(), view.getPassword(), this); }
 }
