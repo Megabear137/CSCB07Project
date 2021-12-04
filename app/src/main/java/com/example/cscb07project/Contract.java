@@ -18,7 +18,6 @@ public interface Contract {
         void addProductToCart(String storeName, String productName, int quantity, ViewStoreActivity vsa);
         int deleteProductFromCart(String productName, String storeName);
         int makeOrder(String storeName);
-        int fulfillOrder(Order order);
     }
 
     interface View {

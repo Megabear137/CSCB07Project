@@ -105,14 +105,20 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
     }
 
     public void markCompleted(View view) {
-        Database database = new Database();
-        StoreOwner user = (StoreOwner) Database.user;
-        Store userStore = Database.store;
-        Intent i = getIntent();
-        String username = user.getUsername();
+
         Spinner spinner = (Spinner) findViewById(R.id.incomingOrderSpinner);
         String orderID = (String)spinner.getSelectedItem();
 
+        Database database = new Database();
+        database.storeCompleteOrder(Integer.parseInt(orderID), this);
+
+    }
+
+    public void validateComplete(int result){
+
+        Store userStore = Database.store;
+        Spinner spinner = (Spinner) findViewById(R.id.incomingOrderSpinner);
+        String orderID = (String)spinner.getSelectedItem();
 
         int duration = Toast.LENGTH_SHORT;
         CharSequence text = "Failed to fulfill order";
@@ -121,25 +127,13 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
             text = "You have no incoming orders";
         }
 
-        else if (database.storeCompleteOrder(Integer.parseInt(orderID)) == 1) {
+        else if (result == 1) {
             text = "Successfully fulfilled order!";
             updateSpinner();
         }
+
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 }

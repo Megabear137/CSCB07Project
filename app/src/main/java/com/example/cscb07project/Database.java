@@ -464,23 +464,6 @@ public class Database implements Contract.Model{
         return 1;
     }
 
-
-    /* Move the order from incomingOrder to outgoingOrder and pendingOrder to CompletedOrder. */
-    public int fulfillOrder(Order order) {
-        Store store = findStore(order.getStoreName());
-        Customer customer = (Customer)user;
-        if (store == null || customer == null) {
-            return 0;
-        }
-
-        store.incomingOrders.remove(order);
-        store.outgoingOrders.add(order);
-        customer.pendingOrders.remove(order);
-        customer.completedOrders.add(order);
-        updateDatabase();
-        return 1;
-    }
-
     /*Remove the order from the customer's completedOrder.
     Return 1 if successful.
     Return -1 if no such order found.
@@ -573,17 +556,38 @@ public class Database implements Contract.Model{
 
     //Returns 1 iff order has been successfully removed from incoming orders,
     // and added to outgoing orders, and returns -1 otherwise
-    public int storeCompleteOrder(int orderID) {
+    public void storeCompleteOrder(int orderID, StoreOwnerViewIncomingActivity s) {
         Order order = findIncomingOrder(orderID);
         if (store.incomingOrders.contains(order)) {
             order.setFulfilled(true);
             store.incomingOrders.remove(order);
             store.outgoingOrders.add(order);
             updateDatabase();
-            return 1;
+            FirebaseDatabase.getInstance().getReference("Users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    for(int i = 0; i < userCount; i++){
+                        if(task.getResult().child(i + "").child("pendingOrders").exists()){
+                            for(DataSnapshot snapshot: task.getResult().child(i + "").child("pendingOrders").getChildren()){
+                                if(snapshot.child("id").getValue(Integer.class) == orderID){
+                                    Customer customer = task.getResult().child(i + "").getValue(Customer.class);
+                                    for(Order order: customer.pendingOrders){
+                                        if(order.id == orderID){
+                                            order.isFulfilled = true;
+                                            customer.completedOrders.add(order);
+                                            customer.pendingOrders.remove(order);
+                                            FirebaseDatabase.getInstance().getReference("Users").child(i + "").setValue(customer);
+                                            s.validateComplete(1);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         }
-        else
-            return -1;
+        else s.validateComplete(-1);
     }
 
     // Returns outgoing Order if given orderID corresponding to order is found, null otherwise
