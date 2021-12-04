@@ -72,13 +72,13 @@ public class Database implements Contract.Model{
     }
 
     public void updateDatabase(){
-        FirebaseDatabase.getInstance().getReference().child("Users").child(userIndex + "").setValue(user);
         if(user.isStoreOwner && store != null){
             FirebaseDatabase.getInstance().getReference("Stores").child(storeIndex + "").setValue(store);
         }
         else if(stores != null && !stores.isEmpty()){
             FirebaseDatabase.getInstance().getReference("Stores").setValue(stores);
         }
+        FirebaseDatabase.getInstance().getReference().child("Users").child(userIndex + "").setValue(user);
     }
 
     public void initializeUser(String username, boolean isLogin, Contract.Presenter presenter) {
@@ -96,7 +96,7 @@ public class Database implements Contract.Model{
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         if (snapshot.child("isStoreOwner").getValue(Boolean.class)) {
-                                            if(user == null || !user.getUsername().equals(username)){
+                                            if(user == null){
                                                 user = snapshot.getValue(StoreOwner.class);
                                                 userIndex = Integer.parseInt(snapshot.getKey());
                                                 presenter.validateLogin(user);
@@ -108,16 +108,14 @@ public class Database implements Contract.Model{
                                                 initializeStore(snapshot.child("storeName").getValue(String.class));
                                             }
                                         } else {
-                                            if(user == null || !user.getUsername().equals(username)){
+                                            if(user == null){
                                                 user = snapshot.getValue(Customer.class);
                                                 userIndex = Integer.parseInt(snapshot.getKey());
                                                 if(isLogin) presenter.validateLogin(user);
-                                                initializeStores();
                                             }
                                             else{
                                                 user = snapshot.getValue(Customer.class);
                                                 userIndex = Integer.parseInt(snapshot.getKey());
-                                                initializeStores();
                                             }
                                         }
                                     }
@@ -171,29 +169,41 @@ public class Database implements Contract.Model{
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 int storeCount = task.getResult().getValue(Integer.class);
-                for (int i = 0; i < storeCount; i++) {
-                    FirebaseDatabase.getInstance().getReference("Stores").child(i + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if (task.getResult().child("name").getValue(String.class).equals(storeName)) {
-                                DatabaseReference ref = task.getResult().getRef();
-                                ValueEventListener listener = new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            store = snapshot.getValue(Store.class);
-                                            storeIndex = Integer.parseInt(snapshot.getKey());
-                                    }
+                FirebaseDatabase.getInstance().getReference().child("Stores").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if(task.getResult().exists()){
+                            for (int i = 0; i < storeCount; i++) {
 
+                                FirebaseDatabase.getInstance().getReference("Stores").child(i + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                     @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        if (task.getResult().child("name").getValue(String.class).equals(storeName)) {
+                                            DatabaseReference ref = task.getResult().getRef();
+                                            ValueEventListener listener = new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    store = snapshot.getValue(Store.class);
+                                                    storeIndex = Integer.parseInt(snapshot.getKey());
+                                                }
 
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            };
+                                            ref.addValueEventListener(listener);
+                                        }
                                     }
-                                };
-                                ref.addValueEventListener(listener);
+                                });
                             }
                         }
-                    });
-                }
+                        else{
+                            store = null;
+                        }
+                    }
+                });
+
             }
         });
     }
@@ -375,6 +385,7 @@ public class Database implements Contract.Model{
                 updateDatabase();
                 vsa.updateCartSpinner();
                 vsa.setCanOrder();
+                vsa.updateTotal();
                 return;
             }
         }
@@ -391,6 +402,7 @@ public class Database implements Contract.Model{
                 updateDatabase();
                 vsa.updateCartSpinner();
                 vsa.setCanOrder();
+                vsa.updateTotal();
             }
         });
     }
@@ -403,25 +415,29 @@ public class Database implements Contract.Model{
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public int deleteProductFromCart(String productName, String storeName) {
+
         Customer customer = (Customer)user;
         if(!isCustomer()) {
             return 0;
         }
 
         Order orderToRemove = null;
+        String productToRemove = "";
 
         for (Order order: customer.cart) {
             if(order.getStoreName().equals(storeName)) {
                 for(String name: order.getProducts().keySet()) {
                     if(name.equals(productName)) {
-                        order.products.remove(name);
+                        productToRemove = name;
                         orderToRemove = order;
                     }
                 }
             }
         }
 
+
         if(orderToRemove != null){
+            if(!productToRemove.equals("")){ orderToRemove.products.remove(productToRemove);}
             if(orderToRemove.products.isEmpty()) customer.cart.remove(orderToRemove);
         }
 

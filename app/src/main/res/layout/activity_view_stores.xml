@@ -8,93 +8,84 @@
     tools:context=".ViewStores">
 
     <TextView
-        android:id="@+id/viewStoresStore3"
-        android:layout_width="378dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintEnd_toEndOf="@+id/viewStoresStore2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/viewStoresStore2"
-        app:layout_constraintTop_toBottomOf="@+id/viewStoresStore2" />
-
-    <TextView
-        android:id="@+id/viewStoresStore2"
-        android:layout_width="378dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/viewStoresStore1"
-        app:layout_constraintHorizontal_bias="0.062"
-        app:layout_constraintStart_toStartOf="@+id/viewStoresStore1"
-        app:layout_constraintTop_toBottomOf="@+id/viewStoresStore1" />
-
-    <TextView
-        android:id="@+id/viewStoresStore"
-        android:layout_width="378dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="52dp"
+        android:id="@+id/viewStoresStoreName"
+        android:layout_width="350dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="96dp"
+        android:autoText="false"
+        android:background="#A1F44336"
+        android:onClick="viewStore"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        app:autoSizeMaxTextSize="48sp"
+        app:autoSizeMinTextSize="24sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintHorizontal_bias="0.442"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewStoresHeader" />
 
     <TextView
-        android:id="@+id/viewStoresStoreName"
-        android:layout_width="350dp"
-        android:layout_height="38dp"
-        android:background="#A1F44336"
-        android:onClick="viewStore"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/viewStoresStore"
-        app:layout_constraintStart_toStartOf="@+id/viewStoresStore" />
-
-    <TextView
-        android:id="@+id/viewStoresStoreName3"
-        android:layout_width="350dp"
-        android:layout_height="38dp"
-        android:background="#599C27B0"
-        android:onClick="viewStore"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/viewStoresStore3"
-        app:layout_constraintStart_toStartOf="@+id/viewStoresStore2" />
-
-    <TextView
         android:id="@+id/viewStoresStoreName2"
         android:layout_width="350dp"
-        android:layout_height="38dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="24dp"
         android:background="#9A4CAF50"
+        android:elegantTextHeight="true"
         android:onClick="viewStore"
+        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/viewStoresStore2"
-        app:layout_constraintStart_toStartOf="@+id/viewStoresStore1" />
+        android:textSize="48sp"
+        app:autoSizeMaxTextSize="48sp"
+        app:autoSizeMinTextSize="24sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="@+id/viewStoresStoreName1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/viewStoresStoreName1"
+        app:layout_constraintTop_toBottomOf="@+id/viewStoresStoreName1" />
 
     <TextView
         android:id="@+id/viewStoresStoreName1"
         android:layout_width="350dp"
-        android:layout_height="38dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="24dp"
         android:background="#8D00BCD4"
+        android:elegantTextHeight="true"
         android:onClick="viewStore"
+        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/viewStoresStore1"
-        app:layout_constraintStart_toStartOf="@+id/viewStoresStore" />
+        android:textSize="48sp"
+        app:autoSizeMaxTextSize="48sp"
+        app:autoSizeMinTextSize="24sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="@+id/viewStoresStoreName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/viewStoresStoreName"
+        app:layout_constraintTop_toBottomOf="@+id/viewStoresStoreName" />
 
     <TextView
-        android:id="@+id/viewStoresStore1"
-        android:layout_width="378dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="64dp"
-        app:layout_constraintEnd_toEndOf="@+id/viewStoresStore"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/viewStoresStore"
-        app:layout_constraintTop_toBottomOf="@+id/viewStoresStore" />
+        android:id="@+id/viewStoresStoreName3"
+        android:layout_width="350dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="24dp"
+        android:background="#599C27B0"
+        android:elegantTextHeight="true"
+        android:onClick="viewStore"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="48sp"
+        app:autoSizeMaxTextSize="48sp"
+        app:autoSizeMinTextSize="24sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="@+id/viewStoresStoreName2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/viewStoresStoreName2"
+        app:layout_constraintTop_toBottomOf="@+id/viewStoresStoreName2" />
 
     <View
         android:id="@+id/viewStoresHeader"
@@ -170,5 +161,29 @@
         app:layout_constraintEnd_toStartOf="@+id/textView6"
         app:layout_constraintStart_toStartOf="@+id/viewStoresHeader"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/viewStoresSearchBar"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewStoresHeader" />
+
+    <Button
+        android:id="@+id/viewStoresSearch"
+        android:layout_width="101dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="24dp"
+        android:onClick="Search"
+        android:text="@string/search"
+        app:layout_constraintBottom_toBottomOf="@+id/viewStoresSearchBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewStoresSearchBar"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

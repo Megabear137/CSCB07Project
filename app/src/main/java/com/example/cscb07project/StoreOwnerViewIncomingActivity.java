@@ -32,7 +32,6 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
         String username = i.getStringExtra("username");
         Spinner spinner = (Spinner) findViewById(R.id.incomingOrderSpinner);
         spinner.setOnItemSelectedListener(this);
-        Database database = Database.getInstance();
         StoreOwner user = (StoreOwner) Database.user;
         Store userStore = Database.store;
         ArrayList<Order> orders = userStore.getIncomingOrders();

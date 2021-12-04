@@ -18,6 +18,14 @@
     <string name="completed_orders">Completed Orders</string>
     <string name="choose_order">Choose an Order:</string>
     <string name="view_product">View a Product in the Order:</string>
+    <string name="search">Search</string>
+    <string name="edit_quantity">Edit Quantity</string>
+    <string name="change">Change</string>
+    <string name="edit_order">Edit Order</string>
+    <string name="subtotal">Subtotal for this Product: </string>
+    <string name="grand_total">Grand Total: </string>
+    <string name="product_price">Price of this Product:</string>
+    <string name="go_to_store">Go to Store</string>
     <string-array name="signup_spinner_values">
         <item>I am a customer.</item>
         <item>I am a store owner.</item>

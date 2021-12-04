@@ -40,7 +40,6 @@ public class CustomerUsageEntryScreen extends AppCompatActivity {
 
     public void viewOrders(View view){
         Intent intent = new Intent(this, ViewOrders.class);
-        intent.putExtra("username", username);
         startActivity(intent);
     }
 

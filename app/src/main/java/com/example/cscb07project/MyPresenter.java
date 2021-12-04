@@ -35,6 +35,8 @@ public class MyPresenter implements Contract.Presenter {
     }
 
     public void validateLogin(User user){
+        Database d1 = new Database();
+        d1.initializeStores();
         view.validateLogin(user);
     }
     public void invalidateLogin(int result){

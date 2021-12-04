@@ -99,11 +99,14 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
             }
         }
         TextView totalTextView = findViewById(R.id.total);
-        if(orderInCart == null)
+        if(orderInCart == null) {
             totalTextView.setText("$0");
+            findViewById(R.id.viewStoreEditOrder).setVisibility(View.GONE);
+        }
         else{
             String total = "$"+String.valueOf(orderInCart.calculateTotal());
             totalTextView.setText(total);
+            findViewById(R.id.viewStoreEditOrder).setVisibility(View.VISIBLE);
         }
     }
 
@@ -114,17 +117,22 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
         int index = productInfo.indexOf(";");
         String productName = productInfo.substring(0,index);
         EditText editText = (EditText) findViewById(R.id.amountAdded);
-        int quantity = Integer.parseInt(editText.getText().toString());
-        Database database = new Database();
-        if(canOrder){
-            canOrder = false;
-            database.addProductToCart(store.getName(), productName, quantity, this);
+        if(!editText.getText().toString().equals("")){
+            int quantity = Integer.parseInt(editText.getText().toString());
+            Database database = new Database();
+            if(canOrder){
+                canOrder = false;
+                database.addProductToCart(store.getName(), productName, quantity, this);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Failed to place order. Please wait a moment and then try again.", Toast.LENGTH_SHORT).show();
+            }
         }
         else{
-            Toast.makeText(getApplicationContext(), "Failed to place order. Please wait a moment and then try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please enter an amount first.", Toast.LENGTH_SHORT).show();
         }
 
-        updateTotal();
+
     }
 
     public void setCanOrder(){
@@ -135,12 +143,17 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
     public void remove(View view) {
         Spinner spinner = (Spinner) findViewById(R.id.cartSpinner);
         String productInfo = (String) spinner.getSelectedItem();
-        int index = productInfo.indexOf(";");
-        String productName = productInfo.substring(0,index);
-        Database database = new Database();
-        database.deleteProductFromCart(productName, store.getName());
-        updateCartSpinner();
-        updateTotal();
+        if(productInfo == null){
+            Toast.makeText(getApplicationContext(), "There is nothing to remove.", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            int index = productInfo.indexOf(";");
+            String productName = productInfo.substring(0,index);
+            Database database = new Database();
+            database.deleteProductFromCart(productName, store.getName());
+            updateCartSpinner();
+            updateTotal();
+        }
     }
 
     public void makeOrder(View view) {
@@ -158,6 +171,12 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
         Toast.makeText(getApplicationContext(), "Please select an item", Toast.LENGTH_SHORT).show();
+    }
+
+    public void editOrder(View view){
+        Intent intent = new Intent(this, ViewOrders.class);
+        intent.putExtra("store", storeName);
+        startActivity(intent);
     }
 
 }
