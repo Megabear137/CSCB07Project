@@ -56,6 +56,7 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
     }
 
     public void updateCartSpinner() {
+        customer = (Customer) Database.user;
         Spinner spinner = (Spinner)findViewById(R.id.cartSpinner);
         spinner.setOnItemSelectedListener(this);
         Order orderInCart = null;
@@ -115,9 +116,19 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
         EditText editText = (EditText) findViewById(R.id.amountAdded);
         int quantity = Integer.parseInt(editText.getText().toString());
         Database database = new Database();
-        database.addProductToCart(store.getName(), productName, quantity);
-        updateCartSpinner();
+        if(canOrder){
+            canOrder = false;
+            database.addProductToCart(store.getName(), productName, quantity, this);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Failed to place order. Please wait a moment and then try again.", Toast.LENGTH_SHORT).show();
+        }
+
         updateTotal();
+    }
+
+    public void setCanOrder(){
+        canOrder = true;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -149,7 +160,4 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
         Toast.makeText(getApplicationContext(), "Please select an item", Toast.LENGTH_SHORT).show();
     }
 
-    public void setCanOrder(){
-        canOrder = true;
-    }
 }

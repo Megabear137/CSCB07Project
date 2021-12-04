@@ -2,6 +2,7 @@ package com.example.cscb07project;
 
 import android.os.Build;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
@@ -124,5 +125,11 @@ public class Order {
 
     public int getId() {
         return id;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return storeName + ": Order ID: " + id;
     }
 }

@@ -49,4 +49,5 @@ public class MyPresenter implements Contract.Presenter {
     public void invalidateSignup(){
         view.displayMessage("Username Taken");
     }
+
 }

@@ -8,300 +8,25 @@
     android:background="#00EF0000"
     tools:context=".ViewOrders">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/viewOrdersConfirm4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#D738ED3F"
-        android:backgroundTint="#D738ED3F"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground4"
-        app:layout_constraintEnd_toEndOf="@+id/viewOrdersConfirm3"
-        app:layout_constraintStart_toStartOf="@+id/viewOrdersConfirm3"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground4"
-        app:srcCompat="@drawable/checkmark" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/viewOrdersConfirm3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:backgroundTint="#D738ED3F"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground3"
-        app:layout_constraintEnd_toEndOf="@+id/viewOrdersConfirm2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/viewOrdersConfirm2"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground3"
-        app:layout_constraintVertical_bias="0.666"
-        app:srcCompat="@drawable/checkmark" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/viewOrdersConfirm2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#D738ED3F"
-        android:backgroundTint="#D738ED3F"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground2"
-        app:layout_constraintEnd_toStartOf="@+id/orderBackground2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground2"
-        app:srcCompat="@drawable/checkmark" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/orderX4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#E81D1D"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground4"
-        app:layout_constraintEnd_toEndOf="@+id/orderX3"
-        app:layout_constraintHorizontal_bias="0.586"
-        app:layout_constraintStart_toStartOf="@+id/orderX3"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground4"
-        app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@drawable/redx" />
-
     <TextView
-        android:id="@+id/orderBackground4"
-        android:layout_width="250dp"
-        android:layout_height="59dp"
-        android:background="#DD8E19"
-        android:backgroundTint="#03A9F4"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/orderBackground3"
-        app:layout_constraintTop_toBottomOf="@+id/orderBackground3"
-        app:layout_constraintVertical_bias="0.166" />
-
-    <TextView
-        android:id="@+id/orderStoreName4"
-        android:layout_width="61dp"
-        android:layout_height="21dp"
-        android:text="Store:"
-        android:textColor="#FFFFFF"
+        android:id="@+id/viewOrdersChooseProduct"
+        android:layout_width="209dp"
+        android:layout_height="27dp"
+        android:text="@string/view_product"
+        android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground4"
-        app:layout_constraintStart_toStartOf="@+id/orderProducts3"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground4"
-        app:layout_constraintVertical_bias="0.184" />
+        app:layout_constraintBottom_toTopOf="@+id/viewOrdersProductsSpinner"
+        app:layout_constraintStart_toStartOf="@+id/viewOrdersProductsSpinner" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/orderX2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#E81D1D"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground2"
-        app:layout_constraintEnd_toEndOf="@+id/orderX1"
-        app:layout_constraintHorizontal_bias="0.605"
-        app:layout_constraintStart_toStartOf="@+id/orderX1"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground2"
-        app:layout_constraintVertical_bias="0.333"
-        tools:srcCompat="@drawable/redx" />
-
-    <TextView
-        android:id="@+id/orderBackground3"
-        android:layout_width="250dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="16dp"
-        android:background="#DD8E19"
-        android:backgroundTint="#03A9F4"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/orderBackground2"
-        app:layout_constraintTop_toBottomOf="@+id/orderBackground2"
-        app:layout_constraintVertical_bias="0.049" />
-
-    <TextView
-        android:id="@+id/orderProducts3"
-        android:layout_width="70dp"
-        android:layout_height="23dp"
-        android:text="Products:"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground3"
-        app:layout_constraintStart_toStartOf="@+id/orderStoreName3"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground3"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/orderProducts4"
-        android:layout_width="70dp"
-        android:layout_height="23dp"
-        android:text="Products:"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground4"
-        app:layout_constraintStart_toStartOf="@+id/orderStoreName4"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground4"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/orderStoreName3"
-        android:layout_width="61dp"
-        android:layout_height="21dp"
-        android:text="Store:"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground3"
-        app:layout_constraintStart_toStartOf="@+id/orderProducts2"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground3"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/orderX3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#E81D1D"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground3"
-        app:layout_constraintEnd_toEndOf="@+id/orderX2"
-        app:layout_constraintStart_toStartOf="@+id/orderX2"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground3"
-        tools:srcCompat="@drawable/redx" />
-
-    <TextView
-        android:id="@+id/orderBackground2"
-        android:layout_width="250dp"
-        android:layout_height="59dp"
-        android:background="#DD8E19"
-        android:backgroundTint="#03A9F4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/orderBackground1"
-        app:layout_constraintTop_toBottomOf="@+id/orderBackground1"
-        app:layout_constraintVertical_bias="0.072" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/orderX1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#E81D1D"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground1"
-        app:layout_constraintEnd_toEndOf="@+id/orderX0"
-        app:layout_constraintHorizontal_bias="0.586"
-        app:layout_constraintStart_toStartOf="@+id/orderX0"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground1"
-        app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@drawable/redx" />
-
-    <TextView
-        android:id="@+id/orderBackground1"
-        android:layout_width="250dp"
-        android:layout_height="59dp"
-        android:background="#DD8E19"
-        android:backgroundTint="#03A9F4"
-        android:clickable="true"
-        android:cursorVisible="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/orderBackground0"
-        app:layout_constraintTop_toBottomOf="@+id/orderBackground0"
-        app:layout_constraintVertical_bias="0.045" />
-
-    <TextView
-        android:id="@+id/orderProducts1"
-        android:layout_width="70dp"
-        android:layout_height="23dp"
-        android:text="Products:"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground1"
-        app:layout_constraintStart_toStartOf="@+id/orderStoreName1"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground1"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/orderProducts2"
-        android:layout_width="70dp"
-        android:layout_height="23dp"
-        android:text="Products:"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground2"
-        app:layout_constraintStart_toStartOf="@+id/orderStoreName2"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground2"
-        app:layout_constraintVertical_bias="0.944" />
-
-    <TextView
-        android:id="@+id/orderStoreName1"
-        android:layout_width="61dp"
-        android:layout_height="21dp"
-        android:text="Store:"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground1"
-        app:layout_constraintStart_toStartOf="@+id/orderProducts0"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground1"
-        app:layout_constraintVertical_bias="0.184" />
-
-    <TextView
-        android:id="@+id/orderStoreName2"
-        android:layout_width="61dp"
-        android:layout_height="21dp"
-        android:text="Store:"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground2"
-        app:layout_constraintStart_toStartOf="@+id/orderProducts1"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground2"
-        app:layout_constraintVertical_bias="0.026" />
-
-    <Button
-        android:id="@+id/viewOrdersNextPageButton"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:background="#000000"
-        android:onClick="nextPage"
-        android:text="@string/next"
-        android:textSize="8sp"
+    <Spinner
+        android:id="@+id/viewOrdersProductsSpinner"
+        android:layout_width="311dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.809"
-        app:layout_constraintStart_toEndOf="@+id/viewOrdersPageNumber"
-        app:layout_constraintTop_toTopOf="@+id/viewOrdersPageNumber" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/orderX0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#E81D1D"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.315"
-        app:layout_constraintStart_toEndOf="@+id/orderBackground0"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground0"
-        app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@drawable/redx" />
-
-    <TextView
-        android:id="@+id/orderBackground0"
-        android:layout_width="250dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="44dp"
-        android:background="#DD8E19"
-        android:backgroundTint="#03A9F4"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.23"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewOrdersTitles"
-        app:layout_constraintVertical_bias="0.07" />
-
-    <Button
-        android:id="@+id/viewOrdersPreviousPageButton"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:background="#000000"
-        android:text="@string/previous"
-        android:textSize="8sp"
-        app:layout_constraintEnd_toStartOf="@+id/viewOrdersPageNumber"
-        app:layout_constraintHorizontal_bias="0.144"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewOrdersPageNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/viewOrdersSpinner" />
 
     <Button
         android:id="@+id/viewOrdersLeftButton"
@@ -316,19 +41,6 @@
         app:layout_constraintVertical_bias="1.0"
         tools:text="@string/pending_orders" />
 
-    <TextView
-        android:id="@+id/orderStoreName0"
-        android:layout_width="61dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="8dp"
-        android:text="Store:"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/orderProducts0"
-        app:layout_constraintStart_toStartOf="@+id/orderBackground0"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground0"
-        app:layout_constraintVertical_bias="0.181" />
-
     <View
         android:id="@+id/view"
         android:layout_width="415dp"
@@ -338,23 +50,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/viewOrdersPageNumber"
-        android:layout_width="84dp"
-        android:layout_height="53dp"
-        android:background="#3F51B5"
-        android:backgroundTint="#3F51B5"
-        android:onClick="previousPage"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewOrdersTitles"
-        app:layout_constraintVertical_bias="0.993" />
 
     <TextView
         android:id="@+id/viewOrdersTitle"
@@ -402,46 +97,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
-    <TextView
-        android:id="@+id/orderProducts0"
-        android:layout_width="74dp"
-        android:layout_height="21dp"
-        android:layout_marginBottom="4dp"
-        android:text="Products:"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground0"
-        app:layout_constraintStart_toStartOf="@+id/orderStoreName0" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/viewOrdersConfirm0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#D738ED3F"
-        android:backgroundTint="#D738ED3F"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground0"
-        app:layout_constraintEnd_toStartOf="@+id/orderBackground0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground0"
-        app:srcCompat="@drawable/checkmark" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/viewOrdersConfirm1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#D738ED3F"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/orderBackground1"
-        app:layout_constraintEnd_toEndOf="@+id/viewOrdersConfirm0"
-        app:layout_constraintStart_toStartOf="@+id/viewOrdersConfirm0"
-        app:layout_constraintTop_toTopOf="@+id/orderBackground1"
-        app:srcCompat="@drawable/checkmark" />
-
     <Button
         android:id="@+id/button8"
         android:layout_width="64dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:onClick="Back"
         android:textSize="10sp"
@@ -449,5 +108,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/back" />
+
+    <Spinner
+        android:id="@+id/viewOrdersSpinner"
+        android:layout_width="311dp"
+        android:layout_height="29dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.23"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewOrdersTitles"
+        app:layout_constraintVertical_bias="0.164" />
+
+    <TextView
+        android:id="@+id/viewOrdersChooseOrder"
+        android:layout_width="142dp"
+        android:layout_height="26dp"
+        android:text="@string/choose_order"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/viewOrdersSpinner"
+        app:layout_constraintStart_toStartOf="@+id/viewOrdersSpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

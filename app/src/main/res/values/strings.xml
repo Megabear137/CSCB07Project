@@ -16,6 +16,8 @@
     <string name="pending_orders">Pending Orders</string>
     <string name="shopping_cart">Shopping Cart</string>
     <string name="completed_orders">Completed Orders</string>
+    <string name="choose_order">Choose an Order:</string>
+    <string name="view_product">View a Product in the Order:</string>
     <string-array name="signup_spinner_values">
         <item>I am a customer.</item>
         <item>I am a store owner.</item>

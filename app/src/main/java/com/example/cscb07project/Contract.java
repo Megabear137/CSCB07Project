@@ -15,9 +15,9 @@ public interface Contract {
         void addStoreOwner(String username, String password, Contract.Presenter presenter);
         void addStore(String storeName, String ownerName, RegisterStoreActivity rsa);
         int addProductToStore(String storeName, Product product);
-        //int addProductToCart(String customerName, String storeName, String productName, int quantity);
-        //int deleteProductFromCart(Customer customer, Product product);
-        //int makeOrder(Customer customer, Store store);
+        void addProductToCart(String storeName, String productName, int quantity, ViewStoreActivity vsa);
+        int deleteProductFromCart(String productName, String storeName);
+        int makeOrder(String storeName);
         int fulfillOrder(Order order);
     }
 

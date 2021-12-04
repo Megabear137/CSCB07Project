@@ -356,7 +356,7 @@ public class Database implements Contract.Model{
         return 0 if no customer has a matching username
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void addProductToCart(String storeName, String productName, int quantity) {
+    public void addProductToCart(String storeName, String productName, int quantity, ViewStoreActivity vsa) {
         if(!isCustomer()) {
             return;
         }
@@ -373,6 +373,8 @@ public class Database implements Contract.Model{
                     order.products.put(productName, quantity);
                 }
                 updateDatabase();
+                vsa.updateCartSpinner();
+                vsa.setCanOrder();
                 return;
             }
         }
@@ -385,8 +387,10 @@ public class Database implements Contract.Model{
                 order.products.put(productName, quantity);
                 customer.cart.add(order);
 
-                updateDatabase();
 
+                updateDatabase();
+                vsa.updateCartSpinner();
+                vsa.setCanOrder();
             }
         });
     }
@@ -404,16 +408,24 @@ public class Database implements Contract.Model{
             return 0;
         }
 
+        Order orderToRemove = null;
+
         for (Order order: customer.cart) {
             if(order.getStoreName().equals(storeName)) {
                 for(String name: order.getProducts().keySet()) {
                     if(name.equals(productName)) {
                         order.products.remove(name);
-                        return 1;
+                        orderToRemove = order;
                     }
                 }
             }
         }
+
+        if(orderToRemove != null){
+            if(orderToRemove.products.isEmpty()) customer.cart.remove(orderToRemove);
+        }
+
+
         updateDatabase();
         return 1;
     }

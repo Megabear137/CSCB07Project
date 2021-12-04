@@ -51,15 +51,20 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
         presenter.checkSignup(value);
     }
 
-    public void validateLogin(User user){}
+
+    public void validateLogin(User user){
+
+    }
 
     public void validateSignup(User user){
         if (!user.isStoreOwner) {
+
             Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
             intent.putExtra("username", getUsername());
             startActivity(intent);
         }
         if (user.isStoreOwner) {
+
             Intent intent = new Intent(this, RegisterStoreActivity.class);
             intent.putExtra("username", getUsername());
             startActivity(intent);
