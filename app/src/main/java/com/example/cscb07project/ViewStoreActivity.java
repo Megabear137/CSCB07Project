@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class ViewStoreActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Store store;
@@ -119,7 +120,10 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
         int index = productInfo.indexOf(";");
         String productName = productInfo.substring(0,index);
         EditText editText = (EditText) findViewById(R.id.amountAdded);
-        if(!editText.getText().toString().equals("")){
+        String input = editText.getText().toString();
+
+        Pattern pattern =Pattern.compile("[0-9]+");
+        if(pattern.matcher(input).matches()){
             int quantity = Integer.parseInt(editText.getText().toString());
             Database database = new Database();
             if(canOrder){
@@ -131,7 +135,7 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
             }
         }
         else{
-            Toast.makeText(getApplicationContext(), "Please enter an amount first.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please enter a valid amount first.", Toast.LENGTH_SHORT).show();
         }
 
 
