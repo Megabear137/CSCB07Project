@@ -54,12 +54,23 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testValidateLogin() {
-        User user = new Customer();
+    public void testValidateLoginCustomer() {
+        User customer = new Customer();
         MyPresenter presenter = new MyPresenter(loginView, model);
 
-        presenter.validateLogin(user);
-        Mockito.verify(loginView).validateLogin(user);
+        presenter.validateLogin(customer);
+        Mockito.verify(loginView).validateLogin(customer);
+        Mockito.verify(model).initializeStores();
+    }
+
+    @Test
+    public void testValidateLoginStoreOwner() {
+        User owner = new StoreOwner();
+        MyPresenter presenter = new MyPresenter(loginView, model);
+
+        presenter.validateLogin(owner);
+        Mockito.verify(loginView).validateLogin(owner);
+        Mockito.verify(model).initializeStore(((StoreOwner)owner).getStoreName());
     }
 
     @Test
