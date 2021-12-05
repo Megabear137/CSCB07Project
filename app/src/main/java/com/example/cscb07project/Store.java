@@ -74,6 +74,13 @@ public class  Store {
 
     }
 
+    public boolean isIncomingOrdersEmpty() {
+        return incomingOrders == null || incomingOrders.isEmpty();
+    }
+    public boolean isOutgoingOrdersEmpty() {
+        return outgoingOrders == null || outgoingOrders.isEmpty();
+    }
+
 
 
     @Override

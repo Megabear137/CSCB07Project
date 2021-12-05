@@ -3,7 +3,6 @@ package com.example.cscb07project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,57 +12,55 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StoreOwnerEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    EditText productText;
+    EditText brandText;
+    EditText priceText;
+    Spinner productSpinner;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_owner_edit);
+        productText = (EditText) findViewById(R.id.editProductName);
+        brandText = (EditText) findViewById(R.id.editBrandName);
+        priceText = (EditText) findViewById(R.id.editPrice);
+        productSpinner = (Spinner) findViewById(R.id.productSpinner);
         updateSpinner();
 
 
     }
 
     public void updateSpinner() {
-        //===
-        Intent i = getIntent();
-        String username = i.getStringExtra("username");
-        Spinner spinner = (Spinner) findViewById(R.id.productSpinner);
-        spinner.setOnItemSelectedListener(this);
-        Database database = Database.getInstance();
-        StoreOwner user = (StoreOwner) Database.user;
+        productSpinner.setOnItemSelectedListener(this);
         Store userStore = Database.store;
         ArrayList<Product> products = userStore.getProducts();
-        ArrayList<String> allProducts = new ArrayList<String>();
+        ArrayList<String> allProducts = new ArrayList<>();
         for (Product product: products) {
             allProducts.add(product.getName());
         }
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, allProducts);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
-        //====
+        productSpinner.setAdapter(dataAdapter);
     }
 
 
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
-        Database database = new Database();
-        Intent i = getIntent();
-        String username = i.getStringExtra("username");
         String productName = parent.getItemAtPosition(position).toString();
-        StoreOwner user = (StoreOwner) Database.user;
         Store userStore = Database.store;
         Product product = userStore.findProduct(productName);
-        EditText productText = (EditText) findViewById(R.id.editProductName);
-        EditText brandText = (EditText) findViewById(R.id.editBrandName);
-        EditText priceText = (EditText) findViewById(R.id.editPrice);
         productText.setText(productName);
         brandText.setText(product.getBrand());
-        priceText.setText(Double.toString(product.getPrice()));
+        priceText.setText(String.format(Locale.getDefault(),"%.2f",product.getPrice()));
         int duration = Toast.LENGTH_SHORT;
         CharSequence text = "Selected: " + productName;
         Context context = getApplicationContext();
@@ -75,86 +72,70 @@ public class StoreOwnerEditActivity extends AppCompatActivity implements Adapter
     public void onNothingSelected(AdapterView<?> arg0) {
         int duration = Toast.LENGTH_SHORT;
         CharSequence text = "Select a product to edit";
+        displayMessage(text,duration);
+    }
+
+    public void displayMessage(CharSequence text, int duration) {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
-
     }
 
+
     public void editProduct(View view) {
-        Intent i = getIntent();
-        String username = i.getStringExtra("username");
-
-        EditText productText = (EditText) findViewById(R.id.editProductName);
-        EditText brandText = (EditText) findViewById(R.id.editBrandName);
-        EditText priceText = (EditText) findViewById(R.id.editPrice);
-        Spinner spinner = (Spinner) findViewById(R.id.productSpinner);
-        String productName = (String) spinner.getSelectedItem();
-
+        String productName = (String) productSpinner.getSelectedItem();
         Product editedProduct = new Product();
         String newProductName = productText.getText().toString();
         String newBrandName =  brandText.getText().toString();
         String newPrice = priceText.getText().toString();
 
         Database database = new Database();
-        StoreOwner user = (StoreOwner) Database.user;
         Store userStore = Database.store;
         Product oldProduct = userStore.findProduct(productName);
-
-        // ==================== Toast
-        Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
-        CharSequence text = "Successfully added!";
-        Toast toast = Toast.makeText(context, text, duration);
-        // ================
+        CharSequence text;
+
+        Pattern p = Pattern.compile("[a-zA-Z0-9]+[a-zA-Z0-9\\s]*");
+        Matcher nameMatcher = p.matcher(newProductName);
+        Matcher brandMatcher = p.matcher(newBrandName);
 
         if(userStore.products.isEmpty()){
             text = "You have no items to edit!";
-            toast = Toast.makeText(context, text, duration);
-            toast.show();
+            displayMessage (text,duration);
         }
-
-        //=== May need to do better type checking for price
-        if (newProductName.isEmpty()){
-            text = "Name cannot be empty!";
-            toast = Toast.makeText(context, text, duration);
-            toast.show();
-        }
-        else if (newBrandName.isEmpty()){
-            text = "Brand cannot be empty!";
-            toast = Toast.makeText(context, text, duration);
-            toast.show();
+        else if (!nameMatcher.matches()){
+            text = "Name must be alphanumeric";
+            displayMessage (text,duration);
+        } else if (!brandMatcher.matches()){
+            text = "Brand name must be alphanumeric";
+            displayMessage (text,duration);
         }
         else if (newPrice.isEmpty()){
             text = "Price cannot be empty!";
-            toast = Toast.makeText(context, text, duration);
-            toast.show();
+            displayMessage (text,duration);
         }
-        Product other = userStore.findProduct(productName);
 
         if (!newProductName.isEmpty() && !newBrandName.isEmpty() && !newPrice.isEmpty() &&
-                !userStore.products.isEmpty()) {
+                  nameMatcher.matches() && brandMatcher.matches()) {
             try
             {
-                Double doublePrice = Double.parseDouble(newPrice);
+                double doublePrice = Double.parseDouble(newPrice);
+                doublePrice = Math.round(doublePrice *100.0)/ 100.0;
                 editedProduct.setPrice(doublePrice);
                 editedProduct.setBrand(newBrandName);
                 editedProduct.setName(newProductName);
                 if (doublePrice <= 0) {
                     text = "Price must be positive!";
-                    toast = Toast.makeText(context,text,duration);
-                    toast.show();
+                    displayMessage (text,duration);
                 }
                 else if (userStore.productExists(newProductName)
                         && !newProductName.equals(productName)){
                     text = "Product with this name already exists.";
-                    toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                    displayMessage (text,duration);
                 }
                 else {
                     text = "Successfully changed!";
-                    toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                    displayMessage (text,duration);
                     database.editProduct(oldProduct, userStore.getName(), newProductName, newBrandName, doublePrice);
                     updateSpinner();
                 }
@@ -163,30 +144,10 @@ public class StoreOwnerEditActivity extends AppCompatActivity implements Adapter
             catch(NumberFormatException e)
             {
                 text = "Price must be numeric!";
-                toast = Toast.makeText(context, text, duration);
-                toast.show();
+                displayMessage (text,duration);
                 e.printStackTrace();
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }

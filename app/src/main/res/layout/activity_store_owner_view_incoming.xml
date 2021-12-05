@@ -25,22 +25,25 @@
         android:layout_width="264dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:entries="@array/defaultOrderSpinnerValues"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/incomingOrderInfo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/incomingOrderIdText" />
 
     <TextView
         android:id="@+id/incomingOrderInfo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_height="264dp"
+        android:layout_marginTop="16dp"
+        android:scrollbars="vertical"
         android:text="@string/incomingOrderInfo"
         android:textAlignment="viewStart"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/incomingTotalCost"
-        app:layout_constraintEnd_toStartOf="@+id/priceText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/incomingOrderSpinner" />
@@ -56,34 +59,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customerNameText" />
-
-    <TextView
-        android:id="@+id/priceText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="@string/priceText"
-        android:textAlignment="viewStart"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/incomingTotalCost"
-        app:layout_constraintEnd_toStartOf="@+id/quantityText"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/incomingOrderInfo"
-        app:layout_constraintTop_toBottomOf="@+id/incomingOrderSpinner" />
-
-    <TextView
-        android:id="@+id/quantityText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="@string/quantityText"
-        android:textAlignment="viewStart"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/incomingTotalCost"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/priceText"
-        app:layout_constraintTop_toBottomOf="@+id/incomingOrderSpinner" />
 
     <TextView
         android:id="@+id/customerNameText"
@@ -111,15 +86,16 @@
 
     <TextView
         android:id="@+id/incomingTotalCost"
-        android:layout_width="wrap_content"
+        android:layout_width="264dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/totalCostMessage"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/customerNameText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priceText" />
+        app:layout_constraintTop_toBottomOf="@+id/incomingOrderInfo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

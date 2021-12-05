@@ -3,89 +3,88 @@ package com.example.cscb07project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StoreOwnerAddActivity extends AppCompatActivity {
+    EditText editName;
+    EditText editBrand;
+    EditText editPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_owner_add);
+        editName = (EditText) findViewById(R.id.productNameText);
+        editBrand = (EditText) findViewById(R.id.productBrandText);
+        editPrice = (EditText) findViewById(R.id.productPriceText);
+    }
+
+    public void displayMessage(CharSequence text, int duration) {
+        Context context = getApplicationContext();
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     public void addToStore (View view) {
-        Intent i = getIntent();
-        String username = i.getStringExtra("username");
-        EditText editName = (EditText) findViewById(R.id.productNameText);
-        EditText editBrand = (EditText) findViewById(R.id.productBrandText);
-        EditText editPrice = (EditText) findViewById(R.id.productPriceText);
         Product product = new Product();
         String productName = editName.getText().toString();
-        String brandName = editName.getText().toString();
+        String brandName = editBrand.getText().toString();
         String price = editPrice.getText().toString();
-        StoreOwner user = (StoreOwner) Database.user;
+        StoreOwner user;
         Database database = new Database();
         Store userStore = Database.store;
-
-        // ==================== Toast
-        Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
-        CharSequence text = "Successfully added!";
-        Toast toast = Toast.makeText(context, text, duration);
-        // ================
-
-        //=== May need to do better type checking for price
-        if (productName.isEmpty()) {
-            text = "Name cannot be empty!";
-            toast = Toast.makeText(context, text, duration);
-            toast.show();
-        } else if (brandName.isEmpty()) {
-            text = "Brand cannot be empty!";
-            toast = Toast.makeText(context, text, duration);
-            toast.show();
-        } else if (price.isEmpty()) {
+        CharSequence text;
+        Pattern p = Pattern.
+                compile("[a-zA-Z0-9]+[a-zA-Z0-9\\s]*");
+        Matcher nameMatcher = p.matcher(productName);
+        Matcher brandMatcher = p.matcher(brandName);
+        if (!nameMatcher.matches()){
+            text = "Name must be alphanumeric";
+            displayMessage(text,duration);
+        } else if (!brandMatcher.matches()){
+            text = "Brand name must be alphanumeric";
+            displayMessage(text,duration);
+        }
+        else if (price.isEmpty()) {
             text = "Price cannot be empty!";
-            toast = Toast.makeText(context, text, duration);
-            toast.show();
+            displayMessage(text,duration);
         }
 
-        //=== Remains to deal with uniqueness
         Product other = database.findProduct(productName);
-
-
-        if (!productName.isEmpty() && !price.isEmpty() && !brandName.isEmpty()) {
+        if (!productName.isEmpty() && !price.isEmpty() && !brandName.isEmpty() &&
+                nameMatcher.matches()&& brandMatcher.matches()) {
             try {
-                Double doublePrice = Double.parseDouble(price);
+                double doublePrice = Double.parseDouble(price);
+                doublePrice = Math.round(doublePrice *100.0)/ 100.0;
                 product.setPrice(doublePrice);
                 product.setBrand(editBrand.getText().toString());
                 product.setName(editName.getText().toString());
                 if (doublePrice <= 0) {
                     text = "Price must be positive!";
-                    toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                    displayMessage(text,duration);
                 } else if (userStore.productExists(productName)
                         || product.equals(other)) {
                     text = "Product already exists. Try editing from previous menu.";
-                    toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                    displayMessage(text,duration);
                 } else {
                     try {
                         doublePrice = Double.parseDouble(price);
+                        doublePrice = Math.round(doublePrice *100.0)/ 100.0;
                         product.setPrice(doublePrice);
                         user = (StoreOwner) Database.user;
                         database.addProductToStore(user.getStoreName(), product);
                         text = "Successfully added!";
-                        toast = Toast.makeText(context, text, duration);
-                        toast.show();
+                        displayMessage(text,duration);
                     } catch (NumberFormatException e) {
                         text = "Price must be numeric!";
-                        toast = Toast.makeText(context, text, duration);
-                        toast.show();
+                        displayMessage(text,duration);
                         e.printStackTrace();
                     }
                 }
@@ -93,15 +92,11 @@ public class StoreOwnerAddActivity extends AppCompatActivity {
             }
             catch (NumberFormatException e) {
                 text = "Price must be numeric!";
-                toast = Toast.makeText(context, text, duration);
-                toast.show();
+                displayMessage(text,duration);
                 e.printStackTrace();
             }
 
-
-
         }
-
 
     }
 

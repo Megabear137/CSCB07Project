@@ -55,7 +55,7 @@
     <string name="fulfilledText">Fulfilled Orders</string>
     <string name="fulfilledOrderInfo">Product:</string>
     <string name="incomingText">Incoming Orders</string>
-    <string name="incomingOrderInfo">Product:</string>
+    <string name="incomingOrderInfo">Order Info:</string>
     <string name="markFulfilledButton">FULFILL ORDER</string>
     <string name="changeToLabel">Change To:</string>
     <string name="currentInfoLabel">Current Info:</string>
@@ -68,7 +68,7 @@
     <string name="confirmChangesButton">CONFIRM ALL CHANGES</string>
     <string name="registerStoreFeedback"></string>
     <string name="logoutButton">LOGOUT</string>
-    <string name="deleteFulfilledOrder">DELETE FULFILLED ORDER</string>
+    <string name="deleteFulfilledOrder">DELETE ORDER HISTORY</string>
     <string name="priceText">Price:</string>
     <string name="quantityText">Quantity:</string>
     <string name="customerNameText">Customer name:</string>
@@ -82,5 +82,9 @@
     <string name="viewCart">View your cart: </string>
     <string name="makeOrder">Make Order</string>
     <string name="totalCostMessage">Total cost:</string>
+
+    <string-array name="defaultOrderSpinnerValues">
+        <item>You have no orders.</item>
+    </string-array>
 
 </resources>

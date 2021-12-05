@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewFulfilledLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StoreOwnerViewFulfilledActivity">
@@ -23,12 +24,14 @@
     <TextView
         android:id="@+id/fulfilledOrderInfo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="264dp"
+        android:layout_marginTop="16dp"
+        android:scrollbars="vertical"
         android:text="@string/fulfilledOrderInfo"
         android:textAlignment="viewStart"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/fulfilledTotalCost"
-        app:layout_constraintEnd_toStartOf="@+id/fulfilledPriceText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fulfilledOrders" />
@@ -38,6 +41,7 @@
         android:layout_width="264dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
+        android:entries="@array/defaultOrderSpinnerValues"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -57,32 +61,6 @@
         app:layout_constraintTop_toBottomOf="@+id/fulfilledCustomerName" />
 
     <TextView
-        android:id="@+id/fulfilledPriceText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/priceText"
-        android:textAlignment="viewStart"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/fulfilledTotalCost"
-        app:layout_constraintEnd_toStartOf="@+id/fulfilledQuantityText"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/fulfilledOrderInfo"
-        app:layout_constraintTop_toBottomOf="@+id/fulfilledOrders" />
-
-    <TextView
-        android:id="@+id/fulfilledQuantityText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/quantityText"
-        android:textAlignment="viewStart"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/fulfilledTotalCost"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/fulfilledPriceText"
-        app:layout_constraintTop_toBottomOf="@+id/fulfilledOrders" />
-
-    <TextView
         android:id="@+id/fulfilledCustomerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,7 +69,6 @@
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/deleteFulfilledOrder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fulfilledTotalCost" />
 
@@ -111,6 +88,7 @@
         android:id="@+id/fulfilledTotalCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/totalCostMessage"
         android:textAlignment="viewStart"
         android:textColor="#000000"
@@ -118,6 +96,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fulfilledPriceText" />
+        app:layout_constraintTop_toBottomOf="@+id/fulfilledOrderInfo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
