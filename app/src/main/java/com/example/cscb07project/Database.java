@@ -144,14 +144,16 @@ public class Database implements Contract.Model{
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(stores != null) stores.clear();
-                for(int i = 0; i < storeCount; i++){
-                    FirebaseDatabase.getInstance().getReference("Stores").child(i + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            stores.add(task.getResult().getValue(Store.class));
-                        }
-                    });
+                if(stores != null){
+                    stores.clear();
+                    for(int i = 0; i < storeCount; i++){
+                        FirebaseDatabase.getInstance().getReference("Stores").child(i + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                stores.add(task.getResult().getValue(Store.class));
+                            }
+                        });
+                    }
                 }
             }
 
