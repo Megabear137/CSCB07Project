@@ -40,7 +40,6 @@ public class Database implements Contract.Model{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userCount = snapshot.getValue(Integer.class);
-                Log.i("demo", userCount + "");
             }
 
             @Override
@@ -55,7 +54,6 @@ public class Database implements Contract.Model{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 storeCount = snapshot.getValue(Integer.class);
-                Log.i("demo", storeCount + "");
             }
 
             @Override
@@ -81,7 +79,7 @@ public class Database implements Contract.Model{
         FirebaseDatabase.getInstance().getReference().child("Users").child(userIndex + "").setValue(user);
     }
 
-    public void initializeUser(String username, boolean isLogin, Contract.Presenter presenter) {
+    public void initializeUser(String username, Contract.Presenter presenter) {
 
         FirebaseDatabase.getInstance().getReference("UserCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -91,29 +89,32 @@ public class Database implements Contract.Model{
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (task.getResult().child("username").getValue(String.class).equals(username)) {
+
+                                task.getResult().getRef().get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        if (user == null && task.getResult().child("isStoreOwner").getValue(Boolean.class)) {
+                                            user = task.getResult().getValue(StoreOwner.class);
+                                            userIndex = Integer.parseInt(task.getResult().getKey());
+                                            presenter.validateLogin(user);
+                                        } else if(user == null && !task.getResult().child("isStoreOwner").getValue(Boolean.class)) {
+                                            user = task.getResult().getValue(Customer.class);
+                                            userIndex = Integer.parseInt(task.getResult().getKey());
+                                            presenter.validateLogin(user);
+                                        }
+                                    }
+                                });
+
                                 DatabaseReference ref = task.getResult().getRef();
+
                                 ValueEventListener listener = new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if (snapshot.child("isStoreOwner").getValue(Boolean.class)) {
-                                            if(user == null){
+                                        if(user != null && user.getUsername().equals(snapshot.child("username").getValue(String.class))){
+                                            if (snapshot.child("isStoreOwner").getValue(Boolean.class)) {
                                                 user = snapshot.getValue(StoreOwner.class);
                                                 userIndex = Integer.parseInt(snapshot.getKey());
-                                                presenter.validateLogin(user);
-                                                initializeStore(snapshot.child("storeName").getValue(String.class));
-                                            }
-                                            else{
-                                                user = snapshot.getValue(StoreOwner.class);
-                                                userIndex = Integer.parseInt(snapshot.getKey());
-                                                initializeStore(snapshot.child("storeName").getValue(String.class));
-                                            }
-                                        } else {
-                                            if(user == null){
-                                                user = snapshot.getValue(Customer.class);
-                                                userIndex = Integer.parseInt(snapshot.getKey());
-                                                if(isLogin) presenter.validateLogin(user);
-                                            }
-                                            else{
+                                            } else {
                                                 user = snapshot.getValue(Customer.class);
                                                 userIndex = Integer.parseInt(snapshot.getKey());
                                             }
@@ -143,7 +144,7 @@ public class Database implements Contract.Model{
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                stores.clear();
+                if(stores != null) stores.clear();
                 for(int i = 0; i < storeCount; i++){
                     FirebaseDatabase.getInstance().getReference("Stores").child(i + "").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
@@ -213,7 +214,7 @@ public class Database implements Contract.Model{
         ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.getResult().exists() && task.getResult().getValue(String.class).equals(password)) initializeUser(username, true, presenter);
+                if(task.getResult().exists() && task.getResult().getValue(String.class).equals(password)) initializeUser(username, presenter);
                 else if(task.getResult().getValue() != null) presenter.invalidateLogin(0);
                 else presenter.invalidateLogin(1);
             }
@@ -279,8 +280,7 @@ public class Database implements Contract.Model{
                     FirebaseDatabase.getInstance().getReference().child("Users").child(userCount - 1 + "").setValue(customer);
                     FirebaseDatabase.getInstance().getReference().child("Passwords").child(username).setValue(password);
 
-                    initializeUser(username, false, presenter);
-                    initializeStores();
+                    user = customer;
 
                     presenter.validateSignup(customer);
                 }
@@ -306,7 +306,7 @@ public class Database implements Contract.Model{
                     FirebaseDatabase.getInstance().getReference().child("Passwords").child(username).setValue(password);
                     FirebaseDatabase.getInstance().getReference().child("StoreOwners").child(username).setValue("");
 
-                    initializeUser(username, false, presenter);
+                    user = storeOwner;
 
                     presenter.validateSignup(storeOwner);
                 }
@@ -465,14 +465,13 @@ public class Database implements Contract.Model{
         for(Order order: customer.getCart()) {
             if(order.getStoreName().equals(storeName)) {
                 transferedOrder = order;
-                customer.cart.remove(order);
-                break;
             }
         }
         if (transferedOrder == null) {
             return -3;
         }
 
+        customer.cart.remove(transferedOrder);
         customer.pendingOrders.add(transferedOrder);
         Store store = findStore(storeName);
         store.incomingOrders.add(transferedOrder);
@@ -574,28 +573,31 @@ public class Database implements Contract.Model{
     // and added to outgoing orders, and returns -1 otherwise
     public void storeCompleteOrder(int orderID, StoreOwnerViewIncomingActivity s) {
         Order order = findIncomingOrder(orderID);
+
         if (store.incomingOrders.contains(order)) {
             order.setFulfilled(true);
             store.incomingOrders.remove(order);
             store.outgoingOrders.add(order);
-            updateDatabase();
             FirebaseDatabase.getInstance().getReference("Users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    for(int i = 0; i < userCount; i++){
-                        if(task.getResult().child(i + "").child("pendingOrders").exists()){
-                            for(DataSnapshot snapshot: task.getResult().child(i + "").child("pendingOrders").getChildren()){
-                                if(snapshot.child("id").getValue(Integer.class) == orderID){
+                    for (int i = 0; i < userCount; i++) {
+                        if (task.getResult().child(i + "").child("pendingOrders").exists()) {
+                            for (DataSnapshot snapshot : task.getResult().child(i + "").child("pendingOrders").getChildren()) {
+                                if (snapshot.child("id").getValue(Integer.class) == orderID) {
                                     Customer customer = task.getResult().child(i + "").getValue(Customer.class);
-                                    for(Order order: customer.pendingOrders){
-                                        if(order.id == orderID){
-                                            order.isFulfilled = true;
-                                            customer.completedOrders.add(order);
-                                            customer.pendingOrders.remove(order);
-                                            FirebaseDatabase.getInstance().getReference("Users").child(i + "").setValue(customer);
-                                            s.validateComplete(1);
+                                    Order orderToRemove = null;
+                                    for (Order order : customer.pendingOrders) {
+                                        if (order.id == orderID) {
+                                            orderToRemove = order;
                                         }
                                     }
+                                    orderToRemove.isFulfilled = true;
+                                    customer.completedOrders.add(orderToRemove);
+                                    customer.pendingOrders.remove(orderToRemove);
+                                    FirebaseDatabase.getInstance().getReference("Users").child(i + "").setValue(customer);
+                                    s.validateComplete(1);
+                                    updateDatabase();
                                 }
                             }
                         }

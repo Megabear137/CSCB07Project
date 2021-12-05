@@ -26,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class LoginActivity extends AppCompatActivity implements Contract.View{
 
     private Contract.Presenter presenter; // This class will contain the presenter that will validate the login process
-    Database database;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -35,6 +34,8 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
         setContentView(R.layout.activity_login);
         presenter = new MyPresenter(this, new Database());
         Database.user = null;
+        Database.stores = null;
+        Database.store = null;
     }
 
     public void moveToSignup(View view) {

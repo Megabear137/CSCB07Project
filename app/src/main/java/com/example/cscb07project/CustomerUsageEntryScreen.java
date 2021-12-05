@@ -43,6 +43,11 @@ public class CustomerUsageEntryScreen extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void logOut(View view){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
 
 
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 public class SignupActivity extends AppCompatActivity implements Contract.View {
 
     private Contract.Presenter presenter; // This class will contain the presenter that will validate the login process
-    private Contract.Model database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +57,13 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
     }
 
     public void validateSignup(User user){
-        if (!user.isStoreOwner) {
 
+        if (!user.isStoreOwner) {
             Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
             intent.putExtra("username", getUsername());
             startActivity(intent);
         }
         if (user.isStoreOwner) {
-
             Intent intent = new Intent(this, RegisterStoreActivity.class);
             intent.putExtra("username", getUsername());
             startActivity(intent);

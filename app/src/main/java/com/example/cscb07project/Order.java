@@ -63,11 +63,7 @@ public class Order {
         if (getClass() != obj.getClass())
             return false;
         Order other = (Order) obj;
-        if (!customerName.equals(other.customerName))
-            return false;
-        if(!storeName.equals(other.storeName))
-            return false;
-        if (time!=other.time)
+        if (id != other.id)
             return false;
         return true;
     }

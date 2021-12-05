@@ -42,15 +42,16 @@
         app:layout_constraintTop_toTopOf="@+id/viewOrdesGrandTotalProduct" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/viewOrdersMakeOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="makeOrder"
         android:text="@string/makeOrder"
-        app:layout_constraintBottom_toBottomOf="@+id/button10"
+        app:layout_constraintBottom_toBottomOf="@+id/viewOrdersGoToStore"
         app:layout_constraintEnd_toEndOf="@+id/viewOrdersGrandTotalPrice"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/button10"
-        app:layout_constraintTop_toTopOf="@+id/button10" />
+        app:layout_constraintStart_toEndOf="@+id/viewOrdersGoToStore"
+        app:layout_constraintTop_toTopOf="@+id/viewOrdersGoToStore" />
 
     <TextView
         android:id="@+id/viewOrdesSubtotalProduct"
@@ -250,10 +251,11 @@
         app:layout_constraintVertical_bias="0.23" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/viewOrdersGoToStore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:onClick="goToStore"
         android:text="@string/go_to_store"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

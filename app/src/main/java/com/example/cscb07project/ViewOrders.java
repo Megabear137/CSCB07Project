@@ -72,6 +72,15 @@ public class ViewOrders extends AppCompatActivity implements AdapterView.OnItemS
 
         customer = (Customer)Database.user;
 
+        if(current.equals("Shopping Cart")){
+            findViewById(R.id.viewOrdersMakeOrder).setVisibility(View.VISIBLE);
+            findViewById(R.id.viewOrdersGoToStore).setVisibility(View.VISIBLE);
+        }
+        else{
+            findViewById(R.id.viewOrdersMakeOrder).setVisibility(View.GONE);
+            findViewById(R.id.viewOrdersMakeOrder).setVisibility(View.GONE);
+        }
+
         orderSpinner = findViewById(R.id.viewOrdersSpinner);
         orderSpinner.setOnItemSelectedListener(this);
 
@@ -205,6 +214,11 @@ public class ViewOrders extends AppCompatActivity implements AdapterView.OnItemS
             subtotalView.setText(subtotal + "");
             grandTotalView.setText(grandTotal + "");
         }
+        else{
+            productTotalView.setText("");
+            subtotalView.setText("");
+            grandTotalView.setText("");
+        }
 
 
 
@@ -293,20 +307,58 @@ public class ViewOrders extends AppCompatActivity implements AdapterView.OnItemS
 
     public void makeOrder(View view) {
 
-        String orderIDString = orderSpinner.getSelectedItem().toString();
-        orderIDString = orderIDString.substring(orderIDString.lastIndexOf(" ")).trim();
-        int orderID = Integer.parseInt(orderIDString);
+        if(!orderSpinner.getSelectedItem().toString().equals("No Orders Found")){
+            String orderIDString = orderSpinner.getSelectedItem().toString();
+            orderIDString = orderIDString.substring(orderIDString.lastIndexOf(" ")).trim();
+            int orderID = Integer.parseInt(orderIDString);
 
-        for(Order order: customer.cart){
-            if(order.id == orderID){
-                Database database = new Database();
-                database.makeOrder(order.getStoreName());
+            for(Order order: customer.cart){
+                if(order.id == orderID){
+                    Database database = new Database();
+                    database.makeOrder(order.getStoreName());
+                }
             }
+
+            updateOrderSpinner();
+            updateTotals();
+            Toast.makeText(getApplicationContext(), "Order has been successfully made.", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Please choose an order first.", Toast.LENGTH_SHORT).show();
         }
 
-        updateOrderSpinner();
-        updateTotals();
+    }
 
+    public void goToStore(View view){
+
+        if(!orderSpinner.getSelectedItem().toString().equals("No Orders Found")) {
+
+            String storeName = "";
+
+            String orderIDString = orderSpinner.getSelectedItem().toString();
+            orderIDString = orderIDString.substring(orderIDString.lastIndexOf(" ")).trim();
+            int orderID = Integer.parseInt(orderIDString);
+
+            ArrayList<Order> orders;
+
+            if(current.equals("Shopping Cart")) orders = customer.cart;
+            else if(current.equals("Pending Orders")) orders = customer.pendingOrders;
+            else orders = customer.completedOrders;
+
+
+            for (Order order : orders) {
+                if (order.id == orderID) {
+                    storeName = order.getStoreName();
+                }
+            }
+
+            Intent intent = new Intent(this, ViewStoreActivity.class);
+            intent.putExtra("store", storeName);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Please choose an order first.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

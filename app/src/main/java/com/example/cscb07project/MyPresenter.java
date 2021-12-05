@@ -35,16 +35,19 @@ public class MyPresenter implements Contract.Presenter {
     }
 
     public void validateLogin(User user){
-        Database d1 = new Database();
-        d1.initializeStores();
+        if(user.isStoreOwner) database.initializeStore(((StoreOwner)user).getStoreName());
+        else database.initializeStores();
         view.validateLogin(user);
     }
+
     public void invalidateLogin(int result){
         if(result == 0) view.displayMessage("Incorrect Password");
         else view.displayMessage("User Not Found");
     }
 
     public void validateSignup(User user){
+        if(user.isStoreOwner) database.initializeStore(((StoreOwner)user).getStoreName());
+        else database.initializeStores();
         view.displayMessage("Success");
         view.validateSignup(user);
     }
