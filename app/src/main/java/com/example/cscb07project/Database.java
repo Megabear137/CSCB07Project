@@ -487,13 +487,21 @@ public class Database implements Contract.Model{
      */
     public int customerDeleteHistory(Order order) {
         Customer customer = (Customer)user;
-        if (customer.completedOrders.contains(order)) {
+        if (order != null && customer.completedOrders.contains(order)) {
             customer.completedOrders.remove(order);
             updateDatabase();
             return 1;
         }
         else
             return -1;
+    }
+
+    public void customerDeleteFullHistory() {
+        Customer customer = (Customer)user;
+        if (!customer.completedOrders.isEmpty()) {
+            customer.completedOrders.clear();
+        }
+        updateDatabase();
     }
 
     /*Remove the order from the store's outgoingOrder.

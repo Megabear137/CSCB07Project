@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,8 +33,6 @@ public class ViewOrders extends AppCompatActivity implements AdapterView.OnItemS
     int cartSize;
     int pendingOrdersSize;
     int completedOrdersSize;
-
-    Product currentProduct;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -72,24 +71,34 @@ public class ViewOrders extends AppCompatActivity implements AdapterView.OnItemS
 
         customer = (Customer)Database.user;
 
-        if(current.equals("Shopping Cart")){
-            findViewById(R.id.viewOrdersMakeOrder).setVisibility(View.VISIBLE);
-            findViewById(R.id.viewOrdersGoToStore).setVisibility(View.VISIBLE);
-        }
-        else{
-            findViewById(R.id.viewOrdersMakeOrder).setVisibility(View.GONE);
-            findViewById(R.id.viewOrdersMakeOrder).setVisibility(View.GONE);
-        }
-
         orderSpinner = findViewById(R.id.viewOrdersSpinner);
         orderSpinner.setOnItemSelectedListener(this);
 
         ArrayList<Order> orders = new ArrayList<>();
         ArrayList<String> spinnerOrders = new ArrayList<>();
 
-        if(current.equals("Shopping Cart")) orders = customer.cart;
-        else if(current.equals("Pending Orders")) orders = customer.pendingOrders;
-        else if(current.equals("Completed Orders")) orders = customer.completedOrders;
+        if(current.equals("Shopping Cart")){
+            orders = customer.cart;
+            findViewById(R.id.viewOrdersGoToStore).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.viewOrdersGoToStore)).setText("Go to Store");
+            ((TextView)findViewById(R.id.viewOrdersChooseOrder)).setText("Choose an Order");
+            ((TextView)findViewById(R.id.viewOrdersMakeOrder)).setText("Make Order");
+            ((TextView)findViewById(R.id.viewOrdersMakeOrder)).setVisibility(View.VISIBLE);
+        }
+        else if(current.equals("Pending Orders")){
+            findViewById(R.id.viewOrdersGoToStore).setVisibility(View.VISIBLE);
+            orders = customer.pendingOrders;
+            ((TextView)findViewById(R.id.viewOrdersChooseOrder)).setText("View a Pending Order");
+            ((TextView)findViewById(R.id.viewOrdersMakeOrder)).setVisibility(View.GONE);
+        }
+        else if(current.equals("Completed Orders")){
+            orders = customer.completedOrders;
+            findViewById(R.id.viewOrdersGoToStore).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.viewOrdersGoToStore)).setText("Delete Order");
+            ((TextView)findViewById(R.id.viewOrdersChooseOrder)).setText("View a Past Order");
+            ((TextView)findViewById(R.id.viewOrdersMakeOrder)).setText("Delete All Orders");
+            ((TextView)findViewById(R.id.viewOrdersMakeOrder)).setVisibility(View.VISIBLE);
+        }
 
         for (Order order: orders) {
             spinnerOrders.add(order.toString());
@@ -210,9 +219,14 @@ public class ViewOrders extends AppCompatActivity implements AdapterView.OnItemS
             double subtotal = productTotal * order.products.get(productName);
             double grandTotal = order.calculateTotal();
 
-            productTotalView.setText(productTotal + "");
-            subtotalView.setText(subtotal + "");
-            grandTotalView.setText(grandTotal + "");
+            java.text.DecimalFormat df =new java.text.DecimalFormat("#.00");
+            String s1 = df.format(productTotal);
+            String s2 = df.format(subtotal);
+            String s3 = df.format(grandTotal);
+
+            productTotalView.setText(s1);
+            subtotalView.setText(s2);
+            grandTotalView.setText(s3);
         }
         else{
             productTotalView.setText("");
@@ -273,11 +287,10 @@ public class ViewOrders extends AppCompatActivity implements AdapterView.OnItemS
 
         Database d1 = new Database();
 
-        if(((TextView)findViewById(R.id.viewOrdersQuantity)).getText().toString().equals("")){
+        if (((TextView) findViewById(R.id.viewOrdersQuantity)).getText().toString().equals("")) {
             Toast.makeText(getApplicationContext(), "Please enter an amount first.", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            int quantity = Integer.parseInt(((TextView)findViewById(R.id.viewOrdersQuantity)).getText().toString());
+        } else {
+            int quantity = Integer.parseInt(((TextView) findViewById(R.id.viewOrdersQuantity)).getText().toString());
 
             String productName = productSpinner.getSelectedItem().toString();
             productName = productName.substring(0, productName.lastIndexOf("x")).trim();
@@ -288,12 +301,13 @@ public class ViewOrders extends AppCompatActivity implements AdapterView.OnItemS
 
             Log.i("bruh", orderID + " " + productName);
 
-            for(Order order: customer.cart){
-                if(order.id == orderID){
-                    for(String name: order.products.keySet()){
-                        if(name.equals(productName)){
+            for (Order order : customer.cart) {
+                if (order.id == orderID) {
+                    for (String name : order.products.keySet()) {
+                        if (name.equals(productName)) {
                             order.products.replace(name, quantity);
-                            if(order.products.get(name) == 0) d1.deleteProductFromCart(name, order.getStoreName());
+                            if (order.products.get(name) == 0)
+                                d1.deleteProductFromCart(name, order.getStoreName());
                             d1.updateDatabase();
                             updateOrderSpinner();
                         }
@@ -301,60 +315,90 @@ public class ViewOrders extends AppCompatActivity implements AdapterView.OnItemS
                 }
             }
         }
-
-
     }
+
 
     public void makeOrder(View view) {
 
-        if(!orderSpinner.getSelectedItem().toString().equals("No Orders Found")){
-            String orderIDString = orderSpinner.getSelectedItem().toString();
-            orderIDString = orderIDString.substring(orderIDString.lastIndexOf(" ")).trim();
-            int orderID = Integer.parseInt(orderIDString);
+        if(current.equals("Shopping Cart")){
+            if(!orderSpinner.getSelectedItem().toString().equals("No Orders Found")){
+                String orderIDString = orderSpinner.getSelectedItem().toString();
+                orderIDString = orderIDString.substring(orderIDString.lastIndexOf(" ")).trim();
+                int orderID = Integer.parseInt(orderIDString);
 
-            for(Order order: customer.cart){
-                if(order.id == orderID){
-                    Database database = new Database();
-                    database.makeOrder(order.getStoreName());
+                for(Order order: customer.cart){
+                    if(order.id == orderID){
+                        Database database = new Database();
+                        database.makeOrder(order.getStoreName());
+                    }
                 }
-            }
 
-            updateOrderSpinner();
-            updateTotals();
-            Toast.makeText(getApplicationContext(), "Order has been successfully made.", Toast.LENGTH_SHORT).show();
+                updateOrderSpinner();
+                Toast.makeText(getApplicationContext(), "Order has been successfully made.", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Please choose an order first.", Toast.LENGTH_SHORT).show();
+            }
         }
         else{
-            Toast.makeText(getApplicationContext(), "Please choose an order first.", Toast.LENGTH_SHORT).show();
+            Database database = new Database();
+            database.customerDeleteFullHistory();
+            Toast.makeText(getApplicationContext(), "Order history has been cleared.", Toast.LENGTH_SHORT).show();
+            updateOrderSpinner();
         }
+
 
     }
 
     public void goToStore(View view){
 
         if(!orderSpinner.getSelectedItem().toString().equals("No Orders Found")) {
-
-            String storeName = "";
-
-            String orderIDString = orderSpinner.getSelectedItem().toString();
-            orderIDString = orderIDString.substring(orderIDString.lastIndexOf(" ")).trim();
-            int orderID = Integer.parseInt(orderIDString);
-
-            ArrayList<Order> orders;
-
-            if(current.equals("Shopping Cart")) orders = customer.cart;
-            else if(current.equals("Pending Orders")) orders = customer.pendingOrders;
-            else orders = customer.completedOrders;
+            if (current.equals("Shopping Cart") || current.equals("Pending Orders")) {
 
 
-            for (Order order : orders) {
-                if (order.id == orderID) {
-                    storeName = order.getStoreName();
+                String storeName = "";
+
+                String orderIDString = orderSpinner.getSelectedItem().toString();
+                orderIDString = orderIDString.substring(orderIDString.lastIndexOf(" ")).trim();
+                int orderID = Integer.parseInt(orderIDString);
+
+                ArrayList<Order> orders;
+
+                if (current.equals("Shopping Cart")) orders = customer.cart;
+                else orders = customer.pendingOrders;
+
+                for (Order order : orders) {
+                    if (order.id == orderID) {
+                        storeName = order.getStoreName();
+                    }
+                }
+
+                Intent intent = new Intent(this, ViewStoreActivity.class);
+                intent.putExtra("store", storeName);
+                startActivity(intent);
+            }
+            else {
+
+                String orderIDString = orderSpinner.getSelectedItem().toString();
+                orderIDString = orderIDString.substring(orderIDString.lastIndexOf(" ")).trim();
+                int orderID = Integer.parseInt(orderIDString);
+
+                Order orderToRemove = null;
+
+                for (Order order : customer.completedOrders) {
+                    if (order.id == orderID) {
+                        orderToRemove = order;
+                    }
+                }
+
+                Database d1 = new Database();
+                if (d1.customerDeleteHistory(orderToRemove) == 1) {
+                    Toast.makeText(getApplicationContext(), "Order successfully deleted from history.", Toast.LENGTH_SHORT).show();
+                    updateOrderSpinner();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Order could not be deleted. Please navigate away from page then return and try again.", Toast.LENGTH_SHORT).show();
                 }
             }
-
-            Intent intent = new Intent(this, ViewStoreActivity.class);
-            intent.putExtra("store", storeName);
-            startActivity(intent);
         }
         else{
             Toast.makeText(getApplicationContext(), "Please choose an order first.", Toast.LENGTH_SHORT).show();
