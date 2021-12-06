@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -88,6 +89,7 @@ public class ViewOrders extends AppCompatActivity implements AdapterView.OnItemS
         else if(current.equals("Pending Orders")){
             findViewById(R.id.viewOrdersGoToStore).setVisibility(View.VISIBLE);
             orders = customer.pendingOrders;
+            ((TextView)findViewById(R.id.viewOrdersGoToStore)).setText("Go to Store");
             ((TextView)findViewById(R.id.viewOrdersChooseOrder)).setText("View a Pending Order");
             ((TextView)findViewById(R.id.viewOrdersMakeOrder)).setVisibility(View.GONE);
         }
@@ -407,7 +409,18 @@ public class ViewOrders extends AppCompatActivity implements AdapterView.OnItemS
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        if(((TextView) adapterView.getChildAt(0)) != null){
+            ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
+            ((TextView) adapterView.getChildAt(0)).setTextSize(20);
+        }
+        if(((TextView) adapterView.getChildAt(1)) != null){
+            ((TextView) adapterView.getChildAt(1)).setTextColor(Color.WHITE);
+            ((TextView) adapterView.getChildAt(1)).setTextSize(20);
+        }
+
         updateProductSpinner();
+
     }
 
     @Override

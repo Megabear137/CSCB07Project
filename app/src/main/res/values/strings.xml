@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">CSCB07 Project</string>
-    <string name="welcome_screen">Welcome to Our App!</string>
+    <string name="welcome_screen">Welcome to SnackShack!</string>
     <string name="customer_button">I am a Customer</string>
     <string name="restaurant_owner_button">I am a Restaurant Owner</string>
     <string name="button_login">LOG IN</string>
@@ -28,6 +28,7 @@
     <string name="go_to_store">Go to Store</string>
     <string name="delete_order">Delete Order</string>
     <string name="delete_all">Delete All Orders</string>
+    <string name="snackshack">SnackShack!</string>
 
     <string-array name="signup_spinner_values">
         <item>I am a customer.</item>

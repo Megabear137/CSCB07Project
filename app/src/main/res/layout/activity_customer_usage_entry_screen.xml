@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomerUsageEntryScreen">
+    tools:context=".CustomerUsageEntryScreen"
+    android:background="@drawable/appbg3">
 
     <Button
         android:id="@+id/customerUsageViewOrdersButton"
         android:layout_width="196dp"
         android:layout_height="70dp"
+        android:backgroundTint="#593B16"
         android:onClick="viewOrders"
         android:text="@string/view_orders"
         android:textSize="20sp"
@@ -22,14 +24,18 @@
 
     <TextView
         android:id="@+id/customerUsageWelcomeView"
-        android:layout_width="411dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="72dp"
+        android:layout_width="384dp"
+        android:layout_height="138dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/appbg2"
+        android:text="Welcome \nZubair!"
         android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        app:autoSizeMaxTextSize="64sp"
+        app:autoSizeMinTextSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,6 +43,7 @@
         android:id="@+id/customerUsageViewStoresButton"
         android:layout_width="196dp"
         android:layout_height="70dp"
+        android:backgroundTint="#593B16"
         android:onClick="viewStores"
         android:text="@string/view_stores"
         android:textSize="20sp"
@@ -45,12 +52,13 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customerUsageWelcomeView"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.269" />
 
     <Button
         android:id="@+id/button7"
         android:layout_width="112dp"
         android:layout_height="58dp"
+        android:backgroundTint="#593B16"
         android:onClick="logOut"
         android:text="@string/logoutButton"
         android:textSize="16sp"

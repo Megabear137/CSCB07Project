@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class SignupActivity extends AppCompatActivity implements Contract.View {
+public class SignupActivity extends AppCompatActivity implements Contract.View{
 
     private Contract.Presenter presenter; // This class will contain the presenter that will validate the login process
 

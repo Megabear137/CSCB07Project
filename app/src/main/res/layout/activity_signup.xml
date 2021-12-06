@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/appbg3"
     tools:context=".SignupActivity">
 
     <EditText
         android:id="@+id/signupUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="168dp"
+        android:backgroundTint="#593B16"
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:backgroundTint="#593B16"
         android:text="Already have an account?"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button5" />
@@ -33,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:backgroundTint="#593B16"
         android:onClick="signupButton"
         android:text="Sign up"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:backgroundTint="#593B16"
         android:onClick="moveToLogin"
         android:text="Sign in here!"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,6 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:backgroundTint="#593B16"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
@@ -78,6 +87,28 @@
         android:layout_width="200dp"
         android:layout_height="17dp"
         android:layout_marginTop="8dp"
+        android:backgroundTint="#593B16"
         app:layout_constraintStart_toStartOf="@+id/signupPassword"
         app:layout_constraintTop_toBottomOf="@+id/signupPassword" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="415dp"
+        android:layout_height="108dp"
+        android:background="@drawable/btnbg" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="378dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/snackshack"
+        android:textAlignment="center"
+        android:textColor="#FDFDFD"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

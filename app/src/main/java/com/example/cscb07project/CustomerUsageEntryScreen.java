@@ -27,7 +27,7 @@ public class CustomerUsageEntryScreen extends AppCompatActivity {
         username = intent.getStringExtra("username");
 
         TextView welcome = findViewById(R.id.customerUsageWelcomeView);
-        welcome.setText("Welcome " + username + "!");
+        welcome.setText("Welcome \n" + username + "!");
 
     }
 
