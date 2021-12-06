@@ -65,12 +65,12 @@ public class ExampleUnitTest {
 
     @Test
     public void testValidateLoginStoreOwner() {
-        User owner = new StoreOwner();
+        StoreOwner owner = new StoreOwner();
         MyPresenter presenter = new MyPresenter(loginView, model);
 
         presenter.validateLogin(owner);
         Mockito.verify(loginView).validateLogin(owner);
-        Mockito.verify(model).initializeStore(((StoreOwner)owner).getStoreName());
+        Mockito.verify(model).initializeStore((owner).getStoreName());
     }
 
     @Test
@@ -116,6 +116,16 @@ public class ExampleUnitTest {
 
         presenter.checkSignup("I am a Store Owner.");
         Mockito.verify(model).addStoreOwner("Chicken", "Doggy", presenter);
+    }
+
+    @Test
+    public void testSignupEmptyPassword() {
+        Mockito.when(signupView.getUsername()).thenReturn("Chicken");
+        Mockito.when(signupView.getPassword()).thenReturn("");
+        MyPresenter presenter = new MyPresenter(signupView, model);
+
+        presenter.checkSignup("I am a Store Owner.");
+        Mockito.verify(signupView).displayMessage("Password Cannot Be Empty");
     }
 
     @Test
