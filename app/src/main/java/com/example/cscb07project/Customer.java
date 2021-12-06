@@ -30,39 +30,6 @@ public class Customer extends User{
     }
 
 
-
-    /*@RequiresApi(api = Build.VERSION_CODES.N)
-    public void addProductToCart(Product product) {
-        if (cart.containsKey(product)) {
-            int quantity = cart.get(product);
-            cart.replace(product, quantity+1);
-        }
-        else {
-            cart.put(product, 1);
-        }
-    }
-
-    public void makeOrder(Store store) {
-        HashMap<Product, Integer> productsInOrder = new HashMap<Product, Integer>();
-        for (Product product: cart.keySet()) {
-            if (product.getBrand().equals(store.getName())) {
-                productsInOrder.put(product, cart.get(product));
-                cart.remove(product);
-            }
-        }
-        Order order = new Order(getUsername(), store.getName(), productsInOrder);
-        pendingOrders.add(order);
-        store.receiveOrder(order);
-    }
-
-    public void moveToCompleteOrders(Order order) {
-        pendingOrders.remove(order);
-        completedOrders.add(order);
-    }
-
-     */
-
-
     public ArrayList<Order> getCart() {
         return cart;
     }

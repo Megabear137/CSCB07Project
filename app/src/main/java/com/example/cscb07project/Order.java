@@ -13,7 +13,6 @@ public class Order {
     String storeName;
     HashMap<String, Integer> products;
     boolean isFulfilled;
-    long time;
     int id;
 
     public Order (String customerName, String storeName, HashMap<String, Integer> products, int id) {
@@ -22,7 +21,6 @@ public class Order {
         this.storeName = storeName;
         isFulfilled = false;
         this.id = id;
-        time = System.currentTimeMillis();
     }
 
     public Order (String customerName, String storeName, int id) {
@@ -31,7 +29,6 @@ public class Order {
         this.customerName = customerName;
         this.storeName = storeName;
         isFulfilled = false;
-        time = System.currentTimeMillis();
     }
 
     public double calculateTotal() {
@@ -51,7 +48,7 @@ public class Order {
 
     @Override
     public int hashCode() {
-        return customerName.hashCode()/2+storeName.hashCode()/2-((int)time)%1000000000;
+        return id;
     }
 
     @Override
@@ -90,7 +87,7 @@ public class Order {
         this.customerName = customerName;
     }
 
-    public void setFulfilled(boolean fulfilled) {
+    public void setIsFulfilled(boolean fulfilled) {
         isFulfilled = fulfilled;
     }
 
@@ -121,10 +118,6 @@ public class Order {
 
     public int getId() {
         return id;
-    }
-
-    public boolean isFulfilled() {
-        return isFulfilled;
     }
 
     @NonNull

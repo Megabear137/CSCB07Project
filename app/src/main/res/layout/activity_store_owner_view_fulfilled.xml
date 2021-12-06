@@ -5,21 +5,8 @@
     android:id="@+id/viewFulfilledLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StoreOwnerViewFulfilledActivity">
-
-    <TextView
-        android:id="@+id/fulfilledText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="@string/fulfilledText"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".StoreOwnerViewFulfilledActivity"
+    android:background="@drawable/appbg3">
 
     <TextView
         android:id="@+id/fulfilledOrderInfo"
@@ -31,7 +18,7 @@
         android:scrollbars="vertical"
         android:text="@string/fulfilledOrderInfo"
         android:textAlignment="viewStart"
-        android:textColor="#000000"
+        android:textColor="#593B16"
         app:layout_constraintBottom_toTopOf="@+id/fulfilledTotalCost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -55,10 +42,10 @@
         android:id="@+id/deleteFulfilledOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#C4A484"
+        android:backgroundTint="#593B16"
         android:onClick="deleteFulfilledOrder"
         android:text="@string/deleteFulfilledOrder"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -71,7 +58,7 @@
         android:layout_height="wrap_content"
         android:text="@string/customerNameText"
         android:textAlignment="viewStart"
-        android:textColor="#000000"
+        android:textColor="#593B16"
         app:layout_constraintBottom_toTopOf="@+id/deleteFulfilledOrder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,13 +68,13 @@
         android:id="@+id/fulfilledOrderIdText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:text="@string/orderIdText"
-        android:textColor="#000000"
+        android:textColor="#593B16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.205"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fulfilledText" />
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
 
     <TextView
         android:id="@+id/fulfilledTotalCost"
@@ -96,11 +83,35 @@
         android:layout_marginTop="16dp"
         android:text="@string/totalCostMessage"
         android:textAlignment="viewStart"
-        android:textColor="#000000"
+        android:textColor="#593B16"
         app:layout_constraintBottom_toTopOf="@+id/fulfilledCustomerName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fulfilledOrderInfo" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="424dp"
+        android:layout_height="78dp"
+        android:background="@drawable/btnbg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/fulfilledText"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,6 +55,7 @@ public class  Store {
 
     }
 
+
     //Edits the fields of a product in the store given a Product, its new name, new brand,
     // and new price.
     // Return 1 if successful, -1 otherwise.
@@ -74,10 +75,11 @@ public class  Store {
 
     }
 
-    public boolean isIncomingOrdersEmpty() {
+    public boolean checkIsIncomingOrdersEmpty() {
         return incomingOrders == null || incomingOrders.isEmpty();
     }
-    public boolean isOutgoingOrdersEmpty() {
+
+    public boolean checkIsOutgoingOrdersEmpty() {
         return outgoingOrders == null || outgoingOrders.isEmpty();
     }
 
@@ -112,7 +114,6 @@ public class  Store {
     public String getOwnerName() {
         return ownerName;
     }
-
 
     public ArrayList<Product> getProducts() {
         return products;

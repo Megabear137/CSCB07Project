@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ViewStores extends AppCompatActivity {
 
@@ -135,7 +136,7 @@ public class ViewStores extends AppCompatActivity {
         else{
             ArrayList<Store> searchStores = new ArrayList<>();
             for(Store store: Database.stores){
-                if(store.getName().contains(search)){
+                if(store.getName().toLowerCase(Locale.ROOT).contains(search.toLowerCase(Locale.ROOT))){
                     searchStores.add(store);
                 }
             }

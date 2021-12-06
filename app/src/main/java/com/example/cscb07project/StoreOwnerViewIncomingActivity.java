@@ -45,7 +45,7 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
 
     public void updateSpinner() {
         Store userStore = Database.store;
-        if (!userStore.isIncomingOrdersEmpty()) {
+        if (!userStore.checkIsIncomingOrdersEmpty()) {
             ArrayList<Order> orders = userStore.getIncomingOrders();
             ArrayList<String> allOrders = new ArrayList<>();
             for (Order order : orders) {

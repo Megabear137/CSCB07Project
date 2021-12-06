@@ -116,13 +116,17 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void addAmount(View view) {
         Spinner spinner = (Spinner) findViewById(R.id.productsSpinner);
+        if(spinner.getSelectedItem() == null){
+            Toast.makeText(getApplicationContext(), "Please choose a product first.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String productInfo = (String) spinner.getSelectedItem();
         int index = productInfo.indexOf(";");
         String productName = productInfo.substring(0,index);
         EditText editText = (EditText) findViewById(R.id.amountAdded);
         String input = editText.getText().toString();
 
-        Pattern pattern =Pattern.compile("[0-9]+");
+        Pattern pattern =Pattern.compile("[1-9]{1}[0-9]*");
         if(pattern.matcher(input).matches()){
             int quantity = Integer.parseInt(editText.getText().toString());
             Database database = new Database();
@@ -135,7 +139,7 @@ public class ViewStoreActivity extends AppCompatActivity implements AdapterView.
             }
         }
         else{
-            Toast.makeText(getApplicationContext(), "Please enter a valid amount first.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please enter a valid amount first (must be greater than 0).", Toast.LENGTH_SHORT).show();
         }
 
 

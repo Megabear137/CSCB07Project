@@ -2,6 +2,7 @@
     <string name="app_name">CSCB07 Project</string>
     <string name="welcome_screen">Welcome to SnackShack!</string>
     <string name="customer_button">I am a Customer</string>
+    <string name="edit_product">Edit Product</string>
     <string name="restaurant_owner_button">I am a Restaurant Owner</string>
     <string name="button_login">LOG IN</string>
     <string name="button_signup">SIGN UP</string>
@@ -36,7 +37,7 @@
     </string-array>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="ownerWelcomeText">Welcome Back!</string>
+    <string name="ownerWelcomeText">Welcome!</string>
     <string name="storeOwnerAddButton">ADD PRODUCT TO STORE</string>
     <string name="storeOwnerEditButton">EDIT PRODUCT INFORMATION</string>
     <string name="viewIncomingButton">VIEW INCOMING ORDERS</string>

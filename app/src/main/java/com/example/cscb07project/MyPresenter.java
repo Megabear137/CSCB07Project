@@ -49,8 +49,7 @@ public class MyPresenter implements Contract.Presenter {
     }
 
     public void validateSignup(User user){
-        if(user.isStoreOwner) database.initializeStore(((StoreOwner)user).getStoreName());
-        else database.initializeStores();
+        if(!user.isStoreOwner) database.initializeStores();
         view.displayMessage("Success");
         view.validateSignup(user);
     }

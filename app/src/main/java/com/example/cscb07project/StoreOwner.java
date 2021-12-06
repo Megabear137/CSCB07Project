@@ -10,7 +10,7 @@ public class StoreOwner extends User{
 
     public StoreOwner (String username) {
         this.username = username;
-        isStoreOwner = true;
+        this.isStoreOwner = true;
         this.storeName = "";
     }
 
@@ -38,6 +38,7 @@ public class StoreOwner extends User{
     public String getUsername() {
         return username;
     }
+
     public ArrayList<Order> getOrders() {
         return orders;
     }

@@ -67,16 +67,15 @@ public class LoginActivity extends AppCompatActivity implements Contract.View{
 
     public void validateLogin(User user){
 
+        Intent intent;
         if(user.isStoreOwner){
-            Intent intent = new Intent(this, StoreOwnerHomeActivity.class);
-            intent.putExtra("username", getUsername());
-            startActivity(intent);
+            intent = new Intent(this, StoreOwnerHomeActivity.class);
         }
         else{
-            Intent intent = new Intent(this, CustomerUsageEntryScreen.class);
-            intent.putExtra("username", getUsername());
-            startActivity(intent);
+            intent = new Intent(this, CustomerUsageEntryScreen.class);
         }
+        intent.putExtra("username", getUsername());
+        startActivity(intent);
 
     }
 

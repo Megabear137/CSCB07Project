@@ -3,6 +3,7 @@ package com.example.cscb07project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -46,7 +47,7 @@ public class StoreOwnerViewFulfilledActivity extends AppCompatActivity implement
 
     public void updateSpinner() {
         Store userStore = Database.store;
-        if (!userStore.isOutgoingOrdersEmpty()) {
+        if (!userStore.checkIsOutgoingOrdersEmpty()) {
             ArrayList<Order> orders = userStore.getOutgoingOrders();
             ArrayList<String> allOrders = new ArrayList<>();
             for (Order order : orders) {
@@ -76,6 +77,12 @@ public class StoreOwnerViewFulfilledActivity extends AppCompatActivity implement
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+
+        if(((TextView) parent.getChildAt(0)) != null){
+            ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+            ((TextView) parent.getChildAt(0)).setTextSize(20);
+        }
+
         Database database = new Database();
         String orderID = parent.getItemAtPosition(position).toString();
         Store userStore = Database.store;

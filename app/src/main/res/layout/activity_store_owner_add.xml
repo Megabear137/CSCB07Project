@@ -5,39 +5,24 @@
     android:id="@+id/storeOwnerAddLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StoreOwnerAddActivity">
-
-    <TextView
-        android:id="@+id/productsMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/productsMessage"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".StoreOwnerAddActivity"
+    android:background="@drawable/appbg3">
 
     <EditText
         android:id="@+id/productNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="@string/productNameText"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="#593B16"
         app:layout_constraintBottom_toTopOf="@+id/productBrandText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productsMessage" />
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
 
     <EditText
         android:id="@+id/productBrandText"
@@ -49,7 +34,7 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="#593B16"
         app:layout_constraintBottom_toTopOf="@+id/productPriceText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -66,7 +51,7 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="#593B16"
         app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -78,14 +63,38 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="18dp"
-        android:backgroundTint="#C4A484"
+        android:backgroundTint="#593B16"
         android:onClick="addToStore"
         android:text="@string/storeOwnerAddButton"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productPriceText" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="412dp"
+        android:layout_height="78dp"
+        android:background="@drawable/btnbg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/productsMessage"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,7 @@
         android:id="@+id/viewStoreBackButton"
         android:layout_width="80dp"
         android:layout_height="48dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="#593B16"
         android:onClick="Back"
@@ -63,7 +63,7 @@
         android:id="@+id/productsSpinner"
         android:layout_width="368dp"
         android:layout_height="37dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="104dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.255"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,17 +73,16 @@
         android:id="@+id/chooseProduct"
         android:layout_width="181dp"
         android:layout_height="27dp"
-        android:layout_marginTop="32dp"
         android:text="@string/chooseProduct"
         android:textColor="#593B16"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/productsSpinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewStoreBackButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/viewStoreHeader"
+        app:layout_constraintVertical_bias="0.8" />
 
     <Button
         android:id="@+id/delete"
@@ -168,10 +167,10 @@
 
     <Button
         android:id="@+id/makeOrderButton"
-        android:layout_width="147dp"
-        android:layout_height="77dp"
+        android:layout_width="149dp"
+        android:layout_height="70dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="24dp"
         android:backgroundTint="#593B16"
         android:onClick="makeOrder"
         android:text="@string/makeOrder"
@@ -182,9 +181,9 @@
 
     <Button
         android:id="@+id/viewStoreEditOrder"
-        android:layout_width="126dp"
-        android:layout_height="74dp"
-        android:layout_marginStart="24dp"
+        android:layout_width="141dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="4dp"
         android:backgroundTint="#593B16"
         android:onClick="editOrder"
         android:text="@string/edit_order"
@@ -192,5 +191,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/makeOrderButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/makeOrderButton" />
+        app:layout_constraintTop_toTopOf="@+id/makeOrderButton"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

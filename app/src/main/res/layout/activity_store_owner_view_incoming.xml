@@ -4,21 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StoreOwnerViewIncomingActivity">
-
-    <TextView
-        android:id="@+id/incomingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="@string/incomingText"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".StoreOwnerViewIncomingActivity"
+    android:background="@drawable/appbg3">
 
     <Spinner
         android:id="@+id/incomingOrderSpinner"
@@ -44,7 +31,7 @@
         android:scrollbars="vertical"
         android:text="@string/incomingOrderInfo"
         android:textAlignment="viewStart"
-        android:textColor="#000000"
+        android:textColor="#593B16"
         app:layout_constraintBottom_toTopOf="@+id/incomingTotalCost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -55,10 +42,10 @@
         android:id="@+id/markFulfilledButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#C4A484"
+        android:backgroundTint="#593B16"
         android:onClick="markCompleted"
         android:text="@string/markFulfilledButton"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -70,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/customerNameText"
-        android:textColor="#000000"
+        android:textColor="#593B16"
         app:layout_constraintBottom_toTopOf="@+id/markFulfilledButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -81,13 +68,13 @@
         android:id="@+id/incomingOrderIdText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:text="@string/orderIdText"
-        android:textColor="#000000"
+        android:textColor="#593B16"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintHorizontal_bias="0.207"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/incomingText" />
+        app:layout_constraintTop_toBottomOf="@+id/view7" />
 
     <TextView
         android:id="@+id/incomingTotalCost"
@@ -96,11 +83,36 @@
         android:layout_marginTop="16dp"
         android:text="@string/totalCostMessage"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="#593B16"
         app:layout_constraintBottom_toTopOf="@+id/customerNameText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/incomingOrderInfo" />
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="wrap_content"
+        android:layout_height="78dp"
+        android:background="@drawable/btnbg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/incomingText"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

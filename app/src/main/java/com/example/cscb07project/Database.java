@@ -279,6 +279,7 @@ public class Database implements Contract.Model{
                     FirebaseDatabase.getInstance().getReference().child("Passwords").child(username).setValue(password);
 
                     user = customer;
+                    userIndex = userCount - 1;
 
                     presenter.validateSignup(customer);
                 }
@@ -305,6 +306,7 @@ public class Database implements Contract.Model{
                     FirebaseDatabase.getInstance().getReference().child("StoreOwners").child(username).setValue("");
 
                     user = storeOwner;
+                    userIndex = userCount - 1;
 
                     presenter.validateSignup(storeOwner);
                 }
@@ -319,8 +321,6 @@ public class Database implements Contract.Model{
 
     /*
     Adds a new store to the database and assigns it to the storeOwner whose username matches the passed in username.
-    Returns 1 if successful
-    four possible failures:
     */
     public void addStore(String storeName, String ownerName, RegisterStoreActivity rsa){
 
@@ -455,7 +455,7 @@ public class Database implements Contract.Model{
         if (!isCustomer())
             return -1;
 
-        if (findStore(storeName) == null)
+        if (storeName == null || findStore(storeName) == null)
             return -2;
 
         Customer customer = (Customer)user;
@@ -581,7 +581,7 @@ public class Database implements Contract.Model{
         Order order = findIncomingOrder(orderID);
 
         if (store.incomingOrders.contains(order)) {
-            order.setFulfilled(true);
+            order.setIsFulfilled(true);
             store.incomingOrders.remove(order);
             store.outgoingOrders.add(order);
             FirebaseDatabase.getInstance().getReference("Users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {

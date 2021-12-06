@@ -35,14 +35,6 @@ public abstract class User {
         this.username = username;
     }
 
-    public boolean isStoreOwner() {
-        return isStoreOwner;
-    }
-
-    public void setStoreOwner(boolean storeOwner) {
-        isStoreOwner = storeOwner;
-    }
-
     public void setIsStoreOwner(boolean isStoreOwner) {
         this.isStoreOwner = isStoreOwner;
     }
