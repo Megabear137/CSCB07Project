@@ -41,7 +41,7 @@ public class StoreOwnerAddActivity extends AppCompatActivity {
         Store userStore = Database.store;
         int duration = Toast.LENGTH_SHORT;
         CharSequence text;
-        Pattern p = Pattern.compile("[a-zA-Z0-9]+((\\s|-)?[a-zA-Z0-9])*");
+        Pattern p = Pattern.compile("\\w+((\\s|-|')?\\w)*");
         Matcher nameMatcher = p.matcher(productName);
         Matcher brandMatcher = p.matcher(brandName);
         if (!nameMatcher.matches()){

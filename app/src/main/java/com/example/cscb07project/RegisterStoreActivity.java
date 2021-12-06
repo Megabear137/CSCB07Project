@@ -34,7 +34,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
         String username = intent.getStringExtra("username");
         EditText editText = findViewById(R.id.storeNameText);
         String storeName = editText.getText().toString();
-        Pattern p = Pattern.compile("[a-zA-Z0-9]+((\\s|-)?[a-zA-Z0-9])*");
+        Pattern p = Pattern.compile("\\w+((\\s|-|')?\\w)*");
         Matcher nameMatcher = p.matcher(storeName);
         if (!nameMatcher.matches()) {
             int duration = Toast.LENGTH_SHORT;

@@ -95,7 +95,7 @@ public class StoreOwnerEditActivity extends AppCompatActivity implements Adapter
         int duration = Toast.LENGTH_SHORT;
         CharSequence text;
 
-        Pattern p = Pattern.compile("[a-zA-Z0-9]+((\\s|-)?[a-zA-Z0-9])*");
+        Pattern p = Pattern.compile("\\w+((\\s|-|')?\\w)*");
         Matcher nameMatcher = p.matcher(newProductName);
         Matcher brandMatcher = p.matcher(newBrandName);
 
