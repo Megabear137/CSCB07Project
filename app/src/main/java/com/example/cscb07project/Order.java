@@ -81,7 +81,7 @@ public class Order {
     }
     */
 
-    //=== Setters === Remove Setters later if not needed
+
     public void setProducts(HashMap<String, Integer> products) {
         this.products = products;
     }
@@ -102,7 +102,7 @@ public class Order {
         this.id = id;
     }
 
-    // === Getters === Remove getters later if not needed
+
     public HashMap<String, Integer> getProducts() {
         return products;
     }
@@ -121,6 +121,10 @@ public class Order {
 
     public int getId() {
         return id;
+    }
+
+    public boolean isFulfilled() {
+        return isFulfilled;
     }
 
     @NonNull

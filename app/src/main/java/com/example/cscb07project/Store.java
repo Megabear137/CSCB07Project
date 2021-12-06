@@ -147,6 +147,10 @@ public class  Store {
         this.outgoingOrders = outgoingOrders;
     }
 
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
     @NonNull
     @Override
     public String toString() {

@@ -21,6 +21,9 @@ public class StoreOwner extends User{
         orders = new ArrayList<Order>();
     }
 
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
 
     public void setUsername(String username){
         this.username = username;

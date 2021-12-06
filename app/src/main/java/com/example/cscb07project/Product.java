@@ -43,7 +43,7 @@ public class Product {
         return name + "; brand:" + brand + "; price:" + price;
     }
 
-    //=== Getters === Remove getters later if not needed
+
     public String getName() {
         return name;
     }
@@ -56,7 +56,7 @@ public class Product {
         return price;
     }
 
-    //=== Setters === remove setters later if not needed
+
     public void setName(String name) {
         this.name = name;
     }
@@ -68,5 +68,6 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
+
 
 }
