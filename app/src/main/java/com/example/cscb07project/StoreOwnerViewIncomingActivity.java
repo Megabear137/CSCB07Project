@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
@@ -87,13 +88,17 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
                 double totalCost = 0.0;
                 double subtotal;
                 double currentPrice;
+                String subtotalMessage;
+                String productPriceMessage;
+                String totalCostString;
                 String customerName = "Customer name: " + order.getCustomerName();
                 for (Map.Entry<String, Integer> m : products.entrySet()) {
                     Product current = userStore.findProduct(m.getKey());
                     subtotal = current.getPrice() * m.getValue();
-                    subtotal = Math.round(subtotal * 100.0) / 100.0;
+                    subtotalMessage = String.format(Locale.getDefault(),"%.2f",subtotal);
                     currentPrice = current.getPrice();
-                    currentPrice = Math.round(currentPrice * 100.0) / 100.0;
+                    productPriceMessage = String.format
+                            (Locale.getDefault(),"%.2f",currentPrice);
                     totalCost += subtotal;
                     allInfo.append("Name:       ");
                     allInfo.append(current.getName());
@@ -102,18 +107,18 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
                     allInfo.append(current.getBrand());
                     allInfo.append("\n\n");
                     allInfo.append("Price:        $");
-                    allInfo.append(currentPrice);
+                    allInfo.append(productPriceMessage);
                     allInfo.append("\n\n");
                     allInfo.append("Quantity:   ");
                     allInfo.append(m.getValue());
                     allInfo.append("\n\n");
                     allInfo.append("Subtotal:   $");
-                    allInfo.append(subtotal);
+                    allInfo.append(subtotalMessage);
                     allInfo.append("\n\n");
                     allInfo.append("------------------------------------\n\n");
                 }
-                totalCost = Math.round(totalCost * 100.0) / 100.0;
-                totalCostMessage = "Total cost: $" + totalCost;
+                totalCostString = String.format(Locale.getDefault(),"%.2f",totalCost);
+                totalCostMessage = "Total cost: $" + totalCostString;
                 orderInfo.setText(allInfo.toString());
                 orderInfo.setMovementMethod(new ScrollingMovementMethod());
                 orderInfo.scrollTo(0,0);
