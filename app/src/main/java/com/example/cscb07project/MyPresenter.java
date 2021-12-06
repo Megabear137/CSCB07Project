@@ -28,6 +28,9 @@ public class MyPresenter implements Contract.Presenter {
         if (username.equals("")) {
             view.displayMessage("Username Cannot Be Empty");
         }
+        else if(view.getPassword().equals("")){
+            view.displayMessage("Password Cannot Be Empty");
+        }
         else{
             if(value.equals("I am a customer.")) database.addCustomer(view.getUsername(), view.getPassword(), this);
             else database.addStoreOwner(view.getUsername(), view.getPassword(), this);
