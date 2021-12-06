@@ -38,6 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="264dp"
         android:layout_marginTop="16dp"
+        android:scrollbarThumbVertical="@color/black"
+        android:scrollbarTrackHorizontal="@color/white"
         android:scrollbars="vertical"
         android:text="@string/incomingOrderInfo"
         android:textAlignment="viewStart"

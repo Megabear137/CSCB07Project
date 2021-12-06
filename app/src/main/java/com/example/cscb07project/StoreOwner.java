@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class StoreOwner extends User{
     String storeName;
-    ArrayList<String> stock;
     ArrayList<Order> orders;
 
     public StoreOwner (String username) {
@@ -19,28 +18,19 @@ public class StoreOwner extends User{
         this.username = "";
         this.isStoreOwner = true;
         this.storeName = "";
-        stock = new ArrayList<String>();
         orders = new ArrayList<Order>();
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
 
     public void setUsername(String username){
         this.username = username;
-    }
-    public ArrayList<String> getStock() {
-        return stock;
     }
 
 
     public void setIsStoreOwner(boolean isStoreOwner){
         this.isStoreOwner = isStoreOwner;
     }
-    public void setStock(ArrayList<String> stock) {
-        this.stock = stock;
-    }
+
 
     public String getUsername() {
         return username;

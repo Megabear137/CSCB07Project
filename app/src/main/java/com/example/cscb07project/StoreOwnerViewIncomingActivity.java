@@ -28,10 +28,10 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_owner_view_incoming);
-        orderInfo = (TextView) findViewById(R.id.incomingOrderInfo);
-        customerInfo = (TextView) findViewById(R.id.customerNameText);
-        costInfo = (TextView) findViewById(R.id.incomingTotalCost);
-        spinner = (Spinner) findViewById(R.id.incomingOrderSpinner);
+        orderInfo = findViewById(R.id.incomingOrderInfo);
+        customerInfo = findViewById(R.id.customerNameText);
+        costInfo = findViewById(R.id.incomingTotalCost);
+        spinner = findViewById(R.id.incomingOrderSpinner);
         spinner.setOnItemSelectedListener(this);
         updateSpinner();
     }
@@ -89,7 +89,7 @@ public class StoreOwnerViewIncomingActivity extends AppCompatActivity implements
                 double currentPrice;
                 String customerName = "Customer name: " + order.getCustomerName();
                 for (Map.Entry<String, Integer> m : products.entrySet()) {
-                    Product current = userStore.findProduct((String) m.getKey());
+                    Product current = userStore.findProduct(m.getKey());
                     subtotal = current.getPrice() * m.getValue();
                     subtotal = Math.round(subtotal * 100.0) / 100.0;
                     currentPrice = current.getPrice();

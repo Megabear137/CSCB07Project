@@ -28,10 +28,10 @@ public class StoreOwnerEditActivity extends AppCompatActivity implements Adapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_owner_edit);
-        productText = (EditText) findViewById(R.id.editProductName);
-        brandText = (EditText) findViewById(R.id.editBrandName);
-        priceText = (EditText) findViewById(R.id.editPrice);
-        productSpinner = (Spinner) findViewById(R.id.productSpinner);
+        productText = findViewById(R.id.editProductName);
+        brandText = findViewById(R.id.editBrandName);
+        priceText = findViewById(R.id.editPrice);
+        productSpinner = findViewById(R.id.productSpinner);
         updateSpinner();
 
 

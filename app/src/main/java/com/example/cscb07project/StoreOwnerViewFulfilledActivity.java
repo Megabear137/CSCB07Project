@@ -29,10 +29,10 @@ public class StoreOwnerViewFulfilledActivity extends AppCompatActivity implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_owner_view_fulfilled);
-        orderInfo = (TextView) findViewById(R.id.fulfilledOrderInfo);
-        customerInfo = (TextView) findViewById(R.id.fulfilledCustomerName);
-        costInfo = (TextView) findViewById(R.id.fulfilledTotalCost);
-        spinner = (Spinner) findViewById(R.id.fulfilledOrders);
+        orderInfo = findViewById(R.id.fulfilledOrderInfo);
+        customerInfo = findViewById(R.id.fulfilledCustomerName);
+        costInfo = findViewById(R.id.fulfilledTotalCost);
+        spinner = findViewById(R.id.fulfilledOrders);
         spinner.setOnItemSelectedListener(this);
         updateSpinner();
     }
@@ -92,7 +92,7 @@ public class StoreOwnerViewFulfilledActivity extends AppCompatActivity implement
                     double currentPrice;
                     String customerName = "Customer name: " + order.getCustomerName();
                     for (Map.Entry<String, Integer> m : products.entrySet()) {
-                        Product current = userStore.findProduct((String) m.getKey());
+                        Product current = userStore.findProduct(m.getKey());
                         subtotal = current.getPrice() * m.getValue();
                         subtotal = Math.round(subtotal * 100.0) / 100.0;
                         currentPrice = current.getPrice();

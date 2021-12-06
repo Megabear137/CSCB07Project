@@ -20,9 +20,9 @@ public class StoreOwnerAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_owner_add);
-        editName = (EditText) findViewById(R.id.productNameText);
-        editBrand = (EditText) findViewById(R.id.productBrandText);
-        editPrice = (EditText) findViewById(R.id.productPriceText);
+        editName = findViewById(R.id.productNameText);
+        editBrand = findViewById(R.id.productBrandText);
+        editPrice = findViewById(R.id.productPriceText);
     }
 
     public void displayMessage(CharSequence text, int duration) {

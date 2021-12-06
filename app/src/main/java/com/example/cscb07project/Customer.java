@@ -1,15 +1,8 @@
 package com.example.cscb07project;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
 import androidx.annotation.NonNull;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashMap;
 
 public class Customer extends User{
     ArrayList<Order> cart;

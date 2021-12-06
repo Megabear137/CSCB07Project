@@ -14,7 +14,7 @@ public class StoreOwnerHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_owner_home);
         Intent i = getIntent();
-        TextView welcomeText = (TextView) findViewById(R.id.ownerWelcomeText);
+        TextView welcomeText = findViewById(R.id.ownerWelcomeText);
         String welcomeMessage = "Welcome back, \n" + i.getStringExtra("username");
         welcomeText.setText(welcomeMessage);
     }
