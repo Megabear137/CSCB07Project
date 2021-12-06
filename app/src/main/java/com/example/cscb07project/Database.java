@@ -180,8 +180,10 @@ public class Database implements Contract.Model{
                                             ValueEventListener listener = new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    store = snapshot.getValue(Store.class);
-                                                    storeIndex = Integer.parseInt(snapshot.getKey());
+                                                    if(user != null && user.getUsername().equals(snapshot.getValue(Store.class).ownerName)) {
+                                                        store = snapshot.getValue(Store.class);
+                                                        storeIndex = Integer.parseInt(snapshot.getKey());
+                                                    }
                                                 }
 
                                                 @Override
